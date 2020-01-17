@@ -81,7 +81,7 @@ public class QuestionService {
 			
 			//Id null
 			private Exception valIdNotNull(Question question) throws Exception{
-				if(question.getQuestionId()==null) {
+				if(question.getQuestionId()==null || question.getQuestionId().trim().equals("")) {
 					throw new Exception("Question Id null");
 				}
 				return null;
@@ -90,27 +90,31 @@ public class QuestionService {
 			//BK not null
 			private Exception valBkNotNull(Question question) throws Exception{
 				if(question.getData()==null) {
-					throw new Exception("Question Code is null");
+					throw new Exception("Question Data is null");
 				}
 				return null;
 			}
 			
 			//BK not exist
-//			private Exception valBkNotExist(Question question) throws Exception{
-//				if() {
-//					throw new Exception("Question Code is Exist");
-//				}
-//				return null;
-//			}
+			private Exception valBkNotExist(Question question) throws Exception{
+				if(question.getData()!=null) {
+					throw new Exception("Question Code is Exist");
+				}
+				return null;
+			}
 			
 			//NonBk not null
 			private Exception ValNonBk(Question question) throws Exception {
-				if(question.getQuestionType()==null ||
-						question.getAnswer()==null ||
-						question.getUser()==null ||
-						question.getIsActive()==null ||
-						question.getDateOfQuestion()==null) {
-					throw new Exception("There is empty field");
+				if(question.getQuestionType()==null || question.getQuestionType().getQuestionTypeId().trim().equals("")) {
+					throw new Exception("Question Type is empty");
+				} else if(question.getAnswer()==null || question.getAnswer().getValidAnswer1().trim().equals("")) {
+					throw new Exception("Answer is empty");
+				} else if(question.getUser()==null || question.getUser().getUserId().trim().equals("")) {
+					throw new Exception("User is empty");
+				} else if(question.getIsActive()==null) {
+					throw new Exception("Active state is empty");
+				} else if(question.getDateOfQuestion()==null) {
+					throw new Exception("Date of question is empty");
 				}
 				return null;
 			}

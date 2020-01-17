@@ -80,7 +80,7 @@ public class HeaderApplicantAnswerService {
 		
 		//Id null
 		private Exception valIdNotNull(HeaderApplicantAnswer haa) throws Exception{
-			if(haa.getApplicantAnswerId()==null) {
+			if(haa.getApplicantAnswerId()==null || haa.getApplicantAnswerId().trim().equals("")) {
 				throw new Exception("HeaderApplicantAnswer Id is null");
 			}
 			return null;
@@ -105,7 +105,7 @@ public class HeaderApplicantAnswerService {
 		//NonBk not null
 		private Exception ValNonBk(HeaderApplicantAnswer haa) throws Exception {
 			if(haa.getTotalPoint()==null) {
-				throw new Exception("There is empty field");
+				throw new Exception("Total point is empty");
 			}
 			return null;
 		}

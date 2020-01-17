@@ -76,7 +76,7 @@ public class AnswerTypeService {
 		
 		//Id null
 		private Exception valIdNotNull(AnswerType at) throws Exception{
-			if(at.getAnswerTypeId()==null) {
+			if(at.getAnswerTypeId()==null || at.getAnswerTypeId().trim().equals("")) {
 				throw new Exception("AnswerType Id null");
 			}
 			return null;
@@ -84,7 +84,7 @@ public class AnswerTypeService {
 		
 		//BK not null
 		private Exception valBkNotNull(AnswerType at) throws Exception{
-			if(at.getCodeAnswerType() ==null) {
+			if(at.getCodeAnswerType() ==null || at.getCodeAnswerType().trim().equals("")) {
 				throw new Exception("AnswerType Code is null");
 			}
 			return null;
@@ -100,8 +100,10 @@ public class AnswerTypeService {
 		
 		//NonBk not null
 		private Exception ValNonBk(AnswerType at) throws Exception {
-			if(at.getTypeOfAnswer()==null || at.getAmountOfAnswer()==null) {
-				throw new Exception("There is empty field");
+			if(at.getTypeOfAnswer()==null || at.getTypeOfAnswer().trim().equals("")) {
+				throw new Exception("Type of Answer is empty");
+			} else if(at.getAmountOfAnswer()==null || at.getAmountOfAnswer().trim().equals("")) {
+				throw new Exception("Amount of Answer is empty");
 			}
 			return null;
 		}

@@ -79,7 +79,7 @@ public class PackageService {
 			
 			//Id null
 			private Exception valIdNotNull(Packages pack) throws Exception{
-				if(pack.getPackageId()==null) {
+				if(pack.getPackageId()==null || pack.getPackageId().trim().equals("")) {
 					throw new Exception("Package Id null");
 				}
 				return null;
@@ -103,8 +103,10 @@ public class PackageService {
 			
 			//NonBk not null
 			private Exception ValNonBk(Packages pack) throws Exception {
-				if(pack.getAmountOfTime()==null || pack.getIsActive()==null) {
-					throw new Exception("There is empty field");
+				if(pack.getAmountOfTime()==null) {
+					throw new Exception("Amount of time is empty");
+				} else if(pack.getIsActive()==null) {
+					throw new Exception("Active state is empty");
 				}
 				return null;
 			}
@@ -112,7 +114,7 @@ public class PackageService {
 			//Bk not change
 			private Exception ValBkNotChange(Packages pack) throws Exception {
 				if(!findById(pack.getPackageId()).getPackageName().equalsIgnoreCase(pack.getPackageName())) {
-					throw new Exception("Package Code is Change");
+					throw new Exception("Package BK is Change");
 				}
 				return null;
 			}

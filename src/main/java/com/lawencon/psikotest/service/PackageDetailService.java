@@ -81,7 +81,7 @@ public class PackageDetailService {
 			
 			//Id null
 			private Exception valIdNotNull(PackageDetail pd) throws Exception{
-				if(pd.getPackageQuestionId()==null) {
+				if(pd.getPackageQuestionId()==null || pd.getPackageQuestionId().trim().equals("")) {
 					throw new Exception("PackageDetail Id null");
 				}
 				return null;
@@ -90,7 +90,7 @@ public class PackageDetailService {
 			//BK not null
 			private Exception valBkNotNull(PackageDetail pd) throws Exception{
 				if(pd.getPackages()==null || pd.getQuestion()==null) {
-					throw new Exception("PackageDetail Code is null");
+					throw new Exception("PackageDetail BK is null");
 				}
 				return null;
 			}
@@ -98,7 +98,7 @@ public class PackageDetailService {
 			//BK not exist
 			private Exception valBkNotExist(PackageDetail pd) throws Exception{
 				if(findByBk(pd.getPackages().getPackageId(), pd.getQuestion().getQuestionId())!=null) {
-					throw new Exception("PackageDetail Code is Exist");
+					throw new Exception("PackageDetail BK is Exist");
 				}
 				return null;
 			}

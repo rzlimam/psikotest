@@ -95,8 +95,10 @@ public class PointPerTypeService {
 		//BK not null
 		private Exception valBkNotNull(PointForEachType ppt) throws Exception{
 			if(ppt.getQuestionType().getQuestionTypeId() ==null || 
-					ppt.getUser().getUserId()==null) {
-				throw new Exception("BK is null");
+					ppt.getQuestionType().getQuestionTypeId().trim().equals("")) {
+				throw new Exception("Question type is null");
+			} else if(ppt.getUser().getUserId()==null || ppt.getUser().getUserId().trim().equals("")) {
+				throw new Exception("User type is null");
 			}
 			return null;
 		}
@@ -112,7 +114,7 @@ public class PointPerTypeService {
 		//NonBk not null
 		private Exception ValNonBk(PointForEachType ppt) throws Exception {
 			if(ppt.getTotapPointForEachType()==null) {
-				throw new Exception("There is empty field");
+				throw new Exception("Total point is empty");
 			}
 			return null;
 		}

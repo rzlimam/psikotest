@@ -121,7 +121,7 @@ public class UserService {
 		//BK not null
 		private Exception valBkNotNull(User user) throws Exception{
 			if(user.getProfile().getProfileId()==null) {
-				throw new Exception("BK is null");
+				throw new Exception("Profile is null");
 			}
 			return null;
 		}
@@ -136,9 +136,10 @@ public class UserService {
 		
 		//NonBk not null
 		private Exception ValNonBk(User user) throws Exception {
-			if(user.getRole().getRoleId()==null ||
-					user.getPassword()==null) {
-				throw new Exception("There is empty field");
+			if(user.getRole().getRoleId()==null || user.getRole().getRoleId().trim().equals("")) {
+				throw new Exception("Role is empty");
+			} else if(user.getPassword().trim().equals("")) {
+				throw new Exception("Password is empty");
 			}
 			return null;
 		}
@@ -146,7 +147,7 @@ public class UserService {
 		//Bk not change
 		private Exception ValBkNotChange(User user) throws Exception {
 			if(!user.getProfile().getProfileId().equalsIgnoreCase(user.getProfile().getProfileId())) {
-				throw new Exception("BK is Change");
+				throw new Exception("Profile is Change");
 			}
 			return null;
 		}

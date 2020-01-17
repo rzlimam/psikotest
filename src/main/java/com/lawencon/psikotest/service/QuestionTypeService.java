@@ -80,7 +80,7 @@ public class QuestionTypeService {
 			
 			//Id null
 			private Exception valIdNotNull(QuestionType qt) throws Exception{
-				if(qt.getQuestionTypeId()==null) {
+				if(qt.getQuestionTypeId()==null || qt.getQuestionTypeId().trim().equals("")) {
 					throw new Exception("QuestionType Id null");
 				}
 				return null;
@@ -88,8 +88,8 @@ public class QuestionTypeService {
 			
 			//BK not null
 			private Exception valBkNotNull(QuestionType qt) throws Exception{
-				if(qt.getQuestionTypeTitle() ==null) {
-					throw new Exception("QuestionType Code is null");
+				if(qt.getQuestionTypeTitle() ==null || qt.getQuestionTypeTitle().trim().equals("")) {
+					throw new Exception("QuestionType Title is null");
 				}
 				return null;
 			}
@@ -97,15 +97,17 @@ public class QuestionTypeService {
 			//BK not exist
 			private Exception valBkNotExist(QuestionType qt) throws Exception{
 				if(findByBk(qt.getQuestionTypeTitle())!=null) {
-					throw new Exception("QuestionType Code is Exist");
+					throw new Exception("QuestionType Title is Exist");
 				}
 				return null;
 			}
 			
 			//NonBk not null
 			private Exception ValNonBk(QuestionType qt) throws Exception {
-				if(qt.getAnswerType()==null || qt.getIsActive()==null) {
-					throw new Exception("There is empty field");
+				if(qt.getAnswerType()==null || qt.getAnswerType().getAnswerTypeId().trim().equals("")) {
+					throw new Exception("Answer Type is empty");
+				} else if(qt.getIsActive()==null) {
+					throw new Exception("Active state is empty");
 				}
 				return null;
 			}

@@ -42,7 +42,7 @@ public class DetailApplicantAnswerService {
 			valBkNotExist(daa);
 			ValHAAExist(daa.getApplicantAnswerId().getApplicantAnswerId());
 			ValPDExist(daa.getPackageQuestion().getPackageQuestionId());
-			ValNonBk(daa);
+//			ValNonBk(daa);
 			detailaaDao.save(daa);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -55,7 +55,7 @@ public class DetailApplicantAnswerService {
 			ValIdExist(daa.getDetailAnswerId());
 			valBkNotNull(daa);
 			ValBkNotChange(daa);
-			ValNonBk(daa);
+//			ValNonBk(daa);
 			detailaaDao.save(daa);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -81,9 +81,9 @@ public class DetailApplicantAnswerService {
 			return null;
 		}
 		
-		//Id null
+		//Id not null
 		private Exception valIdNotNull(DetailApplicantAnswer daa) throws Exception{
-			if(daa.getDetailAnswerId()==null) {
+			if(daa.getDetailAnswerId()==null || daa.getDetailAnswerId().trim().equals("")) {
 				throw new Exception("Detail Applicant Answer Id null");
 			}
 			return null;
@@ -107,7 +107,7 @@ public class DetailApplicantAnswerService {
 		
 		//NonBk not null
 		private Exception ValNonBk(DetailApplicantAnswer daa) throws Exception {
-			if(daa.getApplicatnAnswer()==null || daa.getPoint()==null) {
+			if(daa.getApplicatnAnswer()==null) {
 				throw new Exception("There is empty field in Detail Applicant Answer");
 			}
 			return null;

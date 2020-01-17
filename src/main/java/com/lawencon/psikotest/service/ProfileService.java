@@ -91,7 +91,7 @@ public class ProfileService {
 			
 			//Id null
 			private Exception valIdNotNull(Profile profile) throws Exception{
-				if(profile.getProfileId()==null) {
+				if(profile.getProfileId()==null || profile.getProfileId().trim().equals("")) {
 					throw new Exception("Profile Id null");
 				}
 				return null;
@@ -99,8 +99,10 @@ public class ProfileService {
 			
 			//BK not null
 			private Exception valBkNotNull(String email, String phone) throws Exception{
-				if(email == null || phone == null) {
-					throw new Exception("BK Profile is null");
+				if(email == null || email.trim().equals("")) {
+					throw new Exception("Email is null");
+				} else if(phone.trim().equals("")) {
+					throw new Exception("Phone is null");
 				}
 				return null;
 			}
@@ -115,12 +117,16 @@ public class ProfileService {
 			
 			//NonBk not null
 			private Exception ValNonBk(Profile profile) throws Exception {
-				if(profile.getProfileName()==null ||
-						profile.getDateOfBirth()==null ||
-						profile.getAddress()==null ||
-						profile.getGender()==null ||
-						profile.getIsActive()==null) {
-					throw new Exception("There is empty field in Profile");
+				if(profile.getProfileName()==null || profile.getProfileName().trim().equals("")) {
+					throw new Exception("Profile is empty");
+				} else if(profile.getDateOfBirth()==null) {
+					throw new Exception("Date of birth is empty");
+				} else if(profile.getAddress()==null || profile.getAddress().trim().equals("")) {
+					throw new Exception("Address is empty");
+				} else if(profile.getGender()==null || profile.getGender().trim().equals("")) {
+					throw new Exception("Gender is empty");
+				} else if(profile.getIsActive()==null) {
+					throw new Exception("Active state is empty");
 				}
 				return null;
 			}

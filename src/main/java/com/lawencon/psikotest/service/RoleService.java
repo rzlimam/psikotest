@@ -102,8 +102,10 @@ public class RoleService {
 		
 		//NonBk not null
 		private Exception ValNonBk(Role role) throws Exception {
-			if(role.getNamaRole()==null || role.getIsActive()==null) {
-				throw new Exception("There is empty field");
+			if(role.getNamaRole()==null || role.getNamaRole().trim().equals("")) {
+				throw new Exception("Role Name is empty");
+			} else if(role.getIsActive()==null) {
+				throw new Exception("Active State is empty");
 			}
 			return null;
 		}

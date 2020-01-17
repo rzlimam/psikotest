@@ -80,7 +80,7 @@ public class QuestionAssignService {
 			
 			//Id null
 			private Exception valIdNotNull(QuestionAssign qa) throws Exception{
-				if(qa.getAssignQuestionId()==null) {
+				if(qa.getAssignQuestionId()==null || qa.getAssignQuestionId().trim().equals("")) {
 					throw new Exception("QuestionAssign Id null");
 				}
 				return null;
@@ -88,8 +88,10 @@ public class QuestionAssignService {
 			
 			//BK not null
 			private Exception valBkNotNull(QuestionAssign qa) throws Exception{
-				if(qa.getPackagee()==null || qa.getUser()==null) {
-					throw new Exception("BK is null");
+				if(qa.getPackagee()==null || qa.getPackagee().getPackageId().trim().equals("")) {
+					throw new Exception("Package is null");
+				} else if(qa.getUser()==null || qa.getUser().getUserId().trim().equals("")) {
+					throw new Exception("User is null");
 				}
 				return null;
 			}
@@ -97,7 +99,7 @@ public class QuestionAssignService {
 			//BK not exist
 			private Exception valBkNotExist(QuestionAssign qa) throws Exception{
 				if(findByBk(qa) != null) {
-					throw new Exception("QuestionAssign Code is Exist");
+					throw new Exception("QuestionAssign BK is Exist");
 				}
 				return null;
 			}
@@ -121,7 +123,7 @@ public class QuestionAssignService {
 			//Package Exist
 			private Exception ValUserExist(String id) throws Exception {
 				if(userService.findById(id)==null) {
-					throw new Exception("Package is not Exist");
+					throw new Exception("User is not Exist");
 				}
 				return null;
 			}
