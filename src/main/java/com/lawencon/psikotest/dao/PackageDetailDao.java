@@ -50,7 +50,7 @@ public class PackageDetailDao extends EntityDao {
 	public PackageDetail findByBk(String packageId, String questionId) {
 		List<PackageDetail> list = super.entityManager
 				.createQuery("From PackageDetail where package_id=:packageId"
-						+ "and question_id=:questionId")
+						+ " and question_id=:questionId")
 				.setParameter("packageId", packageId)
 				.setParameter("questionId", questionId)
 				.getResultList();

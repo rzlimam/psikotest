@@ -30,7 +30,7 @@ public class DetailApplicantAnswer {
 	@JoinColumn(name = "applicantAnswerId", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private HeaderApplicantAnswer applicantAnswerId;
+	private HeaderApplicantAnswer headerApplicantAnswer;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "packageQuestionId", nullable = false)
@@ -38,10 +38,9 @@ public class DetailApplicantAnswer {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private PackageDetail packageQuestion;
 	
-	@Transient
 	@Type(type = "jsonb")
 	@Column(columnDefinition ="applicant_answer")
-	private ApplicantAnswer applicatnAnswer;
+	private ApplicantAnswer applicantAnswer;
 	
 	private Integer point;
 
@@ -57,12 +56,12 @@ public class DetailApplicantAnswer {
 		this.detailAnswerId = detailAnswerId;
 	}
 
-	public HeaderApplicantAnswer getApplicantAnswerId() {
-		return applicantAnswerId;
+	public HeaderApplicantAnswer getHeaderApplicantAnswer() {
+		return headerApplicantAnswer;
 	}
 
-	public void setApplicantAnswerId(HeaderApplicantAnswer applicantAnswerId) {
-		this.applicantAnswerId = applicantAnswerId;
+	public void setHeaderApplicantAnswer(HeaderApplicantAnswer headerApplicantAnswer) {
+		this.headerApplicantAnswer = headerApplicantAnswer;
 	}
 
 	public PackageDetail getPackageQuestion() {
@@ -73,12 +72,12 @@ public class DetailApplicantAnswer {
 		this.packageQuestion = packageQuestion;
 	}
 
-	public ApplicantAnswer getApplicatnAnswer() {
-		return applicatnAnswer;
+	public ApplicantAnswer getApplicantAnswer() {
+		return applicantAnswer;
 	}
 
-	public void setApplicatnAnswer(ApplicantAnswer applicatnAnswer) {
-		this.applicatnAnswer = applicatnAnswer;
+	public void setApplicantAnswer(ApplicantAnswer applicantAnswer) {
+		this.applicantAnswer = applicantAnswer;
 	}
 
 	public Integer getPoint() {
@@ -88,7 +87,7 @@ public class DetailApplicantAnswer {
 	public void setPoint(Integer point) {
 		this.point = point;
 	}
-	
+
 	
 	
 }

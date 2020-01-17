@@ -1,5 +1,6 @@
 package com.lawencon.psikotest.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
+import com.lawencon.psikotest.entity.HeaderApplicantAnswer;
+import com.lawencon.psikotest.entity.PackageDetail;
 import com.lawencon.psikotest.service.DetailApplicantAnswerService;
+import com.lawencon.psikotest.service.HeaderApplicantAnswerService;
+import com.lawencon.psikotest.service.PackageDetailService;
+import com.lawencon.psikotest.service.QuestionService;
 
 @RestController
 @RequestMapping("/daa")
@@ -23,6 +29,12 @@ public class DetailApplicantAnsController {
 	
 	@Autowired
 	private DetailApplicantAnswerService daaService;
+	
+	@Autowired
+	private PackageDetailService pdService; 
+	
+	@Autowired
+	private HeaderApplicantAnswerService haaService;
 	
 	@GetMapping("")
 	public ResponseEntity<?> getAll(){
@@ -36,9 +48,38 @@ public class DetailApplicantAnsController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> insert(@RequestBody DetailApplicantAnswer daa) {
+	public ResponseEntity<?> insert(@RequestBody List<DetailApplicantAnswer> daa) {
 		try {
-			daaService.insert(daa);
+			for (DetailApplicantAnswer d : daa) {
+				//get package question id to get question id
+				PackageDetail pd = pdService.findById(d.getPackageQuestion().getPackageQuestionId());
+				
+				//cek applicant answer true of false
+				if(d.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer1())) {
+					d.setPoint(1);
+				} else {
+					d.setPoint(0);
+				}
+				
+				//insert data to database
+				daaService.insert(d);
+			}
+			
+			//get total point from table detail applicant answer
+			BigInteger hasil = daaService.sumPoint(daa.get(0).getHeaderApplicantAnswer().getApplicantAnswerId());
+			
+			//find applicant answer header
+			HeaderApplicantAnswer haa = haaService.findById(daa.get(0).getHeaderApplicantAnswer().getApplicantAnswerId());
+			
+			//convert big integer to integer
+			int total = hasil.intValue();
+			
+			//set total point in header applicant answer
+			haa.setTotalPoint(total);
+			
+			//update header
+			haaService.update(haa);
+			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

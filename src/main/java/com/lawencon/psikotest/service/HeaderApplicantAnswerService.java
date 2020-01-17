@@ -39,7 +39,7 @@ public class HeaderApplicantAnswerService {
 			valBkNotNull(haa);
 			valBkNotExist(haa);
 			ValUserExist(haa.getUser().getUserId());
-			ValNonBk(haa);
+//			ValNonBk(haa);
 			haDao.save(haa);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -88,7 +88,7 @@ public class HeaderApplicantAnswerService {
 		
 		//BK not null
 		private Exception valBkNotNull(HeaderApplicantAnswer haa) throws Exception{
-			if(haa.getApplicantAnswerId() ==null) {
+			if(haa.getUser() == null || haa.getDateOfAnswer()==null) {
 				throw new Exception("BK is null");
 			}
 			return null;
@@ -112,11 +112,10 @@ public class HeaderApplicantAnswerService {
 		
 		//Bk not change
 		private Exception ValBkNotChange(HeaderApplicantAnswer haa) throws Exception {
-			String tgl = haa.getDateOfAnswer().toString();
-			if(!(findById(haa.getApplicantAnswerId()).getApplicantAnswerId()
+			if(!(findById(haa.getApplicantAnswerId()).getUser().getUserId()
 					.equalsIgnoreCase(haa.getUser().getUserId()) || 
-					 findById(haa.getApplicantAnswerId()).getApplicantAnswerId()
-					 .equalsIgnoreCase(tgl))) {
+					 findById(haa.getApplicantAnswerId()).getDateOfAnswer().toString()
+					 .equalsIgnoreCase(haa.getDateOfAnswer().toString()))) {
 				throw new Exception("BK is Change");
 			}
 			return null;

@@ -1,5 +1,6 @@
 package com.lawencon.psikotest.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,18 @@ public class DetailApplicantAnswerService {
 		return daa;
 	}
 	
+	public BigInteger sumPoint(String aaId) {
+		BigInteger daa = detailaaDao.sumPoint(aaId);
+		return daa;
+	}
+	
 	public void insert(DetailApplicantAnswer daa) throws Exception {
 		try {
-			valIdNull(daa);
-			valBkNotNull(daa);
-			valBkNotExist(daa);
-			ValHAAExist(daa.getApplicantAnswerId().getApplicantAnswerId());
-			ValPDExist(daa.getPackageQuestion().getPackageQuestionId());
+//			valIdNull(daa);
+//			valBkNotNull(daa);
+//			valBkNotExist(daa);
+//			ValHAAExist(daa.getApplicantAnswerId().getApplicantAnswerId());
+//			ValPDExist(daa.getPackageQuestion().getPackageQuestionId());
 //			ValNonBk(daa);
 			detailaaDao.save(daa);
 		} catch (Exception e) {
@@ -91,7 +97,7 @@ public class DetailApplicantAnswerService {
 		
 		//BK not null
 		private Exception valBkNotNull(DetailApplicantAnswer daa) throws Exception{
-			if(daa.getApplicantAnswerId().getApplicantAnswerId()==null || daa.getPackageQuestion().getPackageQuestionId() == null) {
+			if(daa.getHeaderApplicantAnswer().getApplicantAnswerId()==null || daa.getPackageQuestion().getPackageQuestionId() == null) {
 				throw new Exception("Detail Applicant Answer BK is null");
 			}
 			return null;
@@ -99,7 +105,7 @@ public class DetailApplicantAnswerService {
 		
 		//BK not exist
 		private Exception valBkNotExist(DetailApplicantAnswer daa) throws Exception{
-			if(findByBk(daa.getApplicantAnswerId().getApplicantAnswerId(), daa.getPackageQuestion().getPackageQuestionId())!=null) {
+			if(findByBk(daa.getHeaderApplicantAnswer().getApplicantAnswerId(), daa.getPackageQuestion().getPackageQuestionId())!=null) {
 				throw new Exception("Detail Applicant Answer BK is Exist");
 			}
 			return null;
@@ -107,7 +113,7 @@ public class DetailApplicantAnswerService {
 		
 		//NonBk not null
 		private Exception ValNonBk(DetailApplicantAnswer daa) throws Exception {
-			if(daa.getApplicatnAnswer()==null) {
+			if(daa.getApplicantAnswer()==null) {
 				throw new Exception("There is empty field in Detail Applicant Answer");
 			}
 			return null;
@@ -115,8 +121,8 @@ public class DetailApplicantAnswerService {
 		
 		//Bk not change
 		private Exception ValBkNotChange(DetailApplicantAnswer daa) throws Exception {
-			if(!(findById(daa.getDetailAnswerId()).getApplicantAnswerId().getApplicantAnswerId()
-					.equalsIgnoreCase(daa.getApplicantAnswerId().getApplicantAnswerId()) ||
+			if(!(findById(daa.getDetailAnswerId()).getHeaderApplicantAnswer().getApplicantAnswerId()
+					.equalsIgnoreCase(daa.getHeaderApplicantAnswer().getApplicantAnswerId()) ||
 					findById(daa.getDetailAnswerId()).getPackageQuestion().getPackageQuestionId()
 					.equalsIgnoreCase(daa.getPackageQuestion().getPackageQuestionId()))) {
 				throw new Exception("Detail Applicant Answer BK is Change");

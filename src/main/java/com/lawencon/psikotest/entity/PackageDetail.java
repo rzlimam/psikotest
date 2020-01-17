@@ -33,7 +33,7 @@ public class PackageDetail {
 	private Packages packages ;
 	
 	@OneToOne
-	@JoinColumn(name = "qeustionId", nullable = false)
+	@JoinColumn(name = "questionId", nullable = false)
 	private Question question ;
 	
 

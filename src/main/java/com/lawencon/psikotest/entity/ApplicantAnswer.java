@@ -3,6 +3,7 @@ package com.lawencon.psikotest.entity;
 public class ApplicantAnswer {
 private String answer1;
 private String answer2;
+
 public String getAnswer1() {
 	return answer1;
 }

@@ -1,7 +1,9 @@
 package com.lawencon.psikotest.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -57,6 +59,16 @@ public class DetailApplicantAnswerDao extends EntityDao {
 			return null;
 		else 
 			return (DetailApplicantAnswer)list.get(0);
+	}
+	
+	
+	@Transactional
+	public BigInteger sumPoint(String appAnswer) {
+		Query query  = super.entityManager
+				.createNativeQuery("Select sum(point) FROM tbl_detail_applicant_answer "
+						+ "WHERE applicant_answer_id = '" + appAnswer + "'");
+		BigInteger count = (BigInteger) query.getSingleResult(); 
+		return count;
 	}
 
 }

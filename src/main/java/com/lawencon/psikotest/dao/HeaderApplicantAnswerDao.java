@@ -50,7 +50,7 @@ public class HeaderApplicantAnswerDao extends EntityDao {
 	public HeaderApplicantAnswer findByBk(Date doa,String userId) {
 		List<HeaderApplicantAnswer> list = super.entityManager
 				.createQuery("From HeaderApplicantAnswer where date_of_answer=:doa"
-						+ "and user_id=:userId")
+						+ " and user_id=:userId")
 				.setParameter("doa", doa)
 				.setParameter("userId",userId)
 				.getResultList();
