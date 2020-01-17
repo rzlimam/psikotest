@@ -45,7 +45,7 @@ public class PackageDetailController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Package Detail Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(packDetail);
 	}
 	
 	
@@ -56,7 +56,7 @@ public class PackageDetailController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Package Detail Updated");
+		return ResponseEntity.status(HttpStatus.OK).body(pacDetail);
 	}
 	
 	@DeleteMapping("/{id}")

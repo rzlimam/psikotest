@@ -51,10 +51,10 @@ public class UserController {
 	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody Profile profile) {
+		User user = new User();
 		try {
 			String password = userService.getPassword();
-			Profile newProfile = profileService.insert(profile); 
-			User user = new User();
+			Profile newProfile = profileService.insert(profile);
 			Role role = roleService.findByCode("CAN");
 			user.setPassword(password);
 			user.setProfile(newProfile);
@@ -67,8 +67,7 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 		
-		return ResponseEntity.status(HttpStatus.OK).body(
-				"Success");
+		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 	
 	@PostMapping("/add")
@@ -79,8 +78,7 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 		
-		return ResponseEntity.status(HttpStatus.OK).body(
-				"Success");
+		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 	
 	@PutMapping("")
@@ -90,7 +88,7 @@ public class UserController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("User Updated");
+		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 	
 	@DeleteMapping("/{id}")

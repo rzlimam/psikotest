@@ -56,7 +56,7 @@ public class QuestionController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(question);
 	}
 	
 	@PostMapping("/image")
@@ -129,7 +129,7 @@ public class QuestionController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(question);
 	}
 	
 	@PutMapping("")
@@ -139,7 +139,7 @@ public class QuestionController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Updated");
+		return ResponseEntity.status(HttpStatus.OK).body(question);
 	}
 	
 	@PutMapping("/image")
@@ -217,7 +217,7 @@ public class QuestionController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(question);
 	}
 	
 	@DeleteMapping("/{id}")

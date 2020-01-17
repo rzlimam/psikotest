@@ -43,7 +43,7 @@ public class RoleController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Role Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(role);
 	}
 	
 	@PutMapping("")
@@ -53,7 +53,7 @@ public class RoleController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Role Updated");
+		return ResponseEntity.status(HttpStatus.OK).body(role);
 	}
 	
 	@DeleteMapping("/{id}")

@@ -42,7 +42,7 @@ public class QuestionAssignController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(qa);
 	}
 	
 	@PutMapping("")
@@ -52,7 +52,7 @@ public class QuestionAssignController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Updated");
+		return ResponseEntity.status(HttpStatus.OK).body(qa);
 	}
 	
 	@DeleteMapping("/{id}")

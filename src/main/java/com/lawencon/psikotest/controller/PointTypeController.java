@@ -42,7 +42,7 @@ public class PointTypeController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("PointType Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(point);
 	}
 	
 	@PutMapping("")
@@ -52,7 +52,7 @@ public class PointTypeController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("PointType Updated");
+		return ResponseEntity.status(HttpStatus.OK).body(point);
 	}
 	
 	@DeleteMapping("/{id}")

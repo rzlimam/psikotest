@@ -43,7 +43,7 @@ public class AnswerTypeController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Answer Type Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(answerType);
 	}
 	
 	@PutMapping("")
@@ -53,7 +53,7 @@ public class AnswerTypeController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Answer Type Updated");
+		return ResponseEntity.status(HttpStatus.OK).body(answerType);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -63,7 +63,7 @@ public class AnswerTypeController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Answer Type Type Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("Answer Type Deleted");
 	}
 
 

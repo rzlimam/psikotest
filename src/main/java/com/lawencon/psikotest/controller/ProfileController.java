@@ -42,7 +42,7 @@ public class ProfileController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Profile Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(profile);
 	}
 	
 	@PutMapping("")
@@ -52,7 +52,7 @@ public class ProfileController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Profile Updated");
+		return ResponseEntity.status(HttpStatus.OK).body(profile);
 	}
 	
 	@DeleteMapping("/{id}")

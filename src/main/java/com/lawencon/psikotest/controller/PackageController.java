@@ -42,7 +42,7 @@ public class PackageController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Packages Inserted");
+		return ResponseEntity.status(HttpStatus.OK).body(packages);
 	}
 	
 	@PutMapping("")
@@ -52,7 +52,7 @@ public class PackageController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Packages Updated");
+		return ResponseEntity.status(HttpStatus.OK).body(packages);
 	}
 	
 	@DeleteMapping("/{id}")
