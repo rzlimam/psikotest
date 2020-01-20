@@ -35,6 +35,25 @@ public class UserService {
 		return user;
 	}
 	
+	public User findByEmail(String email) {
+		User user = userDao.findEmail(email);
+		return user;
+	}
+	
+	public User login(String email, String password) throws Exception {
+		User user = userDao.findEmail(email);
+		if(user!=null) {
+			String userPass = user.getPassword();
+			if(password.equals(userPass)) {
+				return user;
+			} else {
+				throw new Exception("Password salah");
+			}
+		}
+		throw new Exception("Username belum tedaftar");
+		
+	}
+	
 	
 	public void insert(User user) throws Exception {
 		try {
@@ -175,5 +194,6 @@ public class UserService {
 			}
 			return null;
 		}
+		
 
 }

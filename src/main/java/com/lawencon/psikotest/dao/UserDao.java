@@ -56,5 +56,18 @@ public class UserDao extends EntityDao {
 		else 
 			return (User)list.get(0);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public User findEmail(String email) {
+		List<User> list = super.entityManager
+				.createQuery("From User where profile.email=:email")
+				.setParameter("email", email)
+				.getResultList();
+		if(list.size() == 0)
+			return null;
+		else 
+			return (User)list.get(0);
+	}
 
 }
