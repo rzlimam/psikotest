@@ -1,13 +1,24 @@
 package com.lawencon.psikotest.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lawencon.psikotest.dao.QuestionDao;
 import com.lawencon.psikotest.entity.Question;
+import com.lawencon.psikotest.entity.QuestionData;
+import com.lawencon.psikotest.entity.QuestionType;
 import com.lawencon.psikotest.entity.SearchQuestion;
+import com.lawencon.psikotest.entity.User;
+import com.lawencon.psikotest.entity.ValidAnswer;
 
 @Service
 public class QuestionService {
@@ -20,6 +31,8 @@ public class QuestionService {
 	
 	@Autowired
 	private UserService userService;
+	
+	private static String UPLOAD_DIR = "E://Rizal//Boothcamp//psikotest//src//main//resources//img//";
 	
 	public List<Question> getAll(){
 		List<Question> list = qDao.getAll();
@@ -54,10 +67,231 @@ public class QuestionService {
 			valIdNotNull(question);
 			ValIdExist(question.getQuestionId());
 			valBkNotNull(question);
+			ValNonBk(question);
 			qDao.save(question);
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
+	}
+	
+	public Question insertImg(String questionType,
+			String questionTitle,
+			String quest,
+			MultipartFile[] image,
+			MultipartFile choiceA,
+			MultipartFile choiceB,
+			MultipartFile choiceC,
+			MultipartFile choiceD,
+			MultipartFile[] ans,
+			String userId,
+			String isActive) throws Exception {
+		
+		Question question = new Question();
+		QuestionData data = new QuestionData();
+		QuestionType qtype = new QuestionType(); 
+		ValidAnswer answer = new ValidAnswer();
+		User user = new User();
+		
+		List<String> img = new ArrayList<String>();
+		
+		try {
+			for (MultipartFile i : image) {
+				String ext = FilenameUtils.getExtension(i.getOriginalFilename());
+				ValExentension(ext);
+				byte[] byteImage = i.getBytes();
+				Path path = Paths.get(UPLOAD_DIR + i.getOriginalFilename());
+				Files.write(path, byteImage);
+				img.add(path.toString());
+			}
+			
+			//set question type
+			qtype.setQuestionTypeId(questionType);
+			
+			//set question data
+			data.setQuestion(quest);
+			data.setQuestionImage(img);
+			
+			//set choiceA
+			byte[] byteA = choiceA.getBytes();
+			Path pathA = Paths.get(UPLOAD_DIR + choiceA.getOriginalFilename());
+			Files.write(pathA, byteA);
+			data.setChoiceA(pathA.toString());
+			
+			//set choiceB
+			byte[] byteB = choiceB.getBytes();
+			Path pathB = Paths.get(UPLOAD_DIR + choiceB.getOriginalFilename());
+			Files.write(pathB, byteB);
+			data.setChoiceB(pathB.toString());
+			
+			//set choiceC
+			byte[] byteC = choiceC.getBytes();
+			Path pathC = Paths.get(UPLOAD_DIR + choiceC.getOriginalFilename());
+			Files.write(pathC, byteC);
+			data.setChoiceC(pathC.toString());
+			
+			//set choiceD
+			byte[] byteD = choiceD.getBytes();
+			Path pathD = Paths.get(UPLOAD_DIR + choiceD.getOriginalFilename());
+			Files.write(pathD, byteD);
+			data.setChoiceD(pathD.toString());
+			
+			//set valid answer
+			for (MultipartFile a : ans) {
+				byte[] ansImage = a.getBytes();
+				Path path = Paths.get(UPLOAD_DIR + a.getOriginalFilename());
+				Files.write(path, ansImage);
+				if(answer.getValidAnswer1()==null) {
+					answer.setValidAnswer1(path.toString());
+				} else if (answer.getValidAnswer2()==null) {
+					answer.setValidAnswer2(path.toString());
+				}
+			}
+			
+			//set user
+			user.setUserId(userId);
+			
+			//set question
+			question.setQuestionType(qtype);
+			question.setData(data);
+			question.setAnswer(answer);
+			question.setUser(user);
+			
+			//set isActive
+			boolean as = Boolean.parseBoolean(isActive);
+			question.setIsActive(as);
+			
+			//set date of question
+			Date date = new Date();
+			question.setDateOfQuestion(date);
+			
+			//save question to database
+			valIdNull(question);
+			valBkNotNull(question);
+			ValQTExist(question.getQuestionType().getQuestionTypeId());
+			ValUserExist(question.getUser().getUserId());
+			ValNonBk(question);
+			qDao.save(question);
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
+		return question;
+	}
+	
+	public Question updateImg(String id,
+			String questionType,
+			String questionTitle,
+			String quest,
+			MultipartFile[] image,
+			MultipartFile choiceA,
+			MultipartFile choiceB,
+			MultipartFile choiceC,
+			MultipartFile choiceD,
+			MultipartFile[] ans,
+			String userId,
+			String isActive) throws Exception {
+		
+		//find question by id
+		Question question = findById(id);
+		
+		QuestionData data = new QuestionData();
+		QuestionType qtype = new QuestionType(); 
+		ValidAnswer answer = new ValidAnswer();
+		User user = new User();
+		
+		List<String> img = new ArrayList<String>();
+		
+		try {
+			for (MultipartFile i : image) {
+				String ext = FilenameUtils.getExtension(i.getOriginalFilename());
+				ValExentension(ext);
+				byte[] byteImage = i.getBytes();
+				Path path = Paths.get(UPLOAD_DIR + i.getOriginalFilename());
+				Files.write(path, byteImage);
+				img.add(path.toString());
+			}
+			
+			//set question type
+			qtype.setQuestionTypeId(questionType);
+			
+			//set question data
+			data.setQuestion(quest);
+			data.setQuestionImage(img);
+			
+			//set choiceA
+			String extA = FilenameUtils.getExtension(choiceA.getOriginalFilename());
+			ValExentension(extA);
+			byte[] byteA = choiceA.getBytes();
+			Path pathA = Paths.get(UPLOAD_DIR + choiceA.getOriginalFilename());
+			Files.write(pathA, byteA);
+			data.setChoiceA(pathA.toString());
+			
+			//set choiceB
+			String extB = FilenameUtils.getExtension(choiceB.getOriginalFilename());
+			ValExentension(extB);
+			byte[] byteB = choiceB.getBytes();
+			Path pathB = Paths.get(UPLOAD_DIR + choiceB.getOriginalFilename());
+			Files.write(pathB, byteB);
+			data.setChoiceB(pathB.toString());
+			
+			//set choiceC
+			String extC = FilenameUtils.getExtension(choiceC.getOriginalFilename());
+			ValExentension(extC);
+			byte[] byteC = choiceC.getBytes();
+			Path pathC = Paths.get(UPLOAD_DIR + choiceC.getOriginalFilename());
+			Files.write(pathC, byteC);
+			data.setChoiceC(pathC.toString());
+			
+			//set choiceD
+			String extD = FilenameUtils.getExtension(choiceD.getOriginalFilename());
+			ValExentension(extD);
+			byte[] byteD = choiceD.getBytes();
+			Path pathD = Paths.get(UPLOAD_DIR + choiceD.getOriginalFilename());
+			Files.write(pathD, byteD);
+			data.setChoiceD(pathD.toString());
+			
+			//set valid answer
+			for (MultipartFile a : ans) {
+				String extAns = FilenameUtils.getExtension(a.getOriginalFilename());
+				ValExentension(extAns);
+				byte[] ansImage = a.getBytes();
+				Path path = Paths.get(UPLOAD_DIR + a.getOriginalFilename());
+				Files.write(path, ansImage);
+				if(answer.getValidAnswer1()==null) {
+					answer.setValidAnswer1(path.toString());
+				} else if (answer.getValidAnswer2()==null) {
+					answer.setValidAnswer2(path.toString());
+				}
+			}
+			
+			//set user
+			user.setUserId(userId);
+			
+			//set question
+			question.setQuestionType(qtype);
+			question.setData(data);
+			question.setAnswer(answer);
+			question.setUser(user);
+			
+			//set isActive
+			boolean as = Boolean.parseBoolean(isActive);
+			question.setIsActive(as);
+			
+			//set date of question
+			Date date = new Date();
+			question.setDateOfQuestion(date);
+			
+			//save question to database
+			valIdNotNull(question);
+			ValIdExist(question.getQuestionId());
+			valBkNotNull(question);
+			ValNonBk(question);
+			qDao.save(question);
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
+		return question;
 	}
 	
 	public void delete(String id) throws Exception {
@@ -149,6 +383,16 @@ public class QuestionService {
 					throw new Exception("User is not Exist");
 				}
 				return null;
+			}
+			
+			//Check Extension
+			private Exception ValExentension(String ext) throws Exception {
+				if(ext.equalsIgnoreCase("jpg") ||
+						ext.equalsIgnoreCase("jpeg") || 
+						ext.equalsIgnoreCase("png")) {
+					return null;
+				}
+				throw new Exception("File harus berupa jpg atau png");
 			}
 	
 }

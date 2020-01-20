@@ -1,10 +1,5 @@
 package com.lawencon.psikotest.controller;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.lawencon.psikotest.entity.Question;
-import com.lawencon.psikotest.entity.QuestionData;
-import com.lawencon.psikotest.entity.QuestionType;
 import com.lawencon.psikotest.entity.SearchQuestion;
-import com.lawencon.psikotest.entity.User;
-import com.lawencon.psikotest.entity.ValidAnswer;
 import com.lawencon.psikotest.service.QuestionService;
 
 @RestController
@@ -35,8 +26,6 @@ public class QuestionController {
 	
 	@Autowired
 	private QuestionService questionService;
-	
-	private static String UPLOAD_DIR = "E://Rizal//Boothcamp//psikotest//src//main//resources//img//";
 	
 	@GetMapping("")
 	public ResponseEntity<?> getAll(){
@@ -61,70 +50,21 @@ public class QuestionController {
 	
 	@PostMapping("/image")
 	public ResponseEntity<?> insertImage(@RequestPart String qt,
+			@RequestPart String title,
 			@RequestPart String quest,
 			@RequestPart MultipartFile[] image,
-			@RequestPart String choiceA,
-			@RequestPart String choiceB,
-			@RequestPart String choiceC,
-			@RequestPart String choiceD,
+			@RequestPart MultipartFile choiceA,
+			@RequestPart MultipartFile choiceB,
+			@RequestPart MultipartFile choiceC,
+			@RequestPart MultipartFile choiceD,
 			@RequestPart MultipartFile[] ans,
 			@RequestPart String userId,
 			@RequestPart String isActive) {
-		Question question = new Question();
-		QuestionData data = new QuestionData();
-		QuestionType qtype = new QuestionType(); 
-		ValidAnswer answer = new ValidAnswer();
-		User user = new User();
-		List<String> img = new ArrayList<String>();
+		Question question;
 		try {
-			for (MultipartFile i : image) {
-				byte[] byteImage = i.getBytes();
-				Path path = Paths.get(UPLOAD_DIR + i.getOriginalFilename());
-				Files.write(path, byteImage);
-				img.add(path.toString());
-			}
-			//set question type
-			qtype.setQuestionTypeId(qt);
-			
-			//set question data
-			data.setQuestion(quest);
-			data.setQuestionImage(img);
-			data.setChoiceA(choiceA);
-			data.setChoiceB(choiceB);
-			data.setChoiceC(choiceC);
-			data.setChoiceD(choiceD);
-			
-			//set valid answer
-			for (MultipartFile a : ans) {
-				byte[] ansImage = a.getBytes();
-				Path path = Paths.get(UPLOAD_DIR + a.getOriginalFilename());
-				Files.write(path, ansImage);
-				if(answer.getValidAnswer1()==null) {
-					answer.setValidAnswer1(path.toString());
-				} else if (answer.getValidAnswer2()==null) {
-					answer.setValidAnswer2(path.toString());
-				}
-			}
-			
-			//set user
-			user.setUserId(userId);
-			
-			//set question
-			question.setQuestionType(qtype);
-			question.setData(data);
-			question.setAnswer(answer);
-			question.setUser(user);
-			
-			//set isActive
-			boolean as = Boolean.parseBoolean(isActive);
-			question.setIsActive(as);
-			
-			//set date of question
-			Date date = new Date();
-			question.setDateOfQuestion(date);
-			
-			//save question to database
-			questionService.insert(question);
+			question = questionService.insertImg(qt, title, quest, 
+					image, choiceA, choiceB, choiceC, choiceD, 
+					ans, userId, isActive);
 			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -145,75 +85,22 @@ public class QuestionController {
 	@PutMapping("/image")
 	public ResponseEntity<?> updateImage(@RequestPart String id,
 			@RequestPart String qt,
+			@RequestPart String title,
 			@RequestPart String quest,
 			@RequestPart MultipartFile[] image,
-			@RequestPart String choiceA,
-			@RequestPart String choiceB,
-			@RequestPart String choiceC,
-			@RequestPart String choiceD,
+			@RequestPart MultipartFile choiceA,
+			@RequestPart MultipartFile choiceB,
+			@RequestPart MultipartFile choiceC,
+			@RequestPart MultipartFile choiceD,
 			@RequestPart MultipartFile[] ans,
 			@RequestPart String userId,
 			@RequestPart String isActive) {
 		
-		//find question by id
-		Question question = questionService.findById(id);
-		
-		QuestionData data = new QuestionData();
-		QuestionType qtype = new QuestionType(); 
-		ValidAnswer answer = new ValidAnswer();
-		User user = new User();
-		List<String> img = new ArrayList<String>();
+		Question question;
 		try {
-			for (MultipartFile i : image) {
-				byte[] byteImage = i.getBytes();
-				Path path = Paths.get(UPLOAD_DIR + i.getOriginalFilename());
-				Files.write(path, byteImage);
-				img.add(path.toString());
-			}
-			//set question type
-			qtype.setQuestionTypeId(qt);
-			
-			//set question data
-			data.setQuestion(quest);
-			data.setQuestionImage(img);
-			data.setChoiceA(choiceA);
-			data.setChoiceB(choiceB);
-			data.setChoiceC(choiceC);
-			data.setChoiceD(choiceD);
-			
-			//set valid answer
-			for (MultipartFile a : ans) {
-				byte[] ansImage = a.getBytes();
-				Path path = Paths.get(UPLOAD_DIR + a.getOriginalFilename());
-				Files.write(path, ansImage);
-				if(answer.getValidAnswer1()==null) {
-					answer.setValidAnswer1(path.toString());
-				} else if (answer.getValidAnswer2()==null) {
-					answer.setValidAnswer2(path.toString());
-				}
-			}
-			
-			//set user
-			user.setUserId(userId);
-			
-			//set question
-			question.setQuestionType(qtype);
-			question.setData(data);
-			question.setAnswer(answer);
-			question.setUser(user);
-			
-			//set isActive
-			boolean as = Boolean.parseBoolean(isActive);
-			question.setIsActive(as);
-			
-			//set date of question
-			Date date = new Date();
-			question.setDateOfQuestion(date);
-			
-			
-			//save question to database
-			questionService.insert(question);
-			
+			question = questionService.updateImg(id, qt, title, quest, 
+					image, choiceA, choiceB, choiceC, choiceD, 
+					ans, userId, isActive);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
