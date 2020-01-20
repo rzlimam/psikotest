@@ -36,13 +36,15 @@ public class QuestionAssignController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> insert(@RequestBody QuestionAssign qa) {
+	public ResponseEntity<?> insert(@RequestBody List<QuestionAssign> questionassign) {
 		try {
-			qaService.insert(qa);
+			for (QuestionAssign qa : questionassign) {
+				qaService.insert(qa);
+			}
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(qa);
+		return ResponseEntity.status(HttpStatus.OK).body(questionassign);
 	}
 	
 	@PutMapping("")
