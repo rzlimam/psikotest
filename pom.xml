@@ -77,7 +77,7 @@
 				<configuration>
 					<url>http://127.0.0.1:8080/manager/text</url>
 					<server>TomcatServer</server>
-					<path>/antrian</path>
+					<path>/psikotest2</path>
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<username>admin</username>
@@ -90,7 +90,7 @@
 				<configuration>
 					<url>http://127.0.0.1:8080/manager/text</url>
 					<server>TomcatServer</server>
-					<path>/antrian</path>
+					<path>/psikotest2</path>
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<username>admin</username>
