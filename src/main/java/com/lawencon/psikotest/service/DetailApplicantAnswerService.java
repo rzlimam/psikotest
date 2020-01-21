@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.DetailApplicantAnswerDao;
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
+import com.lawencon.psikotest.entity.HeaderApplicantAnswer;
+import com.lawencon.psikotest.entity.PackageDetail;
 
 @Service("daaService")
 public class DetailApplicantAnswerService {
@@ -41,15 +43,67 @@ public class DetailApplicantAnswerService {
 		return daa;
 	}
 	
+	public BigInteger countPoint(String aaId) {
+		BigInteger daa = detailaaDao.countQuestion(aaId);
+		return daa;
+	}
+	
+	
 	public void insert(DetailApplicantAnswer daa) throws Exception {
 		try {
-//			valIdNull(daa);
-//			valBkNotNull(daa);
-//			valBkNotExist(daa);
-//			ValHAAExist(daa.getApplicantAnswerId().getApplicantAnswerId());
-//			ValPDExist(daa.getPackageQuestion().getPackageQuestionId());
+			valIdNull(daa);
+			valBkNotNull(daa);
+			valBkNotExist(daa);
+			ValHAAExist(daa.getHeaderApplicantAnswer().getApplicantAnswerId());
+			ValPDExist(daa.getPackageQuestion().getPackageQuestionId());
 //			ValNonBk(daa);
+			
+			//get package question id to get question id
+			PackageDetail pd = pdService.findById(daa.getPackageQuestion().getPackageQuestionId());
+			
+			//cek applicant answer true of false
+			if(daa.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer1())) {
+				daa.setPoint(1);
+			} else {
+				daa.setPoint(0);
+			}
 			detailaaDao.save(daa);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	public void getResult(DetailApplicantAnswer daa, HeaderApplicantAnswer haa) throws Exception {
+		try {
+//			valIdNotNull(daa);
+//			ValIdExist(daa.getDetailAnswerId());
+//			valBkNotNull(daa);
+//			ValBkNotChange(daa);
+//			ValNonBk(daa);
+			
+			//get total point from table detail applicant answer
+			BigInteger hasil = sumPoint(daa.getHeaderApplicantAnswer().getApplicantAnswerId());
+			//convert long to integer
+			int total = hasil.intValue();
+			//set total point in header applicant answer
+			haa.setTotalPoint(total);
+			
+			//get total question
+			BigInteger countQuestion = countPoint(daa.getHeaderApplicantAnswer().getApplicantAnswerId());
+			//convert long to integer
+			int totalQuestion = countQuestion.intValue();
+			//set total point in header applicant answer
+			haa.setTotalQuestion(totalQuestion);
+			
+			//check pass or not
+			if(((total/totalQuestion) * 100) > 60) {
+				haa.setStatus("Lulus");
+			} else {
+				haa.setStatus("Tidak Lulus");
+			}
+			
+			haaService.update(haa);
+			
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

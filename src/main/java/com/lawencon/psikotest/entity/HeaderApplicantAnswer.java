@@ -30,11 +30,17 @@ public class HeaderApplicantAnswer {
 	@JoinColumn(name = "userId", nullable = false)
 	private User user;
 	
-	@Column(name="dateOfAnswer")
+	@Column(name="date_of_answer")
 	private Date dateOfAnswer;
 	
-	@Column(name="totalPoint")
+	@Column(name="total_point")
 	private Integer totalPoint;
+	
+	@Column(name="total_question")
+	private Integer totalQuestion;
+	
+	@Column(name="status")
+	private String status;
 
 	public String getApplicantAnswerId() {
 		return applicantAnswerId;
@@ -71,8 +77,22 @@ public class HeaderApplicantAnswer {
 	public HeaderApplicantAnswer() {
 		super();
 	}
-	
-	
+
+	public Integer getTotalQuestion() {
+		return totalQuestion;
+	}
+
+	public void setTotalQuestion(Integer totalQuestion) {
+		this.totalQuestion = totalQuestion;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 
 }

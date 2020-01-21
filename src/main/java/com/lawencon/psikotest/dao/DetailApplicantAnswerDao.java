@@ -70,5 +70,14 @@ public class DetailApplicantAnswerDao extends EntityDao {
 		BigInteger count = (BigInteger) query.getSingleResult(); 
 		return count;
 	}
+	
+	@Transactional
+	public BigInteger countQuestion(String appAnswer) {
+		Query query  = super.entityManager
+				.createNativeQuery("Select count(*) FROM tbl_detail_applicant_answer "
+						+ "WHERE applicant_answer_id = '" + appAnswer + "'");
+		BigInteger count = (BigInteger) query.getSingleResult(); 
+		return count;
+	}
 
 }

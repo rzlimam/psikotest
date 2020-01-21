@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lawencon.psikotest.entity.Profile;
 import com.lawencon.psikotest.entity.Role;
 import com.lawencon.psikotest.entity.User;
+import com.lawencon.psikotest.entity.UserList;
 import com.lawencon.psikotest.service.MailService;
 import com.lawencon.psikotest.service.ProfileService;
 import com.lawencon.psikotest.service.RoleService;
@@ -40,7 +41,7 @@ public class UserController {
 	
 	@GetMapping("")
 	public ResponseEntity<?> getAll(){
-		List<User> user = null;
+		List<UserList> user = null;
 		try {
 			user =  userService.getAll();
 		} catch (Exception e) {

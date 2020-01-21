@@ -1,5 +1,6 @@
 package com.lawencon.psikotest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.UserDao;
 import com.lawencon.psikotest.entity.User;
+import com.lawencon.psikotest.entity.UserList;
 
 @Service("userService")
 public class UserService {
@@ -20,31 +22,60 @@ public class UserService {
 	@Autowired
 	private RoleService roleService;
 	
-	public User findById(String id) {
-		User user = userDao.findById(id);
+	public UserList findById(String id) {
+		User account = userDao.findById(id);
+		UserList user = new UserList();
+		user.setUserId(account.getUserId());
+		user.setProfile(account.getProfile());
+		user.setRole(account.getRole());
+		user.setActive(account.getIsActive());
 		return user;
 	}
 	
-	public List<User> getAll(){
+	public List<UserList> getAll(){
 		List<User> list = userDao.getAll();
-		return list;
+		List<UserList> users = new ArrayList<UserList>();
+		for (User u : list) {
+			UserList user = new UserList();
+			user.setUserId(u.getUserId());
+			user.setProfile(u.getProfile());
+			user.setRole(u.getRole());
+			user.setActive(u.getIsActive());
+			users.add(user);
+		}
+		return users;
 	}
 	
-	public User findByBk(String profileId) {
-		User user = userDao.findById(profileId);
+	public UserList findByBk(String profileId) {
+		User account = userDao.findById(profileId);
+		UserList user = new UserList();
+		user.setUserId(account.getUserId());
+		user.setProfile(account.getProfile());
+		user.setRole(account.getRole());
+		user.setActive(account.getIsActive());
 		return user;
 	}
 	
-	public User findByEmail(String email) {
-		User user = userDao.findEmail(email);
+	public UserList findByEmail(String email) {
+		User account = userDao.findEmail(email);
+		UserList user = new UserList();
+		user.setUserId(account.getUserId());
+		user.setProfile(account.getProfile());
+		user.setRole(account.getRole());
+		user.setActive(account.getIsActive());
 		return user;
 	}
 	
-	public User login(String email, String password) throws Exception {
-		User user = userDao.findEmail(email);
-		if(user!=null) {
-			String userPass = user.getPassword();
+	public UserList login(String email, String password) throws Exception {
+		User account = userDao.findEmail(email);
+		if(account!=null) {
+			String userPass = account.getPassword();
 			if(password.equals(userPass)) {
+				UserList user = new UserList();
+				user.setUserId(account.getUserId());
+				user.setProfile(account.getProfile());
+				user.setRole(account.getRole());
+				user.setActive(account.getIsActive());
 				return user;
 			} else {
 				throw new Exception("Password salah");

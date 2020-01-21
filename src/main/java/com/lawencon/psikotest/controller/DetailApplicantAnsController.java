@@ -51,34 +51,15 @@ public class DetailApplicantAnsController {
 	public ResponseEntity<?> insert(@RequestBody List<DetailApplicantAnswer> daa) {
 		try {
 			for (DetailApplicantAnswer d : daa) {
-				//get package question id to get question id
-				PackageDetail pd = pdService.findById(d.getPackageQuestion().getPackageQuestionId());
-				
-				//cek applicant answer true of false
-				if(d.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer1())) {
-					d.setPoint(1);
-				} else {
-					d.setPoint(0);
-				}
-				
 				//insert data to database
 				daaService.insert(d);
 			}
 			
-			//get total point from table detail applicant answer
-			BigInteger hasil = daaService.sumPoint(daa.get(0).getHeaderApplicantAnswer().getApplicantAnswerId());
-			
 			//find applicant answer header
 			HeaderApplicantAnswer haa = haaService.findById(daa.get(0).getHeaderApplicantAnswer().getApplicantAnswerId());
 			
-			//convert big integer to integer
-			int total = hasil.intValue();
-			
-			//set total point in header applicant answer
-			haa.setTotalPoint(total);
-			
-			//update header
-			haaService.update(haa);
+			//get Result test
+			daaService.getResult(daa.get(0), haa);
 			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

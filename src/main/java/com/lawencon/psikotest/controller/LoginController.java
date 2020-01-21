@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.psikotest.entity.User;
+import com.lawencon.psikotest.entity.UserList;
 import com.lawencon.psikotest.service.UserService;
 
 @RestController
@@ -24,7 +25,7 @@ public class LoginController {
 	
 	@PostMapping("")
 	public ResponseEntity<?> insertUser(@RequestBody Map<String, String> account) {
-		User user;
+		UserList user;
 		try {
 			user = userService.login(account.get("username"), account.get("password"));
 		} catch (Exception e) {

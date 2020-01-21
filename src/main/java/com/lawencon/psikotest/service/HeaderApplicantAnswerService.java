@@ -1,5 +1,6 @@
 package com.lawencon.psikotest.service;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.HeaderApplicantAnswerDao;
+import com.lawencon.psikotest.entity.DetailApplicantAnswer;
 import com.lawencon.psikotest.entity.HeaderApplicantAnswer;
 
 @Service("haaService")
@@ -67,6 +69,7 @@ public class HeaderApplicantAnswerService {
 			throw new Exception(e.getMessage());
 		}
 	}
+	
 	
 	//Validasi
 	

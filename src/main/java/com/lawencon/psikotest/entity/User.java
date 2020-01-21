@@ -30,7 +30,7 @@ public class User {
 	private String password;
 
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@OneToOne
 	@JoinColumn(name = "roleId", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
