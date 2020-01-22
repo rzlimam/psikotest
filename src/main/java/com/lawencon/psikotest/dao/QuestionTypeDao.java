@@ -46,10 +46,12 @@ public class QuestionTypeDao extends EntityDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public QuestionType findByBk(String qtTitle) {
+	public QuestionType findByBk(String qtTitle, int amountOfAnswer) {
 		List<QuestionType> list = super.entityManager
-				.createQuery("From QuestionType where question_type_title=:qtTitle")
+				.createQuery("From QuestionType where question_type_title=:qtTitle "
+						+ "and amountOfAnswer=:amountOfAnswer")
 				.setParameter("qtTitle", qtTitle)
+				.setParameter("amountOfAnswer", amountOfAnswer)
 				.getResultList();
 		if(list.size() == 0)
 			return null;

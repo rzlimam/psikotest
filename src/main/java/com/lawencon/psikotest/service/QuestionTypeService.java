@@ -28,8 +28,8 @@ public class QuestionTypeService {
 		return list;
 	}
 	
-	public QuestionType findByBk(String qtTitle) {
-		QuestionType qt = qtDao.findByBk(qtTitle);
+	public QuestionType findByBk(String qtTitle, int amountOfAnswer) {
+		QuestionType qt = qtDao.findByBk(qtTitle, amountOfAnswer);
 		return qt;
 	}
 	
@@ -38,7 +38,6 @@ public class QuestionTypeService {
 			valIdNull(qt);
 			valBkNotNull(qt);
 			valBkNotExist(qt);
-			ValASExist(qt.getAnswerType().getAnswerTypeId());
 			ValNonBk(qt);
 			qtDao.save(qt);
 		} catch (Exception e) {
@@ -59,10 +58,21 @@ public class QuestionTypeService {
 		}
 	}
 	
-	public void delete(String id) throws Exception {
+	public void hardDelete(String id) throws Exception {
 		try {
 			ValIdExist(id);
 			qtDao.delete(id);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	public void delete(String id) throws Exception {
+		try {
+			ValIdExist(id);
+			QuestionType qt = qtDao.findById(id);
+			qt.setIsActive(false);
+			qtDao.save(qt);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -96,17 +106,15 @@ public class QuestionTypeService {
 			
 			//BK not exist
 			private Exception valBkNotExist(QuestionType qt) throws Exception{
-				if(findByBk(qt.getQuestionTypeTitle())!=null) {
-					throw new Exception("QuestionType Title is Exist");
+				if(findByBk(qt.getQuestionTypeTitle(), qt.getAmountOfAnswer())!=null) {
+					throw new Exception("BK is Exist");
 				}
 				return null;
 			}
 			
 			//NonBk not null
-			private Exception ValNonBk(QuestionType qt) throws Exception {
-				if(qt.getAnswerType()==null || qt.getAnswerType().getAnswerTypeId().trim().equals("")) {
-					throw new Exception("Answer Type is empty");
-				} else if(qt.getIsActive()==null) {
+			private Exception ValNonBk(QuestionType qt) throws Exception { 
+				if(qt.getIsActive()==null) {
 					throw new Exception("Active state is empty");
 				}
 				return null;
@@ -128,12 +136,6 @@ public class QuestionTypeService {
 				return null;
 			}
 			
-			//Answer Type Exist
-			private Exception ValASExist(String id) throws Exception {
-				if(atService.findById(id)==null) {
-					throw new Exception("Answer Type is not Exist");
-				}
-				return null;
-			}
+			
 
 }

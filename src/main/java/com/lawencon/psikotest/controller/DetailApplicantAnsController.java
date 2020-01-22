@@ -1,5 +1,6 @@
 package com.lawencon.psikotest.controller;
 
+import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -23,6 +24,9 @@ import com.lawencon.psikotest.service.DetailApplicantAnswerService;
 import com.lawencon.psikotest.service.HeaderApplicantAnswerService;
 import com.lawencon.psikotest.service.PackageDetailService;
 import com.lawencon.psikotest.service.QuestionService;
+import com.lawencon.psikotest.service.ReportService;
+
+import net.sf.jasperreports.engine.JRException;
 
 @RestController
 @RequestMapping("/daa")
@@ -37,6 +41,9 @@ public class DetailApplicantAnsController {
 	
 	@Autowired
 	private HeaderApplicantAnswerService haaService;
+	
+	@Autowired
+	private ReportService report;
 	
 	@GetMapping("")
 	public ResponseEntity<?> getAll(){
@@ -87,6 +94,16 @@ public class DetailApplicantAnsController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 		return ResponseEntity.status(HttpStatus.OK).body("Deleted");
+	}
+	
+	@GetMapping("/report/{id}/{format}")
+	public ResponseEntity<?> generateReport(@PathVariable String id, @PathVariable String format) throws FileNotFoundException, JRException {
+		try {
+			report.exportReport(format, id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body("Report Generated");
 	}
 
 }

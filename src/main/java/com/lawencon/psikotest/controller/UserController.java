@@ -42,10 +42,21 @@ public class UserController {
 	private MailService mailService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAllRecruiter(){
 		List<UserList> user = null;
 		try {
-			user =  userService.getAll();
+			user =  userService.getAllRecruiter();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
+	
+	@GetMapping("/candidate")
+	public ResponseEntity<?> getAllCandidate(){
+		List<UserList> user = null;
+		try {
+			user =  userService.getAllCandidate();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

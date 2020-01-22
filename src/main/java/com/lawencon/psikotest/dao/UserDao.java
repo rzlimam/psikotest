@@ -1,6 +1,5 @@
 package com.lawencon.psikotest.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,17 +7,30 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.psikotest.entity.User;
-import com.lawencon.psikotest.entity.UserList;
 
 @Repository("userDao")
 public class UserDao extends EntityDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<User> getAll() {
+	public List<User> getAllRecruiter() {
 		List<User> list = super.entityManager
-				.createQuery("From User WHERE role.codeRole=:code")
+				.createQuery("From User WHERE role.codeRole=:code "
+						+ "and isActive=:isActive")
+				.setParameter("code", "REC")
+				.setParameter("isActive", true)
+				.getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<User> getAllCandidate() {
+		List<User> list = super.entityManager
+				.createQuery("From User WHERE role.codeRole=:code "
+						+ "and isActive=:isActive")
 				.setParameter("code", "CAN")
+				.setParameter("isActive", true)
 				.getResultList();
 		return list;
 	}

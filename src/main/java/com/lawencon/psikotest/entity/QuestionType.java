@@ -29,6 +29,9 @@ public class QuestionType {
 	@Column(name="question_type_title")
 	private String questionTypeTitle;
 	
+	@Column(name="amount_of_answer")
+	private Integer amountOfAnswer;
+	
 	@Column(name="is_active")
 	private Boolean isActive;
 	
@@ -50,6 +53,14 @@ public class QuestionType {
 
 	public void setQuestionTypeTitle(String questionTypeTitle) {
 		this.questionTypeTitle = questionTypeTitle;
+	}	
+
+	public Integer getAmountOfAnswer() {
+		return amountOfAnswer;
+	}
+
+	public void setAmountOfAnswer(Integer amountOfAnswer) {
+		this.amountOfAnswer = amountOfAnswer;
 	}
 
 	public Boolean getIsActive() {
@@ -59,14 +70,4 @@ public class QuestionType {
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-
-	public AnswerType getAnswerType() {
-		return answerType;
-	}
-
-	public void setAnswerType(AnswerType answerType) {
-		this.answerType = answerType;
-	}
-
-	
 }

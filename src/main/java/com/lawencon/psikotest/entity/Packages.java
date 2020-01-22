@@ -27,6 +27,9 @@ public class Packages {
 	@Temporal(TemporalType.TIME)
 	private Date amountOfTime;
 	
+	@Column(name="description")
+	private String description;
+	
 	@Column(name="is_active")
 	private Boolean isActive;
 
@@ -61,6 +64,13 @@ public class Packages {
 	public void setAmountOfTime(Date amountOfTime) {
 		this.amountOfTime = amountOfTime;
 	}
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 }

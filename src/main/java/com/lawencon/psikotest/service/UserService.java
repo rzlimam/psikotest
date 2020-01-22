@@ -32,8 +32,22 @@ public class UserService {
 		return user;
 	}
 	
-	public List<UserList> getAll(){
-		List<User> list = userDao.getAll();
+	public List<UserList> getAllRecruiter(){
+		List<User> list = userDao.getAllRecruiter();
+		List<UserList> users = new ArrayList<UserList>();
+		for (User u : list) {
+			UserList user = new UserList();
+			user.setUserId(u.getUserId());
+			user.setProfile(u.getProfile());
+			user.setRole(u.getRole());
+			user.setActive(u.getIsActive());
+			users.add(user);
+		}
+		return users;
+	}
+	
+	public List<UserList> getAllCandidate(){
+		List<User> list = userDao.getAllCandidate();
 		List<UserList> users = new ArrayList<UserList>();
 		for (User u : list) {
 			UserList user = new UserList();
@@ -115,10 +129,22 @@ public class UserService {
 
 	}
 	
-	public void delete(String id)throws Exception {
+	public void deleteUser(String id)throws Exception {
 		try {
 			ValIdExist(id);
 			userDao.delete(id);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+	}
+	
+	public void delete(String id)throws Exception {
+		try {
+			ValIdExist(id);
+			User user = userDao.findById(id);
+			user.setIsActive(false);
+			userDao.save(user);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

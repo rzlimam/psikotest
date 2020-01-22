@@ -61,6 +61,20 @@ public class DetailApplicantAnswerDao extends EntityDao {
 			return (DetailApplicantAnswer)list.get(0);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<DetailApplicantAnswer> findByHAA(String id) {
+		List<DetailApplicantAnswer> list = super.entityManager
+				.createQuery("From DetailApplicantAnswer where "
+						+ "headerApplicantAnswer.applicantAnswerId=:id")
+				.setParameter("id", id)
+				.getResultList();
+		if(list.size() == 0)
+			return null;
+		else 
+			return list;
+	}
+	
 	
 	@Transactional
 	public BigInteger sumPoint(String appAnswer) {
