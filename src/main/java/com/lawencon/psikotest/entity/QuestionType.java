@@ -35,9 +35,6 @@ public class QuestionType {
 	@Column(name="is_active")
 	private Boolean isActive;
 	
-	@OneToOne
-	@JoinColumn(name = "answerTypeId ", nullable = false)
-	private AnswerType answerType;
 
 	public String getQuestionTypeId() {
 		return questionTypeId;
