@@ -119,7 +119,7 @@ public class QuestionController {
 		return ResponseEntity.status(HttpStatus.OK).body("Deleted");
 	}
 	
-	@GetMapping("/search")
+	@PostMapping("/search")
 	public ResponseEntity<?> search(@RequestBody SearchQuestion sq){
 		List<Question> list = null;
 		try {

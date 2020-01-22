@@ -19,7 +19,7 @@ import com.lawencon.psikotest.entity.*;
 import com.lawencon.psikotest.service.*;
 
 @RestController
-@RequestMapping("/packdetail")
+@RequestMapping("/packagedetail")
 @CrossOrigin("*")
 public class PackageDetailController {
 	
@@ -31,6 +31,17 @@ public class PackageDetailController {
 		List<PackageDetail> pacDetail = null;
 		try {
 			pacDetail =  pacDetailService.getAll();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(pacDetail);
+	}
+	
+	@GetMapping("/package")
+	public ResponseEntity<?> getPackage(){
+		List<PackageDetail> pacDetail = null;
+		try {
+			pacDetail =  pacDetailService.getPackage();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

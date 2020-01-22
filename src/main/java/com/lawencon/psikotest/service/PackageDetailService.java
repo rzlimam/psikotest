@@ -35,6 +35,16 @@ public class PackageDetailService {
 		return pd;
 	}
 	
+	public Integer countQuestion(String questionId) {
+		Integer totalQuestion = pdDao.countQuestion(questionId);
+		return totalQuestion;
+	}
+	
+	public List<PackageDetail> getPackage(){
+		List<PackageDetail> list = pdDao.getPackage();
+		return list;
+	}
+	
 	public void insert(PackageDetail pd) throws Exception {
 		try {
 			valIdNull(pd);
