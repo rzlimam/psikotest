@@ -37,18 +37,6 @@ public class PackageDetailController {
 		return ResponseEntity.status(HttpStatus.OK).body(pacDetail);
 	}
 	
-	@GetMapping("/package")
-	public ResponseEntity<?> getPackage(){
-		List<POJOPackage> pacDetail = null;
-//		List<PackageDetail> pacDetail = null;
-		try {
-			pacDetail =  pacDetailService.getPackage();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(pacDetail);
-	}
-	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody List<PackageDetail> packDetail) {
 		try {

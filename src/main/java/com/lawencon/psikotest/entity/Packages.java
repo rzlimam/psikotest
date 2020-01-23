@@ -28,8 +28,8 @@ public class Packages {
 	@Column(name="package_name")
 	private String packageName;
 
-	@Temporal(TemporalType.TIME)
-	private Date amountOfTime;
+	@Column(name="amount_of_time")
+	private Integer amountOfTime;
 	
 	@Column(name="description")
 	private String description;
@@ -64,11 +64,11 @@ public class Packages {
 		this.isActive = isActive;
 	}
 
-	public Date getAmountOfTime() {
+	public Integer getAmountOfTime() {
 		return amountOfTime;
 	}
 
-	public void setAmountOfTime(Date amountOfTime) {
+	public void setAmountOfTime(Integer amountOfTime) {
 		this.amountOfTime = amountOfTime;
 	}
 

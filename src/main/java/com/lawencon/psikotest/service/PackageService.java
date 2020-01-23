@@ -41,11 +41,19 @@ public class PackageService {
 		for (Packages pack : list) {
 			POJOPackage p = new POJOPackage();
 			p.setPackageName(pack.getPackageName());
-			p.setQuestionType(pack.getPackageDetails().get(0).getQuestion().getQuestionType().getQuestionTypeTitle());
+			if(pack.getPackageDetails().size() != 0) {
+				p.setQuestionType(pack.getPackageDetails().get(0).getQuestion().getQuestionType().getQuestionTypeTitle());
+			}
 			p.setAmountOfTime(pack.getAmountOfTime().toString());
 			p.setDescription(pack.getDescription());
-//			p.setTotalQuestion(pdDao.countQuestion(pack.getPackageDetails().get(0).getPackages().getPackageId()).intValue());
+			if(pack.getPackageDetails().size() != 0) {
+				p.setTotalQuestion(pdDao.countQuestion(pack.getPackageDetails().get(0).getPackages().getPackageId()).intValue());
+			} else {
+				p.setTotalQuestion(0);
+			}
+			
 			packages.add(p);
+			System.out.println(packages.size());
 		}
 		return packages;
 	}

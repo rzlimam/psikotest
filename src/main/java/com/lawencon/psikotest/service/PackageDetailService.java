@@ -42,18 +42,18 @@ public class PackageDetailService {
 		return totalQuestion;
 	}
 	
-	public List<POJOPackage> getPackage(){
-		List<PackageDetail> list = pdDao.getPackage();
-		List<POJOPackage> packages = new ArrayList<POJOPackage>();
-		for (PackageDetail pack : list) {
-			POJOPackage p = new POJOPackage();
-			p.setPackageName(pack.getPackages().getPackageName());
-			p.setAmountOfTime(pack.getPackages().getAmountOfTime().toString());
-			p.setDescription(pack.getPackages().getDescription());
-			p.setTotalQuestion(countQuestion(pack.getPackages().getPackageId()));
-			packages.add(p);
-		}
-		return packages;
+	public List<PackageDetail> getPackage(){
+		List<PackageDetail> list = pdDao.getAll();
+//		List<POJOPackage> packages = new ArrayList<POJOPackage>();
+//		for (PackageDetail pack : list) {
+//			POJOPackage p = new POJOPackage();
+//			p.setPackageName(pack.getPackages().getPackageName());
+//			p.setAmountOfTime(pack.getPackages().getAmountOfTime().toString());
+//			p.setDescription(pack.getPackages().getDescription());
+//			p.setTotalQuestion(countQuestion(pack.getPackages().getPackageId()));
+//			packages.add(p);
+//		}
+		return list;
 	}
 	
 	public void insert(PackageDetail pd) throws Exception {

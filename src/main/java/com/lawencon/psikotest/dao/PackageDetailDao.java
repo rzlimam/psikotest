@@ -65,24 +65,10 @@ public class PackageDetailDao extends EntityDao {
 	@Transactional
 	public BigInteger countQuestion(String packageId) {
 		Query query  = super.entityManager
-				.createNativeQuery("Select count(*) FROM tbl_m_package_detail"
+				.createNativeQuery("Select count(*) FROM group2.tbl_m_package_detail"
 						+ " WHERE package_id = '" + packageId + "'");
 		BigInteger count =  (BigInteger) query.getSingleResult(); 
 		return count;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public List<PackageDetail> getPackage() {
-		List<PackageDetail> list = super.entityManager
-				.createQuery("SELECT DISTINCT PD.packages "
-						+ "FROM PackageDetail PD "
-						+ "INNER JOIN fetcth PD.packages")
-				.getResultList();
-		if(list.size() == 0)
-			return null;
-		else
-			return list;
 	}
 
 }
