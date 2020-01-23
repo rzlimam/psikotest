@@ -33,7 +33,7 @@ public class QuestionService {
 	@Autowired
 	private UserService userService;
 	
-	private static String UPLOAD_DIR = "E://Rizal//Boothcamp//psikotest//src//main//resources//img//";
+//	private static String paths = "E:\\Rizal\\Boothcamp\\psikotest\\src\\main\\resources\\img\\";
 	
 	@Value("${upload.folder-dir}")
 	private String paths;
@@ -98,10 +98,9 @@ public class QuestionService {
 		
 		List<String> img = new ArrayList<String>();
 		
-		try {
 			for (MultipartFile i : image) {
 				String ext = FilenameUtils.getExtension(i.getOriginalFilename());
-				ValExentension(ext);
+//				ValExentension(ext);
 				byte[] byteImage = i.getBytes();
 				Path path = Paths.get(paths + i.getOriginalFilename());
 				Files.write(path, byteImage);
@@ -169,15 +168,12 @@ public class QuestionService {
 			question.setDateOfQuestion(date);
 			
 			//save question to database
-			valIdNull(question);
-			valBkNotNull(question);
-			ValQTExist(question.getQuestionType().getQuestionTypeId());
-			ValUserExist(question.getUser().getUserId());
-			ValNonBk(question);
+//			valIdNull(question);
+//			valBkNotNull(question);
+//			ValQTExist(question.getQuestionType().getQuestionTypeId());
+//			ValUserExist(question.getUser().getUserId());
+//			ValNonBk(question);
 			qDao.save(question);
-		}catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
 		
 		return question;
 	}
@@ -342,7 +338,7 @@ public class QuestionService {
 			}
 			
 			//NonBk not null
-			private Exception ValNonBk(Question question) throws Exception {
+			private void ValNonBk(Question question) throws Exception {
 				if(question.getQuestionType()==null || question.getQuestionType().getQuestionTypeId().trim().equals("")) {
 					throw new Exception("Question Type is empty");
 				} else if(question.getAnswer()==null || question.getAnswer().getValidAnswer1().trim().equals("")) {
@@ -354,7 +350,6 @@ public class QuestionService {
 				} else if(question.getDateOfQuestion()==null) {
 					throw new Exception("Date of question is empty");
 				}
-				return null;
 			}
 			
 			//Bk not change

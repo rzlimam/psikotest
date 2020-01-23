@@ -72,6 +72,7 @@ public class QuestionController {
 					ans, userId, isActive);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(question);
