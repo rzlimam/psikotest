@@ -29,10 +29,10 @@ public class PackageController {
 	
 	@GetMapping("")
 	public ResponseEntity<?> getAll(){
-		List<Packages> packages = null;
-//		List<POJOPackage> packages = null;
+//		List<Packages> packages = null;
+		List<POJOPackage> packages = null;
 		try {
-			packages =  packageService.getAll();
+			packages =  packageService.getPackage();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

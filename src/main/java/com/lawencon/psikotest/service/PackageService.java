@@ -44,7 +44,7 @@ public class PackageService {
 			p.setQuestionType(pack.getPackageDetails().get(0).getQuestion().getQuestionType().getQuestionTypeTitle());
 			p.setAmountOfTime(pack.getAmountOfTime().toString());
 			p.setDescription(pack.getDescription());
-			p.setTotalQuestion(pdDao.countQuestion(pack.getPackageDetails().get(0).getPackages().getPackageId()).intValue());
+//			p.setTotalQuestion(pdDao.countQuestion(pack.getPackageDetails().get(0).getPackages().getPackageId()).intValue());
 			packages.add(p);
 		}
 		return packages;
