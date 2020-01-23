@@ -1,5 +1,6 @@
 package com.lawencon.psikotest.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ public class QuestionController {
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody Question question) {
 		try {
+			Date date = new Date();
+			question.setDateOfQuestion(date);
 			questionService.insert(question);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
