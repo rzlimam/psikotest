@@ -110,6 +110,7 @@ public class QuestionService {
 			//set question type
 			qtype.setQuestionTypeId(questionType);
 			
+			
 			//set question data
 			data.setQuestion(quest);
 			data.setQuestionImage(img);
@@ -155,6 +156,7 @@ public class QuestionService {
 			
 			//set question
 			question.setQuestionType(qtype);
+			question.setQuestionTitle(questionTitle);
 			question.setData(data);
 			question.setAnswer(answer);
 			question.setUser(user);
