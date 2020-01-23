@@ -1,5 +1,6 @@
 package com.lawencon.psikotest.service;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -97,14 +98,22 @@ public class QuestionService {
 		User user = new User();
 		
 		List<String> img = new ArrayList<String>();
-		
-			for (MultipartFile i : image) {
-				String ext = FilenameUtils.getExtension(i.getOriginalFilename());
-//				ValExentension(ext);
-				byte[] byteImage = i.getBytes();
-				Path path = Paths.get(paths + i.getOriginalFilename());
-				Files.write(path, byteImage);
-				img.add(path.toString());
+			
+			Path p = Paths.get(paths);
+			if(!Files.exists(p)) {
+				try {
+					Files.createDirectories(p);
+					for (MultipartFile i : image) {
+						String ext = FilenameUtils.getExtension(i.getOriginalFilename());
+//						ValExentension(ext);
+						byte[] byteImage = i.getBytes();
+						Path path = Paths.get(paths + i.getOriginalFilename());
+						Files.write(path, byteImage);
+						img.add(path.toString());
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			
 			//set question type
