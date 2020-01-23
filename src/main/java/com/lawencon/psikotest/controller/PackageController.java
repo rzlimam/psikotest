@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lawencon.psikotest.entity.POJOPackage;
 import com.lawencon.psikotest.entity.Packages;
 import com.lawencon.psikotest.service.*;
 
@@ -28,9 +29,10 @@ public class PackageController {
 	
 	@GetMapping("")
 	public ResponseEntity<?> getAll(){
-		List<Packages> packages = null;
+//		List<Packages> packages = null;
+		List<POJOPackage> packages = null;
 		try {
-			packages =  packageService.getAll();
+			packages =  packageService.getPackage();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

@@ -1,11 +1,14 @@
 package com.lawencon.psikotest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.PackageDao;
+import com.lawencon.psikotest.dao.PackageDetailDao;
+import com.lawencon.psikotest.entity.POJOPackage;
 import com.lawencon.psikotest.entity.Packages;
 
 @Service("packService")
@@ -13,6 +16,9 @@ public class PackageService {
 	
 	@Autowired
 	private PackageDao packDao;
+	
+	@Autowired
+	private PackageDetailDao pdDao;
 	
 	public List<Packages> getAll(){
 		List<Packages> list = packDao.getAll();
@@ -27,6 +33,21 @@ public class PackageService {
 	public Packages findByBk(String packageName) {
 		Packages pack = packDao.findByBk(packageName);
 		return pack;
+	}
+	
+	public List<POJOPackage> getPackage(){
+		List<Packages> list = packDao.getAll();
+		List<POJOPackage> packages = new ArrayList<POJOPackage>();
+		for (Packages pack : list) {
+			POJOPackage p = new POJOPackage();
+			p.setPackageName(pack.getPackageName());
+			p.setQuestionType(pack.getPackageDetails().get(0).getQuestion().getQuestionType().getQuestionTypeTitle());
+			p.setAmountOfTime(pack.getAmountOfTime().toString());
+			p.setDescription(pack.getDescription());
+			p.setTotalQuestion(pdDao.countQuestion(pack.getPackageDetails().get(0).getPackages().getPackageId()).intValue());
+			packages.add(p);
+		}
+		return packages;
 	}
 	
 	public void insert(Packages pack) throws Exception {

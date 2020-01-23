@@ -39,7 +39,8 @@ public class PackageDetailController {
 	
 	@GetMapping("/package")
 	public ResponseEntity<?> getPackage(){
-		List<PackageDetail> pacDetail = null;
+		List<POJOPackage> pacDetail = null;
+//		List<PackageDetail> pacDetail = null;
 		try {
 			pacDetail =  pacDetailService.getPackage();
 		} catch (Exception e) {

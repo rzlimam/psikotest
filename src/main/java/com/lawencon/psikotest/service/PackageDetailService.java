@@ -1,11 +1,13 @@
 package com.lawencon.psikotest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.PackageDetailDao;
+import com.lawencon.psikotest.entity.POJOPackage;
 import com.lawencon.psikotest.entity.PackageDetail;
 
 @Service("pdService")
@@ -36,13 +38,22 @@ public class PackageDetailService {
 	}
 	
 	public Integer countQuestion(String questionId) {
-		Integer totalQuestion = pdDao.countQuestion(questionId);
+		Integer totalQuestion = pdDao.countQuestion(questionId).intValue();
 		return totalQuestion;
 	}
 	
-	public List<PackageDetail> getPackage(){
+	public List<POJOPackage> getPackage(){
 		List<PackageDetail> list = pdDao.getPackage();
-		return list;
+		List<POJOPackage> packages = new ArrayList<POJOPackage>();
+		for (PackageDetail pack : list) {
+			POJOPackage p = new POJOPackage();
+			p.setPackageName(pack.getPackages().getPackageName());
+			p.setAmountOfTime(pack.getPackages().getAmountOfTime().toString());
+			p.setDescription(pack.getPackages().getDescription());
+			p.setTotalQuestion(countQuestion(pack.getPackages().getPackageId()));
+			packages.add(p);
+		}
+		return packages;
 	}
 	
 	public void insert(PackageDetail pd) throws Exception {

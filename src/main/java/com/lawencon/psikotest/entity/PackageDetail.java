@@ -29,7 +29,7 @@ public class PackageDetail {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "packageId", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties(value = {"packageDetails"})
 	private Packages packages ;
 	
 	@OneToOne
