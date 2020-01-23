@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,6 +34,9 @@ public class QuestionService {
 	private UserService userService;
 	
 	private static String UPLOAD_DIR = "E://Rizal//Boothcamp//psikotest//src//main//resources//img//";
+	
+	@Value("${upload.folder-dir}")
+	private String paths;
 	
 	public List<Question> getAll(){
 		List<Question> list = qDao.getAll();
@@ -99,7 +103,7 @@ public class QuestionService {
 				String ext = FilenameUtils.getExtension(i.getOriginalFilename());
 				ValExentension(ext);
 				byte[] byteImage = i.getBytes();
-				Path path = Paths.get(UPLOAD_DIR + i.getOriginalFilename());
+				Path path = Paths.get(paths + i.getOriginalFilename());
 				Files.write(path, byteImage);
 				img.add(path.toString());
 			}
@@ -113,32 +117,32 @@ public class QuestionService {
 			
 			//set choiceA
 			byte[] byteA = choiceA.getBytes();
-			Path pathA = Paths.get(UPLOAD_DIR + choiceA.getOriginalFilename());
+			Path pathA = Paths.get(paths + choiceA.getOriginalFilename());
 			Files.write(pathA, byteA);
 			data.setChoiceA(pathA.toString());
 			
 			//set choiceB
 			byte[] byteB = choiceB.getBytes();
-			Path pathB = Paths.get(UPLOAD_DIR + choiceB.getOriginalFilename());
+			Path pathB = Paths.get(paths + choiceB.getOriginalFilename());
 			Files.write(pathB, byteB);
 			data.setChoiceB(pathB.toString());
 			
 			//set choiceC
 			byte[] byteC = choiceC.getBytes();
-			Path pathC = Paths.get(UPLOAD_DIR + choiceC.getOriginalFilename());
+			Path pathC = Paths.get(paths + choiceC.getOriginalFilename());
 			Files.write(pathC, byteC);
 			data.setChoiceC(pathC.toString());
 			
 			//set choiceD
 			byte[] byteD = choiceD.getBytes();
-			Path pathD = Paths.get(UPLOAD_DIR + choiceD.getOriginalFilename());
+			Path pathD = Paths.get(paths + choiceD.getOriginalFilename());
 			Files.write(pathD, byteD);
 			data.setChoiceD(pathD.toString());
 			
 			//set valid answer
 			for (MultipartFile a : ans) {
 				byte[] ansImage = a.getBytes();
-				Path path = Paths.get(UPLOAD_DIR + a.getOriginalFilename());
+				Path path = Paths.get(paths + a.getOriginalFilename());
 				Files.write(path, ansImage);
 				if(answer.getValidAnswer1()==null) {
 					answer.setValidAnswer1(path.toString());
@@ -206,7 +210,7 @@ public class QuestionService {
 				String ext = FilenameUtils.getExtension(i.getOriginalFilename());
 				ValExentension(ext);
 				byte[] byteImage = i.getBytes();
-				Path path = Paths.get(UPLOAD_DIR + i.getOriginalFilename());
+				Path path = Paths.get(paths + i.getOriginalFilename());
 				Files.write(path, byteImage);
 				img.add(path.toString());
 			}
@@ -222,7 +226,7 @@ public class QuestionService {
 			String extA = FilenameUtils.getExtension(choiceA.getOriginalFilename());
 			ValExentension(extA);
 			byte[] byteA = choiceA.getBytes();
-			Path pathA = Paths.get(UPLOAD_DIR + choiceA.getOriginalFilename());
+			Path pathA = Paths.get(paths + choiceA.getOriginalFilename());
 			Files.write(pathA, byteA);
 			data.setChoiceA(pathA.toString());
 			
@@ -230,7 +234,7 @@ public class QuestionService {
 			String extB = FilenameUtils.getExtension(choiceB.getOriginalFilename());
 			ValExentension(extB);
 			byte[] byteB = choiceB.getBytes();
-			Path pathB = Paths.get(UPLOAD_DIR + choiceB.getOriginalFilename());
+			Path pathB = Paths.get(paths + choiceB.getOriginalFilename());
 			Files.write(pathB, byteB);
 			data.setChoiceB(pathB.toString());
 			
@@ -238,7 +242,7 @@ public class QuestionService {
 			String extC = FilenameUtils.getExtension(choiceC.getOriginalFilename());
 			ValExentension(extC);
 			byte[] byteC = choiceC.getBytes();
-			Path pathC = Paths.get(UPLOAD_DIR + choiceC.getOriginalFilename());
+			Path pathC = Paths.get(paths + choiceC.getOriginalFilename());
 			Files.write(pathC, byteC);
 			data.setChoiceC(pathC.toString());
 			
@@ -246,7 +250,7 @@ public class QuestionService {
 			String extD = FilenameUtils.getExtension(choiceD.getOriginalFilename());
 			ValExentension(extD);
 			byte[] byteD = choiceD.getBytes();
-			Path pathD = Paths.get(UPLOAD_DIR + choiceD.getOriginalFilename());
+			Path pathD = Paths.get(paths + choiceD.getOriginalFilename());
 			Files.write(pathD, byteD);
 			data.setChoiceD(pathD.toString());
 			
@@ -255,7 +259,7 @@ public class QuestionService {
 				String extAns = FilenameUtils.getExtension(a.getOriginalFilename());
 				ValExentension(extAns);
 				byte[] ansImage = a.getBytes();
-				Path path = Paths.get(UPLOAD_DIR + a.getOriginalFilename());
+				Path path = Paths.get(paths + a.getOriginalFilename());
 				Files.write(path, ansImage);
 				if(answer.getValidAnswer1()==null) {
 					answer.setValidAnswer1(path.toString());
