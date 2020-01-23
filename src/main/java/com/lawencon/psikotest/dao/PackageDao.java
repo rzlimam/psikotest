@@ -1,7 +1,9 @@
 package com.lawencon.psikotest.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -56,6 +58,14 @@ public class PackageDao extends EntityDao {
 			return null;
 		else 
 			return (Packages)list.get(0);
+	}
+	
+	@Transactional
+	public BigInteger countPackage(String packageId) {
+		Query query  = super.entityManager
+				.createNativeQuery("Select count(*) FROM group2.tbl_m_package");
+		BigInteger count =  (BigInteger) query.getSingleResult(); 
+		return count;
 	}
 
 }

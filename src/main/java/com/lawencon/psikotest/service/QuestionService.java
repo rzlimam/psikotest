@@ -51,11 +51,11 @@ public class QuestionService {
 	
 	public void insert(Question question) throws Exception {
 		try {
-			valIdNull(question);
-			valBkNotNull(question);
-			ValQTExist(question.getQuestionType().getQuestionTypeId());
-			ValUserExist(question.getUser().getUserId());
-			ValNonBk(question);
+//			valIdNull(question);
+//			valBkNotNull(question);
+//			ValQTExist(question.getQuestionType().getQuestionTypeId());
+//			ValUserExist(question.getUser().getUserId());
+//			ValNonBk(question);
 			qDao.save(question);
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -64,10 +64,10 @@ public class QuestionService {
 	
 	public void update(Question question) throws Exception {
 		try {
-			valIdNotNull(question);
-			ValIdExist(question.getQuestionId());
-			valBkNotNull(question);
-			ValNonBk(question);
+//			valIdNotNull(question);
+//			ValIdExist(question.getQuestionId());
+//			valBkNotNull(question);
+//			ValNonBk(question);
 			qDao.save(question);
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
