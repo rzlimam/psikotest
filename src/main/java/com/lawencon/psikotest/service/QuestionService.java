@@ -102,14 +102,14 @@ public class QuestionService {
 		List<String> img = new ArrayList<String>();
 			
 		//create directory
-			Path p = Paths.get(paths);
-			if(!Files.exists(p)) {
-				try {
-					Files.createDirectories(p);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+//			Path p = Paths.get(paths);
+//			if(!Files.exists(p)) {
+//				try {
+//					Files.createDirectories(p);
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
 			
 			for (MultipartFile i : image) {
 				byte[] byteImage = i.getBytes();
