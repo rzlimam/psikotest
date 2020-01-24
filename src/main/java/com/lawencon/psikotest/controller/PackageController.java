@@ -27,8 +27,19 @@ public class PackageController {
 	@Autowired
 	private PackageService packageService;
 	
-	@GetMapping("")
+	@GetMapping("/getAll")
 	public ResponseEntity<?> getAll(){
+		List<Packages> packages = null;
+		try {
+			packages =  packageService.getAll();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(packages);
+	}
+	
+	@GetMapping("")
+	public ResponseEntity<?> getPackage(){
 //		List<Packages> packages = null;
 		List<POJOPackage> packages = null;
 		try {

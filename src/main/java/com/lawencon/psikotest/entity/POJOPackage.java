@@ -2,12 +2,20 @@ package com.lawencon.psikotest.entity;
 
 public class POJOPackage {
 	
+	private String packageId;
 	private String packageName;
 	private String amountOfTime;
 	private Integer totalQuestion;
 	private String questionType;
 	private String description;
 	
+	
+	public String getPackageId() {
+		return packageId;
+	}
+	public void setPackageId(String packageId) {
+		this.packageId = packageId;
+	}
 	public String getPackageName() {
 		return packageName;
 	}

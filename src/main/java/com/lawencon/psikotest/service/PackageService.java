@@ -40,6 +40,7 @@ public class PackageService {
 		List<POJOPackage> packages = new ArrayList<POJOPackage>();
 		for (Packages pack : list) {
 			POJOPackage p = new POJOPackage();
+			p.setPackageId(pack.getPackageId());
 			p.setPackageName(pack.getPackageName());
 			if(pack.getPackageDetails().size() != 0) {
 				p.setQuestionType(pack.getPackageDetails().get(0).getQuestion().getQuestionType().getQuestionTypeTitle());
