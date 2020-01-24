@@ -16,4 +16,8 @@ public class ValidAnswer {
 		this.validAnswer2 = validAnswer2;
 	}
 	
+	
+	
+	
+	
 }
