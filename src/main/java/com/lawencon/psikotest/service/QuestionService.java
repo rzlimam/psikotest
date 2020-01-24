@@ -101,7 +101,7 @@ public class QuestionService {
 		
 		List<String> img = new ArrayList<String>();
 			
-		//create directory
+//		//create directory
 //			Path p = Paths.get(paths);
 //			if(!Files.exists(p)) {
 //				try {

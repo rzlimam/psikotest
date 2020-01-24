@@ -39,6 +39,17 @@ public class PackageController {
 		return ResponseEntity.status(HttpStatus.OK).body(packages);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getById(@PathVariable String id){
+		Packages packages = null;
+		try {
+			packages =  packageService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(packages);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody Packages packages) {
 		try {
