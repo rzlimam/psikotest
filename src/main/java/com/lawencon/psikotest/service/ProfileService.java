@@ -42,9 +42,9 @@ public class ProfileService {
 	public Profile insert(Profile profile) throws Exception {
 		try {
 			valIdNull(profile);
-			valBkNotNull(profile.getEmail(), profile.getPhone());
-			valBkNotExist(profile.getEmail(), profile.getPhone());
-			ValNonBk(profile);
+//			valBkNotNull(profile.getEmail(), profile.getPhone());
+//			valBkNotExist(profile.getEmail(), profile.getPhone());
+//			ValNonBk(profile);
 			return profileDao.save(profile);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -55,9 +55,9 @@ public class ProfileService {
 	public void update(Profile profile) throws Exception {
 		try {
 			valIdNotNull(profile);
-			ValIdExist(profile.getProfileId());
-			valBkNotNull(profile.getEmail(), profile.getPhone());
-			ValNonBk(profile);
+//			ValIdExist(profile.getProfileId());
+//			valBkNotNull(profile.getEmail(), profile.getPhone());
+//			ValNonBk(profile);
 			profileDao.save(profile);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

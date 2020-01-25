@@ -39,8 +39,8 @@ public class HeaderApplicantAnswerService {
 		try {
 			valIdNull(haa);
 			valBkNotNull(haa);
-			valBkNotExist(haa);
-			ValUserExist(haa.getUser().getUserId());
+//			valBkNotExist(haa);
+//			ValUserExist(haa.getUser().getUserId());
 //			ValNonBk(haa);
 			haDao.save(haa);
 		} catch (Exception e) {
@@ -53,8 +53,8 @@ public class HeaderApplicantAnswerService {
 			valIdNotNull(haa);
 			ValIdExist(haa.getApplicantAnswerId());
 			valBkNotNull(haa);
-			ValBkNotChange(haa);
-			ValNonBk(haa);
+//			ValBkNotChange(haa);
+//			ValNonBk(haa);
 			haDao.save(haa);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

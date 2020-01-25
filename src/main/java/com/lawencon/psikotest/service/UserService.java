@@ -104,10 +104,10 @@ public class UserService {
 		try {
 			valIdNull(user);
 			valBkNotNull(user);
-			valBkNotExist(user);
-			ValProfileExist(user.getProfile().getProfileId());
-			ValRoleExist(user.getRole().getRoleId());
-			ValNonBk(user);
+//			valBkNotExist(user);
+//			ValProfileExist(user.getProfile().getProfileId());
+//			ValRoleExist(user.getRole().getRoleId());
+//			ValNonBk(user);
 			userDao.save(user);
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -119,9 +119,9 @@ public class UserService {
 		try {
 			valIdNotNull(user);
 			ValIdExist(user.getUserId());
-			valBkNotNull(user);
-			ValBkNotChange(user);
-			ValNonBk(user);
+//			valBkNotNull(user);
+//			ValBkNotChange(user);
+//			ValNonBk(user);
 			userDao.save(user);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

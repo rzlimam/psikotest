@@ -60,9 +60,9 @@ public class PackageDetailService {
 		try {
 			valIdNull(pd);
 			valBkNotNull(pd);
-			valBkNotExist(pd);
-			ValPackageExist(pd.getPackages().getPackageId());
-			ValQuestionExist(pd.getQuestion().getQuestionId());
+//			valBkNotExist(pd);
+//			ValPackageExist(pd.getPackages().getPackageId());
+//			ValQuestionExist(pd.getQuestion().getQuestionId());
 			pdDao.save(pd);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -73,8 +73,8 @@ public class PackageDetailService {
 		try {
 			valIdNotNull(pd);
 			ValIdExist(pd.getPackageQuestionId());
-			valBkNotNull(pd);
-			ValBkNotChange(pd);
+//			valBkNotNull(pd);
+//			ValBkNotChange(pd);
 			pdDao.save(pd);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

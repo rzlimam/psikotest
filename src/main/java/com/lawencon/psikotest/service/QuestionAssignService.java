@@ -38,10 +38,10 @@ public class QuestionAssignService {
 	public void insert(QuestionAssign qa) throws Exception {
 		try {
 			valIdNull(qa);
-			valBkNotNull(qa);
-			valBkNotExist(qa);
-			ValPackageExist(qa.getPackagee().getPackageId());
-			ValUserExist(qa.getUser().getUserId());
+//			valBkNotNull(qa);
+//			valBkNotExist(qa);
+//			ValPackageExist(qa.getPackagee().getPackageId());
+//			ValUserExist(qa.getUser().getUserId());
 			qaDao.save(qa);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -51,8 +51,8 @@ public class QuestionAssignService {
 	public void update(QuestionAssign qa) throws Exception {
 		try {
 			valIdNotNull(qa);
-			ValIdExist(qa.getAssignQuestionId());
-			valBkNotNull(qa);
+//			ValIdExist(qa.getAssignQuestionId());
+//			valBkNotNull(qa);
 			qaDao.save(qa);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

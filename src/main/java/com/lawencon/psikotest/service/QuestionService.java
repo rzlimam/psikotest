@@ -57,8 +57,9 @@ public class QuestionService {
 	
 	public void insert(Question question) throws Exception {
 		try {
-//			valIdNull(question);
-//			valBkNotNull(question);
+			question.setIsActive(true);
+			valIdNull(question);
+			valBkNotNull(question);
 //			ValQTExist(question.getQuestionType().getQuestionTypeId());
 //			ValUserExist(question.getUser().getUserId());
 //			ValNonBk(question);

@@ -79,7 +79,7 @@ public class DetailApplicantAnswerDao extends EntityDao {
 	@Transactional
 	public BigInteger sumPoint(String appAnswer) {
 		Query query  = super.entityManager
-				.createNativeQuery("Select sum(point) FROM tbl_detail_applicant_answer "
+				.createNativeQuery("Select sum(point) FROM group2.tbl_detail_applicant_answer "
 						+ "WHERE applicant_answer_id = '" + appAnswer + "'");
 		BigInteger count = (BigInteger) query.getSingleResult(); 
 		return count;
@@ -88,10 +88,12 @@ public class DetailApplicantAnswerDao extends EntityDao {
 	@Transactional
 	public BigInteger countQuestion(String appAnswer) {
 		Query query  = super.entityManager
-				.createNativeQuery("Select count(*) FROM tbl_detail_applicant_answer "
+				.createNativeQuery("Select count(*) FROM group2.tbl_detail_applicant_answer "
 						+ "WHERE applicant_answer_id = '" + appAnswer + "'");
 		BigInteger count = (BigInteger) query.getSingleResult(); 
 		return count;
 	}
+	
+	
 
 }

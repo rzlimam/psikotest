@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import com.lawencon.psikotest.dao.DetailApplicantAnswerDao;
+import com.lawencon.psikotest.dao.PackageDetailDao;
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
+import com.lawencon.psikotest.entity.POJOStats;
 import com.lawencon.psikotest.entity.ReportResult;
 
 import net.sf.jasperreports.engine.JRException;
@@ -28,6 +30,10 @@ public class ReportService {
 	
 	@Autowired
 	private DetailApplicantAnswerDao daaDao;
+	
+	@Autowired
+	private PackageDetailDao pdDao;
+	
 	
 	public String exportReport(String reportFormat, String id) throws FileNotFoundException, JRException {
 		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
@@ -55,6 +61,11 @@ public class ReportService {
 			JasperExportManager.exportReportToPdfFile(jasperPrint, path+"\\psikotestResult.pdf");
 		}
 		return "report generated";
+	}
+	
+	public List<POJOStats> questionPerPackage(){
+		List<POJOStats> cs = pdDao.questionPerPackage();
+		return cs;
 	}
 
 }
