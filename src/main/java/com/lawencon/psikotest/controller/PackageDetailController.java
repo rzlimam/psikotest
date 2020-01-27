@@ -37,6 +37,17 @@ public class PackageDetailController {
 		return ResponseEntity.status(HttpStatus.OK).body(pacDetail);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id){
+		PackageDetail pacDetail = null;
+		try {
+			pacDetail =  pacDetailService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(pacDetail);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody List<PackageDetail> packDetail) {
 		try {

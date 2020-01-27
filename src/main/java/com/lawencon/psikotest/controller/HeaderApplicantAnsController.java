@@ -37,6 +37,17 @@ public class HeaderApplicantAnsController {
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id) {
+		HeaderApplicantAnswer list = null;
+		try {
+			list =  haaService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody HeaderApplicantAnswer haa) {
 		try {

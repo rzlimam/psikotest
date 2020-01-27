@@ -51,7 +51,7 @@ public class PackageController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getById(@PathVariable String id){
+	public ResponseEntity<?> findById(@PathVariable String id){
 		Packages packages = null;
 		try {
 			packages =  packageService.findById(id);

@@ -52,6 +52,17 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id){
+		UserList user = null;
+		try {
+			user =  userService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
+	
 	@GetMapping("/candidate")
 	public ResponseEntity<?> getAllCandidate(){
 		List<UserList> user = null;
@@ -64,7 +75,7 @@ public class UserController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> insert(@RequestBody Profile profile) {
+	public ResponseEntity<?> register(@RequestBody Profile profile) {
 		User user = new User();
 		try {
 			String password = userService.getPassword();
@@ -85,7 +96,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> insertUser(@RequestBody User user) {
+	public ResponseEntity<?> insert(@RequestBody User user) {
 		try {
 			userService.insert(user);
 		} catch (Exception e) {

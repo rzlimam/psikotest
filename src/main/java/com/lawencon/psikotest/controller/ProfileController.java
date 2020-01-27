@@ -37,6 +37,17 @@ public class ProfileController {
 		return ResponseEntity.status(HttpStatus.OK).body(profile);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id){
+		Profile profile = null;
+		try {
+			profile =  profileService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(profile);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody Profile profile) {
 		try {

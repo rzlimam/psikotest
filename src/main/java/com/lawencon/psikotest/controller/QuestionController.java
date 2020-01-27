@@ -41,6 +41,17 @@ public class QuestionController {
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id){
+		Question question = null;
+		try {
+			question =  questionService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(question);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody Question question) {
 		try {

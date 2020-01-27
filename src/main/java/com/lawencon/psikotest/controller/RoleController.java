@@ -38,6 +38,17 @@ public class RoleController {
 		return ResponseEntity.status(HttpStatus.OK).body(role);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id){
+		Role role = null;
+		try {
+			role =  roleService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(role);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody Role role) {
 		try {

@@ -37,6 +37,17 @@ public class QuestionTypeController {
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id){
+		QuestionType list = null;
+		try {
+			list =  qtService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody QuestionType qt) {
 		try {

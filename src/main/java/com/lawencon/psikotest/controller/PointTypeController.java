@@ -37,6 +37,17 @@ public class PointTypeController {
 		return ResponseEntity.status(HttpStatus.OK).body(profile);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id){
+		PointForEachType ppt = null;
+		try {
+			ppt =  pptService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(ppt);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody PointForEachType point) {
 		try {

@@ -56,6 +56,17 @@ public class DetailApplicantAnsController {
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id){
+		DetailApplicantAnswer list = null;
+		try {
+			list =  daaService.findById(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody List<DetailApplicantAnswer> daa) {
 		try {
