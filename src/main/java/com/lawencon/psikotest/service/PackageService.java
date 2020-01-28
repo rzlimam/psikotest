@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.PackageDao;
 import com.lawencon.psikotest.dao.PackageDetailDao;
+import com.lawencon.psikotest.dao.QuestionTypeDao;
 import com.lawencon.psikotest.entity.POJOPackage;
 import com.lawencon.psikotest.entity.Packages;
 
@@ -19,6 +20,9 @@ public class PackageService {
 	
 	@Autowired
 	private PackageDetailDao pdDao;
+	
+	@Autowired
+	private QuestionTypeDao qtDao;
 	
 	public List<Packages> getAll(){
 		List<Packages> list = packDao.getAll();
@@ -35,6 +39,11 @@ public class PackageService {
 		return pack;
 	}
 	
+	public List<Packages> findByQT(String qt) {
+		List<Packages> pack = packDao.findByQT(qt);
+		return pack;
+	}
+	
 	public List<POJOPackage> getPackage(){
 		List<Packages> list = packDao.getAll();
 		List<POJOPackage> packages = new ArrayList<POJOPackage>();
@@ -42,9 +51,7 @@ public class PackageService {
 			POJOPackage p = new POJOPackage();
 			p.setPackageId(pack.getPackageId());
 			p.setPackageName(pack.getPackageName());
-			if(pack.getPackageDetails().size() != 0) {
-				p.setQuestionType(pack.getPackageDetails().get(0).getQuestion().getQuestionType().getQuestionTypeTitle());
-			}
+			p.setQuestionType(pack.getQuestionType().getQuestionTypeId());
 			p.setAmountOfTime(pack.getAmountOfTime().toString());
 			p.setDescription(pack.getDescription());
 			if(pack.getPackageDetails().size() != 0) {
@@ -63,6 +70,7 @@ public class PackageService {
 			valIdNull(pack);
 			valBkNotNull(pack);
 			valBkNotExist(pack);
+			QTExist(pack.getQuestionType().getQuestionTypeId());
 			ValNonBk(pack);
 			packDao.save(pack);
 		} catch (Exception e) {
@@ -77,6 +85,7 @@ public class PackageService {
 			ValIdExist(pack.getPackageId());
 			valBkNotNull(pack);
 			ValBkNotChange(pack);
+			QTExist(pack.getQuestionType().getQuestionTypeId());
 			ValNonBk(pack);
 			packDao.save(pack);
 		} catch (Exception e) {
@@ -149,11 +158,17 @@ public class PackageService {
 			}
 			
 			//Id Exist
-			private Exception ValIdExist(String id) throws Exception {
+			private void ValIdExist(String id) throws Exception {
 				if(findById(id)==null) {
 					throw new Exception("Id is not Exist");
 				}
-				return null;
+			}
+			
+			//Question Type Exist
+			private void QTExist(String id) throws Exception {
+				if(qtDao.findById(id)==null) {
+					throw new Exception("Question Type is not Exist");
+				}
 			}
 
 }

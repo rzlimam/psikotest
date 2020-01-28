@@ -52,6 +52,17 @@ public class QuestionController {
 		return ResponseEntity.status(HttpStatus.OK).body(question);
 	}
 	
+	@GetMapping("/questiontype/{id}")
+	public ResponseEntity<?> getQuestion(@PathVariable String id){
+		List<Question> question = null;
+		try {
+			question =  questionService.getQuestion(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(question);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody Question question) {
 		try {

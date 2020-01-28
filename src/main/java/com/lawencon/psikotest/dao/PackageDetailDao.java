@@ -69,6 +69,17 @@ public class PackageDetailDao extends EntityDao {
 			return (PackageDetail)list.get(0);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<PackageDetail> findByPackage(String packageId) {
+		List<PackageDetail> list = super.entityManager
+				.createQuery("From PackageDetail WHERE "
+						+ "packages.packageId=:packageId")
+				.setParameter("packageId", packageId)
+				.getResultList();
+		return list;
+	}
+	
 	@Transactional
 	public BigInteger countQuestion(String packageId) {
 		Query query  = super.entityManager

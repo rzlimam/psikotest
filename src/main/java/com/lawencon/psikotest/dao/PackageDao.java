@@ -24,8 +24,7 @@ public class PackageDao extends EntityDao {
 	
 	@Transactional
 	public Packages save(Packages pack) {
-		return super.entityManager.merge(pack);
-		
+		return super.entityManager.merge(pack);	
 	}
 	
 	@Transactional
@@ -58,6 +57,20 @@ public class PackageDao extends EntityDao {
 			return null;
 		else 
 			return (Packages)list.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Packages> findByQT(String qt) {
+		List<Packages> list = super.entityManager
+				.createQuery("From Packages where "
+						+ "questionType.questionTypeTitle=:qt")
+				.setParameter("qt", qt)
+				.getResultList();
+		if(list.size() == 0)
+			return null;
+		else 
+			return list;
 	}
 	
 	@Transactional

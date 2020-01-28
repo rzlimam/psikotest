@@ -9,12 +9,19 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="tbl_m_package")
@@ -33,6 +40,12 @@ public class Packages {
 	
 	@Column(name="description")
 	private String description;
+	
+	@ManyToOne
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JoinColumn(name = "questionTypeId", nullable = false)
+	private QuestionType questionType;
 	
 	@Column(name="is_active")
 	private Boolean isActive;
@@ -56,14 +69,6 @@ public class Packages {
 		this.packageName = packageName;
 	}
 
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
 	public Integer getAmountOfTime() {
 		return amountOfTime;
 	}
@@ -80,6 +85,22 @@ public class Packages {
 		this.description = description;
 	}
 
+	public QuestionType getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(QuestionType questionType) {
+		this.questionType = questionType;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
 	public List<PackageDetail> getPackageDetails() {
 		return packageDetails;
 	}
@@ -88,5 +109,4 @@ public class Packages {
 		this.packageDetails = packageDetails;
 	}
 
-	
 }

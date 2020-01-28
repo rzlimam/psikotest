@@ -37,6 +37,11 @@ public class PackageDetailService {
 		return pd;
 	}
 	
+	public List<PackageDetail> findByPackage(String id){
+		List<PackageDetail> list = pdDao.findByPackage(id);
+		return list;
+	}
+	
 	public Integer countQuestion(String questionId) {
 		Integer totalQuestion = pdDao.countQuestion(questionId).intValue();
 		return totalQuestion;

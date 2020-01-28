@@ -50,6 +50,11 @@ public class QuestionService {
 		return question;
 	}
 	
+	public List<Question> getQuestion(String qtId) {
+		List<Question> question = qDao.getQuestion(qtId);
+		return question;
+	}
+	
 	public List<Question> findQueston(SearchQuestion sq) {
 		List<Question> question = qDao.findQuestion(sq);
 		return question;

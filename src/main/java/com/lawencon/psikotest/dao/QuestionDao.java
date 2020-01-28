@@ -48,6 +48,17 @@ public class QuestionDao extends EntityDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
+	public List<Question> getQuestion(String qtId) {
+		List<Question> list = super.entityManager
+				.createQuery("From Question WHERE "
+						+ "questionType.questionTypeId=:qtId")
+				.setParameter("qtId", qtId)
+				.getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
 	public Question findByTitle(String search) {
 		List<Question> list = super.entityManager
 				.createQuery("From Question where lower(questionTitle) like "
