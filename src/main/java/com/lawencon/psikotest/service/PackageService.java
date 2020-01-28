@@ -51,7 +51,7 @@ public class PackageService {
 			POJOPackage p = new POJOPackage();
 			p.setPackageId(pack.getPackageId());
 			p.setPackageName(pack.getPackageName());
-			p.setQuestionType(pack.getQuestionType().getQuestionTypeId());
+			p.setQuestionType(pack.getQuestionType().getQuestionTypeTitle());
 			p.setAmountOfTime(pack.getAmountOfTime().toString());
 			p.setDescription(pack.getDescription());
 			if(pack.getPackageDetails().size() != 0) {
