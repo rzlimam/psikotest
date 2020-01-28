@@ -54,7 +54,6 @@ public class PackageService {
 			}
 			
 			packages.add(p);
-			System.out.println(packages.size());
 		}
 		return packages;
 	}

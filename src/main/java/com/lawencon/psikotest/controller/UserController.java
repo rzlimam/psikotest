@@ -123,7 +123,8 @@ public class UserController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("User Deleted");
+		Object obj = "User Deleted";
+		return ResponseEntity.status(HttpStatus.OK).body(obj);
 	}
 
 }

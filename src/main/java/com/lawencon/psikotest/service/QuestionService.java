@@ -114,10 +114,6 @@ public class QuestionService {
 			
 			for (MultipartFile i : image) {
 				byte[] byteImage = i.getBytes();
-				Image pic = new Image();
-				pic.setData(byteImage);
-				pic.setFileName(i.getOriginalFilename());
-				pic.setType(i.getContentType());
 				Path path = Paths.get(paths + i.getOriginalFilename());
 				Files.write(path, byteImage);
 				img.add(path.toString());
@@ -134,40 +130,24 @@ public class QuestionService {
 			
 			//set choiceA
 			byte[] byteA = choiceA.getBytes();
-			Image picA = new Image();
-			picA.setData(byteA);
-			picA.setFileName(choiceA.getOriginalFilename());
-			picA.setType(choiceA.getContentType());
 			Path pathA = Paths.get(paths + choiceA.getOriginalFilename());
 			Files.write(pathA, byteA);
 			data.setChoiceA(pathA.toString());
 			
 			//set choiceB
 			byte[] byteB = choiceA.getBytes();
-			Image picB = new Image();
-			picB.setData(byteB);
-			picB.setFileName(choiceB.getOriginalFilename());
-			picB.setType(choiceB.getContentType());
 			Path pathB = Paths.get(paths + choiceB.getOriginalFilename());
 			Files.write(pathB, byteB);
 			data.setChoiceB(pathB.toString());
 			
 			//set choiceC
 			byte[] byteC = choiceC.getBytes();
-			Image picC = new Image();
-			picC.setData(byteC);
-			picC.setFileName(choiceC.getOriginalFilename());
-			picC.setType(choiceC.getContentType());
 			Path pathC = Paths.get(paths + choiceC.getOriginalFilename());
 			Files.write(pathC, byteC);
 			data.setChoiceC(pathC.toString());
 			
 			//set choiceD
 			byte[] byteD = choiceD.getBytes();
-			Image picD = new Image();
-			picD.setData(byteD);
-			picD.setFileName(choiceD.getOriginalFilename());
-			picD.setType(choiceD.getContentType());
 			Path pathD = Paths.get(paths + choiceD.getOriginalFilename());
 			Files.write(pathD, byteD);
 			data.setChoiceD(pathD.toString());
@@ -175,10 +155,6 @@ public class QuestionService {
 			//set valid answer
 			for (MultipartFile a : ans) {
 				byte[] ansImage = a.getBytes();
-				Image ansImg = new Image();
-				ansImg.setData(ansImage);
-				ansImg.setFileName(a.getOriginalFilename());
-				ansImg.setType(a.getContentType());
 				Path path = Paths.get(paths + a.getOriginalFilename());
 				Files.write(path, ansImage);
 				if(answer.getValidAnswer1()==null) {
@@ -207,131 +183,131 @@ public class QuestionService {
 			question.setDateOfQuestion(date);
 			
 			//save question to database
-//			valIdNull(question);
-//			valBkNotNull(question);
-//			ValQTExist(question.getQuestionType().getQuestionTypeId());
-//			ValUserExist(question.getUser().getUserId());
+			valIdNull(question);
+			valBkNotNull(question);
+			ValQTExist(question.getQuestionType().getQuestionTypeId());
+			ValUserExist(question.getUser().getUserId());
 //			ValNonBk(question);
 			qDao.save(question);
 		
 		return question;
 	}
 	
-//	public Question updateImg(String id,
-//			String questionType,
-//			String questionTitle,
-//			String quest,
-//			MultipartFile[] image,
-//			MultipartFile choiceA,
-//			MultipartFile choiceB,
-//			MultipartFile choiceC,
-//			MultipartFile choiceD,
-//			MultipartFile[] ans,
-//			String userId,
-//			String isActive) throws Exception {
-//		
-//		//find question by id
-//		Question question = findById(id);
-//		
-//		QuestionData data = new QuestionData();
-//		QuestionType qtype = new QuestionType(); 
-//		ValidAnswer answer = new ValidAnswer();
-//		User user = new User();
-//		
-//		List<String> img = new ArrayList<String>();
-//		
-//		try {
-//			for (MultipartFile i : image) {
+	public Question updateImg(String id,
+			String questionType,
+			String questionTitle,
+			String quest,
+			MultipartFile[] image,
+			MultipartFile choiceA,
+			MultipartFile choiceB,
+			MultipartFile choiceC,
+			MultipartFile choiceD,
+			MultipartFile[] ans,
+			String userId,
+			String isActive) throws Exception {
+		
+		//find question by id
+		Question question = findById(id);
+		
+		QuestionData data = new QuestionData();
+		QuestionType qtype = new QuestionType(); 
+		ValidAnswer answer = new ValidAnswer();
+		User user = new User();
+		
+		List<String> img = new ArrayList<String>();
+		
+		try {
+			for (MultipartFile i : image) {
 //				String ext = FilenameUtils.getExtension(i.getOriginalFilename());
 //				ValExentension(ext);
-//				byte[] byteImage = i.getBytes();
-//				Path path = Paths.get(paths + i.getOriginalFilename());
-//				Files.write(path, byteImage);
-//				img.add(path.toString());
-//			}
-//			
-//			//set question type
-//			qtype.setQuestionTypeId(questionType);
-//			
-//			//set question data
-//			data.setQuestion(quest);
-//			data.setQuestionImage(img);
-//			
-//			//set choiceA
+				byte[] byteImage = i.getBytes();
+				Path path = Paths.get(paths + i.getOriginalFilename());
+				Files.write(path, byteImage);
+				img.add(path.toString());
+			}
+			
+			//set question type
+			qtype.setQuestionTypeId(questionType);
+			
+			//set question data
+			data.setQuestion(quest);
+			data.setQuestionImage(img);
+			
+			//set choiceA
 //			String extA = FilenameUtils.getExtension(choiceA.getOriginalFilename());
 //			ValExentension(extA);
-//			byte[] byteA = choiceA.getBytes();
-//			Path pathA = Paths.get(paths + choiceA.getOriginalFilename());
-//			Files.write(pathA, byteA);
-//			data.setChoiceA(pathA.toString());
-//			
-//			//set choiceB
+			byte[] byteA = choiceA.getBytes();
+			Path pathA = Paths.get(paths + choiceA.getOriginalFilename());
+			Files.write(pathA, byteA);
+			data.setChoiceA(pathA.toString());
+			
+			//set choiceB
 //			String extB = FilenameUtils.getExtension(choiceB.getOriginalFilename());
 //			ValExentension(extB);
-//			byte[] byteB = choiceB.getBytes();
-//			Path pathB = Paths.get(paths + choiceB.getOriginalFilename());
-//			Files.write(pathB, byteB);
-//			data.setChoiceB(pathB.toString());
-//			
-//			//set choiceC
+			byte[] byteB = choiceB.getBytes();
+			Path pathB = Paths.get(paths + choiceB.getOriginalFilename());
+			Files.write(pathB, byteB);
+			data.setChoiceB(pathB.toString());
+			
+			//set choiceC
 //			String extC = FilenameUtils.getExtension(choiceC.getOriginalFilename());
 //			ValExentension(extC);
-//			byte[] byteC = choiceC.getBytes();
-//			Path pathC = Paths.get(paths + choiceC.getOriginalFilename());
-//			Files.write(pathC, byteC);
-//			data.setChoiceC(pathC.toString());
-//			
-//			//set choiceD
+			byte[] byteC = choiceC.getBytes();
+			Path pathC = Paths.get(paths + choiceC.getOriginalFilename());
+			Files.write(pathC, byteC);
+			data.setChoiceC(pathC.toString());
+			
+			//set choiceD
 //			String extD = FilenameUtils.getExtension(choiceD.getOriginalFilename());
 //			ValExentension(extD);
-//			byte[] byteD = choiceD.getBytes();
-//			Path pathD = Paths.get(paths + choiceD.getOriginalFilename());
-//			Files.write(pathD, byteD);
-//			data.setChoiceD(pathD.toString());
-//			
-//			//set valid answer
-//			for (MultipartFile a : ans) {
+			byte[] byteD = choiceD.getBytes();
+			Path pathD = Paths.get(paths + choiceD.getOriginalFilename());
+			Files.write(pathD, byteD);
+			data.setChoiceD(pathD.toString());
+			
+			//set valid answer
+			for (MultipartFile a : ans) {
 //				String extAns = FilenameUtils.getExtension(a.getOriginalFilename());
 //				ValExentension(extAns);
-//				byte[] ansImage = a.getBytes();
-//				Path path = Paths.get(paths + a.getOriginalFilename());
-//				Files.write(path, ansImage);
-//				if(answer.getValidAnswer1()==null) {
-//					answer.setValidAnswer1(path.toString());
-//				} else if (answer.getValidAnswer2()==null) {
-//					answer.setValidAnswer2(path.toString());
-//				}
-//			}
-//			
-//			//set user
-//			user.setUserId(userId);
-//			
-//			//set question
-//			question.setQuestionType(qtype);
-//			question.setData(data);
-//			question.setAnswer(answer);
-//			question.setUser(user);
-//			
-//			//set isActive
-//			boolean as = Boolean.parseBoolean(isActive);
-//			question.setIsActive(as);
-//			
-//			//set date of question
-//			Date date = new Date();
-//			question.setDateOfQuestion(date);
-//			
-//			//save question to database
-//			valIdNotNull(question);
-//			ValIdExist(question.getQuestionId());
+				byte[] ansImage = a.getBytes();
+				Path path = Paths.get(paths + a.getOriginalFilename());
+				Files.write(path, ansImage);
+				if(answer.getValidAnswer1()==null) {
+					answer.setValidAnswer1(path.toString());
+				} else if (answer.getValidAnswer2()==null) {
+					answer.setValidAnswer2(path.toString());
+				}
+			}
+			
+			//set user
+			user.setUserId(userId);
+			
+			//set question
+			question.setQuestionType(qtype);
+			question.setData(data);
+			question.setAnswer(answer);
+			question.setUser(user);
+			
+			//set isActive
+			boolean as = Boolean.parseBoolean(isActive);
+			question.setIsActive(as);
+			
+			//set date of question
+			Date date = new Date();
+			question.setDateOfQuestion(date);
+			
+			//save question to database
+			valIdNotNull(question);
+			ValIdExist(question.getQuestionId());
 //			valBkNotNull(question);
 //			ValNonBk(question);
-//			qDao.save(question);
-//		}catch (Exception e) {
-//			throw new Exception(e.getMessage());
-//		}
-//		
-//		return question;
-//	}
+			qDao.save(question);
+		}catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
+		return question;
+	}
 	
 	public void delete(String id) throws Exception {
 		try {

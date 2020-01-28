@@ -104,7 +104,8 @@ public class DetailApplicantAnsController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Deleted");
+		Object obj = "Deleted";
+		return ResponseEntity.status(HttpStatus.OK).body(obj);
 	}
 	
 	@GetMapping("/report/{id}/{format}")
@@ -114,7 +115,8 @@ public class DetailApplicantAnsController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Report Generated");
+		Object obj = "Report generated";
+		return ResponseEntity.status(HttpStatus.OK).body(obj);
 	}
 
 }

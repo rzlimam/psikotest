@@ -75,7 +75,8 @@ public class HeaderApplicantAnsController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Deleted");
+		Object obj = "Deleted";
+		return ResponseEntity.status(HttpStatus.OK).body(obj);
 	}
 
 }

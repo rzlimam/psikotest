@@ -26,10 +26,10 @@ public class PackageDetail {
 	@GenericGenerator(name="UUID", strategy="org.hibernate.id.UUIDGenerator")
 	private String packageQuestionId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "packageId", nullable = false)
-	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	@JsonIgnoreProperties(value = {"packageDetails"})
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "package_id", referencedColumnName = "package_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Packages packages ;
 	
 	@OneToOne

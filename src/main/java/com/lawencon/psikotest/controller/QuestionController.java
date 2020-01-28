@@ -99,30 +99,30 @@ public class QuestionController {
 		return ResponseEntity.status(HttpStatus.OK).body(question);
 	}
 	
-//	@PutMapping("/image")
-//	public ResponseEntity<?> updateImage(@RequestPart String id,
-//			@RequestPart String qt,
-//			@RequestPart String title,
-//			@RequestPart String quest,
-//			@RequestPart MultipartFile[] image,
-//			@RequestPart MultipartFile choiceA,
-//			@RequestPart MultipartFile choiceB,
-//			@RequestPart MultipartFile choiceC,
-//			@RequestPart MultipartFile choiceD,
-//			@RequestPart MultipartFile[] ans,
-//			@RequestPart String userId,
-//			@RequestPart String isActive) {
-//		
-//		Question question;
-//		try {
-//			question = questionService.updateImg(id, qt, title, quest, 
-//					image, choiceA, choiceB, choiceC, choiceD, 
-//					ans, userId, isActive);
-//		} catch (Exception e) {
-//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//		}
-//		return ResponseEntity.status(HttpStatus.OK).body(question);
-//	}
+	@PutMapping("/image")
+	public ResponseEntity<?> updateImage(@RequestPart String id,
+			@RequestPart String qt,
+			@RequestPart String title,
+			@RequestPart String quest,
+			@RequestPart MultipartFile[] image,
+			@RequestPart MultipartFile choiceA,
+			@RequestPart MultipartFile choiceB,
+			@RequestPart MultipartFile choiceC,
+			@RequestPart MultipartFile choiceD,
+			@RequestPart MultipartFile[] ans,
+			@RequestPart String userId,
+			@RequestPart String isActive) {
+		
+		Question question;
+		try {
+			question = questionService.updateImg(id, qt, title, quest, 
+					image, choiceA, choiceB, choiceC, choiceD, 
+					ans, userId, isActive);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(question);
+	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> Delete(@PathVariable String id) {
@@ -131,7 +131,8 @@ public class QuestionController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Deleted");
+		Object obj = "Deleted";
+		return ResponseEntity.status(HttpStatus.OK).body(obj);
 	}
 	
 	@PostMapping("/search")

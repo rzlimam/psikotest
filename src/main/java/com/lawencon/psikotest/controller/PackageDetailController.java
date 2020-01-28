@@ -79,7 +79,8 @@ public class PackageDetailController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Package Detail Deleted");
+		Object obj = "Packages Detail Deleted";
+		return ResponseEntity.status(HttpStatus.OK).body(obj);
 	}
 
 
