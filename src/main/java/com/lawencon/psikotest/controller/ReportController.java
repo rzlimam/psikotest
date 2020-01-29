@@ -21,15 +21,26 @@ public class ReportController {
 	@Autowired
 	private ReportService report;
 	
-	@GetMapping("")
-	public ResponseEntity<?> questionPerPackage(){
-		List<POJOStats> qpp = null;
+	@GetMapping("/report1")
+	public ResponseEntity<?> correctPerPackage(){
+		List<POJOStats> stats = null;
 		try {
-			qpp =  report.questionPerPackage();
+			stats =  report.correctPerPackage();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(qpp);
+		return ResponseEntity.status(HttpStatus.OK).body(stats);
+	}
+	
+	@GetMapping("/report2")
+	public ResponseEntity<?> falsePerPackage(){
+		List<POJOStats> stats = null;
+		try {
+			stats =  report.falsePerPackage();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(stats);
 	}
 
 }

@@ -115,8 +115,10 @@ public class PackageDetailService {
 			
 			//BK not null
 			private Exception valBkNotNull(PackageDetail pd) throws Exception{
-				if(pd.getPackages()==null || pd.getQuestion()==null) {
-					throw new Exception("PackageDetail BK is null");
+				if(pd.getPackages()==null) {
+					throw new Exception("BK (Package) is null");
+				} else if(pd.getQuestion()==null) {
+					throw new Exception("BK (Question) is null");
 				}
 				return null;
 			}

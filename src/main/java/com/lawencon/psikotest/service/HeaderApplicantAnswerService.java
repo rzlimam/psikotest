@@ -92,7 +92,7 @@ public class HeaderApplicantAnswerService {
 		//BK not null
 		private Exception valBkNotNull(HeaderApplicantAnswer haa) throws Exception{
 			if(haa.getUser() == null || haa.getDateOfAnswer()==null) {
-				throw new Exception("BK is null");
+				throw new Exception("Header applicant answer BK is null");
 			}
 			return null;
 		}

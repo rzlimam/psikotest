@@ -63,8 +63,13 @@ public class ReportService {
 		return "report generated";
 	}
 	
-	public List<POJOStats> questionPerPackage(){
-		List<POJOStats> cs = pdDao.questionPerPackage();
+	public List<POJOStats> correctPerPackage(){
+		List<POJOStats> cs = pdDao.correctPerPackage();
+		return cs;
+	}
+	
+	public List<POJOStats> falsePerPackage(){
+		List<POJOStats> cs = pdDao.falsePerPackage();
 		return cs;
 	}
 
