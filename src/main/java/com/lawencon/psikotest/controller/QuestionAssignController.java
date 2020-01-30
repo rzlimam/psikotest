@@ -48,6 +48,17 @@ public class QuestionAssignController {
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 	
+	@GetMapping("/user/{id}")
+	public ResponseEntity<?> findByUser(@PathVariable String id){
+		List<QuestionAssign> list = null;
+		try {
+			list =  qaService.findByUser(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody List<QuestionAssign> questionassign) {
 		try {

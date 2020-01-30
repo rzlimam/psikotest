@@ -64,7 +64,7 @@ public class PackageDao extends EntityDao {
 	public List<Packages> findByQT(String qt) {
 		List<Packages> list = super.entityManager
 				.createQuery("From Packages where "
-						+ "questionType.questionTypeTitle=:qt")
+						+ "questionType.questionTypeTitle = :qt")
 				.setParameter("qt", qt)
 				.getResultList();
 		if(list.size() == 0)

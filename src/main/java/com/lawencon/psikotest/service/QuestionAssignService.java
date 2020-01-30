@@ -35,6 +35,11 @@ public class QuestionAssignService {
 		return qa;
 	}
 	
+	public List<QuestionAssign> findByUser(String userId){
+		List<QuestionAssign> list = qaDao.findByUser(userId);
+		return list;
+	}
+	
 	public void insert(QuestionAssign qa) throws Exception {
 		try {
 			valIdNull(qa);

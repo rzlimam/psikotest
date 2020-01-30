@@ -61,11 +61,11 @@ public class PackageController {
 		return ResponseEntity.status(HttpStatus.OK).body(packages);
 	}
 	
-	@GetMapping("/questiontype/{id}")
-	public ResponseEntity<?> findByQT(@PathVariable String id){
+	@GetMapping("/questiontype/{questiontitle}")
+	public ResponseEntity<?> findByQT(@PathVariable String questiontitle){
 		List<Packages> packages = null;
 		try {
-			packages =  packageService.findByQT(id);
+			packages =  packageService.findByQT(questiontitle);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

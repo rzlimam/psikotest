@@ -58,5 +58,19 @@ public class QuestionAssignDao extends EntityDao {
 		else 
 			return (QuestionAssign)list.get(0);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<QuestionAssign> findByUser(String userId) {
+		List<QuestionAssign> list = super.entityManager
+				.createQuery("From QuestionAssign where"
+						+ " user_id =: userId")
+				.setParameter("userId", userId)
+				.getResultList();
+		if(list.size() == 0)
+			return null;
+		else 
+			return list;
+	}
 
 }
