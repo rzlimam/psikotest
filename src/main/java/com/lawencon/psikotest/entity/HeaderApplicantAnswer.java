@@ -1,13 +1,17 @@
 package com.lawencon.psikotest.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -41,6 +45,9 @@ public class HeaderApplicantAnswer {
 	
 	@Column(name="status")
 	private String status;
+	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "headerApplicantAnswer", fetch = FetchType.LAZY)
+	private List<DetailApplicantAnswer> detailAppAnswers;
 
 	public String getApplicantAnswerId() {
 		return applicantAnswerId;
@@ -93,6 +100,16 @@ public class HeaderApplicantAnswer {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public List<DetailApplicantAnswer> getDetailAppAnswers() {
+		return detailAppAnswers;
+	}
+
+	public void setDetailAppAnswers(List<DetailApplicantAnswer> detailAppAnswers) {
+		this.detailAppAnswers = detailAppAnswers;
+	}
+	
+	
 	
 
 }

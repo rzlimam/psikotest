@@ -38,6 +38,11 @@ public class DetailApplicantAnswerService {
 		return daa;
 	}
 	
+	public List<DetailApplicantAnswer> findByHAA(String id){
+		List<DetailApplicantAnswer> list = detailaaDao.findByHAA(id);
+		return list;
+	}
+	
 	public BigInteger sumPoint(String aaId) {
 		BigInteger daa = detailaaDao.sumPoint(aaId);
 		return daa;

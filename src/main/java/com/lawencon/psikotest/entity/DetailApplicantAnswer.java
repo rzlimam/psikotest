@@ -26,10 +26,10 @@ public class DetailApplicantAnswer {
 	@GenericGenerator(name="UUID", strategy="org.hibernate.id.UUIDGenerator")
 	private String detailAnswerId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JsonIgnoreProperties(value = {"detailAppAnswers"})
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "applicantAnswerId", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private HeaderApplicantAnswer headerApplicantAnswer;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
