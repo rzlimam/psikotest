@@ -18,22 +18,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="tbl_tr_question_assign")
 public class QuestionAssign {
+	
 	@Id
 	@Column(name="assign_question_id")
 	@GeneratedValue(generator="UUID")
 	@GenericGenerator(name="UUID", strategy="org.hibernate.id.UUIDGenerator")
 	private String AssignQuestionId;
 	
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "userId", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JsonIgnoreProperties(value = {"packageDetails"})
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "packageId", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Packages packagee;
 
 	public String getAssignQuestionId() {
@@ -59,11 +60,6 @@ public class QuestionAssign {
 	public void setPackagee(Packages packagee) {
 		this.packagee = packagee;
 	}
-	
-	
-	
 
-	
-	
 	
 }
