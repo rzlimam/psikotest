@@ -1,6 +1,7 @@
 package com.lawencon.psikotest.service;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,8 +12,11 @@ import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lawencon.psikotest.dao.QuestionDao;
 import com.lawencon.psikotest.entity.Image;
@@ -22,6 +26,7 @@ import com.lawencon.psikotest.entity.QuestionType;
 import com.lawencon.psikotest.entity.SearchQuestion;
 import com.lawencon.psikotest.entity.User;
 import com.lawencon.psikotest.entity.ValidAnswer;
+import com.lawencon.psikotest.exception.MyFileNotFoundException;
 
 @Service
 public class QuestionService {
@@ -38,7 +43,7 @@ public class QuestionService {
 //	private static String paths = "E:\\Rizal\\Boothcamp\\psikotest\\src\\main\\resources\\img\\";
 	
 	@Value("${upload.folder-dir}")
-	private String paths;
+	private Path paths;
 	
 	public List<Question> getAll(){
 		List<Question> list = qDao.getAll();
@@ -121,7 +126,12 @@ public class QuestionService {
 				byte[] byteImage = i.getBytes();
 				Path path = Paths.get(paths + i.getOriginalFilename());
 				Files.write(path, byteImage);
-				img.add(path.toString());
+				
+				String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+		                .path("/download/image/")
+		                .path(i.getOriginalFilename())
+		                .toUriString();
+				img.add(fileDownloadUri);
 			}
 		
 			
@@ -137,24 +147,40 @@ public class QuestionService {
 			byte[] byteA = choiceA.getBytes();
 			Path pathA = Paths.get(paths + choiceA.getOriginalFilename());
 			Files.write(pathA, byteA);
-			data.setChoiceA(pathA.toString());
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+	                .path("/download/image/")
+	                .path(choiceA.getOriginalFilename())
+	                .toUriString();
+			data.setChoiceA(fileDownloadUri);
 			
 			//set choiceB
 			byte[] byteB = choiceA.getBytes();
 			Path pathB = Paths.get(paths + choiceB.getOriginalFilename());
 			Files.write(pathB, byteB);
+			fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+	                .path("/download/image/")
+	                .path(choiceB.getOriginalFilename())
+	                .toUriString();
 			data.setChoiceB(pathB.toString());
 			
 			//set choiceC
 			byte[] byteC = choiceC.getBytes();
 			Path pathC = Paths.get(paths + choiceC.getOriginalFilename());
 			Files.write(pathC, byteC);
+			fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+	                .path("/download/image/")
+	                .path(choiceC.getOriginalFilename())
+	                .toUriString();
 			data.setChoiceC(pathC.toString());
 			
 			//set choiceD
 			byte[] byteD = choiceD.getBytes();
 			Path pathD = Paths.get(paths + choiceD.getOriginalFilename());
 			Files.write(pathD, byteD);
+			fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+	                .path("/download/image/")
+	                .path(choiceD.getOriginalFilename())
+	                .toUriString();
 			data.setChoiceD(pathD.toString());
 			
 			//set valid answer
@@ -162,10 +188,14 @@ public class QuestionService {
 				byte[] ansImage = a.getBytes();
 				Path path = Paths.get(paths + a.getOriginalFilename());
 				Files.write(path, ansImage);
+				fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+		                .path("/download/image/")
+		                .path(a.getOriginalFilename())
+		                .toUriString();
 				if(answer.getValidAnswer1()==null) {
-					answer.setValidAnswer1(path.toString());
+					answer.setValidAnswer1(fileDownloadUri);
 				} else if (answer.getValidAnswer2()==null) {
-					answer.setValidAnswer2(path.toString());
+					answer.setValidAnswer2(fileDownloadUri);
 				}
 			}
 			
@@ -322,6 +352,20 @@ public class QuestionService {
 			throw new Exception(e.getMessage());
 		}
 	}
+	
+	 public Resource loadFileAsResource(String fileName) {
+	        try {
+	            Path filePath = paths.resolve(fileName).normalize();
+	            Resource resource = new UrlResource(filePath.toUri());
+	            if(resource.exists()) {
+	                return resource;
+	            } else {
+	                throw new MyFileNotFoundException("File not found " + fileName);
+	            }
+	        } catch (MalformedURLException ex) {
+	            throw new MyFileNotFoundException("File not found " + fileName, ex);
+	        }
+	    }
 	
 	//Validasi
 	
