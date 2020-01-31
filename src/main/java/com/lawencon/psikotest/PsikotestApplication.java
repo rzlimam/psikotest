@@ -8,6 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"com.lawencon.psikotest.dao",

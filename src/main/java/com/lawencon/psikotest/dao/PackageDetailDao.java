@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.psikotest.entity.POJOStats;
+import com.lawencon.psikotest.entity.POJOStats1;
 import com.lawencon.psikotest.entity.PackageDetail;
 import com.lawencon.psikotest.entity.Packages;
 
@@ -210,6 +211,78 @@ public class PackageDetailDao extends EntityDao {
 			}
 			
 		}
+		return stats;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<POJOStats1> mostCorrect() {
+		List<POJOStats1> stats = new ArrayList<POJOStats1>();
+			Query queryQuestion  = super.entityManager
+					.createNativeQuery("select q.question_title"
+							+ " from group2.tbl_m_package_detail pd" 
+							+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
+							+ " join group2.tbl_detail_applicant_answer daa on pd.package_question_id = daa.package_question_id"
+							+ " where daa.point <> 0"
+							+ " group by q.question_title"
+							+ " order by count(daa.point) desc"
+							+ " limit 10");
+			List<String> question = queryQuestion.getResultList();
+			
+			Query queryPoint  = super.entityManager
+					.createNativeQuery("select count(daa.point)"
+							+ " from group2.tbl_m_package_detail pd" 
+							+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
+							+ " join group2.tbl_detail_applicant_answer daa on pd.package_question_id = daa.package_question_id"
+							+ " where daa.point <> 0"
+							+ " group by q.question_title"
+							+ " order by count(daa.point) desc"
+							+ " limit 10");
+			List<BigInteger> point = queryPoint.getResultList();
+			
+			for(int i=0; i<question.size(); i++) {
+				POJOStats1 cs = new POJOStats1();
+				cs.setQuestion(question.get(i));
+				cs.setCorrect(point.get(i).intValue());
+				stats.add(cs);
+			}
+		
+		return stats;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<POJOStats1> mostFalse() {
+		List<POJOStats1> stats = new ArrayList<POJOStats1>();
+			Query queryQuestion  = super.entityManager
+					.createNativeQuery("select q.question_title"
+							+ " from group2.tbl_m_package_detail pd" 
+							+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
+							+ " join group2.tbl_detail_applicant_answer daa on pd.package_question_id = daa.package_question_id"
+							+ " where daa.point = 0"
+							+ " group by q.question_title"
+							+ " order by count(daa.point) desc"
+							+ " limit 10");
+			List<String> question = queryQuestion.getResultList();
+			
+			Query queryPoint  = super.entityManager
+					.createNativeQuery("select count(daa.point)"
+							+ " from group2.tbl_m_package_detail pd" 
+							+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
+							+ " join group2.tbl_detail_applicant_answer daa on pd.package_question_id = daa.package_question_id"
+							+ " where daa.point = 0"
+							+ " group by q.question_title"
+							+ " order by count(daa.point) desc"
+							+ " limit 10");
+			List<BigInteger> point = queryPoint.getResultList();
+			
+			for(int i=0; i<question.size(); i++) {
+				POJOStats1 cs = new POJOStats1();
+				cs.setQuestion(question.get(i));
+				cs.setCorrect(point.get(i).intValue());
+				stats.add(cs);
+			}
+		
 		return stats;
 	}
 
