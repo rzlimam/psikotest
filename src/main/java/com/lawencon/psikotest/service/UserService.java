@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.UserDao;
@@ -11,7 +14,7 @@ import com.lawencon.psikotest.entity.User;
 import com.lawencon.psikotest.entity.UserList;
 
 @Service("userService")
-public class UserService {
+public class UserService implements UserDetailsService {
 	
 	@Autowired
 	private UserDao userDao;
@@ -21,6 +24,15 @@ public class UserService {
 	
 	@Autowired
 	private RoleService roleService;
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = findByEmail(username);
+		if (user == null) {
+			throw new UsernameNotFoundException("User not found with username: " + username);
+		} 
+		return new org.springframework.security.core.userdetails.User(user.getProfile().getEmail(), user.getPassword(), new ArrayList<>());
+	}
 	
 	public UserList findById(String id) {
 		User account = userDao.findById(id);
@@ -70,14 +82,14 @@ public class UserService {
 		return user;
 	}
 	
-	public UserList findByEmail(String email) {
+	public User findByEmail(String email) {
 		User account = userDao.findEmail(email);
 		UserList user = new UserList();
 		user.setUserId(account.getUserId());
 		user.setProfile(account.getProfile());
 		user.setRole(account.getRole());
 		user.setActive(account.getIsActive());
-		return user;
+		return account;
 	}
 	
 	public UserList login(String email, String password) throws Exception {
