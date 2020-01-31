@@ -53,7 +53,6 @@ public class LoginController {
 		User user = new User();
 		List<Object> session = new ArrayList<Object>();
 		user = userService.findByEmail(account.get("username"));
-		user.setPassword(encrypt.encode(user.getPassword()));
 		session.add(user);
 		
 		authenticate(account.get("username"), account.get("password"));
