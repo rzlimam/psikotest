@@ -15,7 +15,7 @@
 			<staticText>
 				<reportElement x="174" y="24" width="214" height="30" uuid="c68621ae-196e-4a65-8e2d-e02bd6e3c505"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="20" isBold="true"/>
+					<font size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Result Psikostest]]></text>
 			</staticText>
@@ -34,7 +34,7 @@
 			<staticText>
 				<reportElement x="170" y="2" width="214" height="30" uuid="d079873f-db25-41a8-a82e-cb1e5e661c03"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="14" isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[The Easiest Question]]></text>
 			</staticText>
