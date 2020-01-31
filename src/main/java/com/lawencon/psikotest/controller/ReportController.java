@@ -110,7 +110,7 @@ public class ReportController {
 	public ResponseEntity<?> mostFalse(@PathVariable String format, HttpServletRequest request) 
 			throws JRException, IOException{
 		
-		String fileName = report.falsePerPackage(format);
+		String fileName = report.mostFalse(format);
 		
 		// Load file as Resource
         Resource resource = report.loadFileAsResource(fileName);
