@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = findByEmail(username);
+		User user = userDao.findEmail(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		} 
@@ -87,14 +87,14 @@ public class UserService implements UserDetailsService {
 		return user;
 	}
 	
-	public User findByEmail(String email) {
+	public UserList findByEmail(String email) {
 		User account = userDao.findEmail(email);
 		UserList user = new UserList();
 		user.setUserId(account.getUserId());
 		user.setProfile(account.getProfile());
 		user.setRole(account.getRole());
 		user.setActive(account.getIsActive());
-		return account;
+		return user;
 	}
 	
 	public UserList login(String email, String password) throws Exception {

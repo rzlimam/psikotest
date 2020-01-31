@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lawencon.psikotest.config.JwtTokenUtil;
 import com.lawencon.psikotest.entity.JwtResponse;
 import com.lawencon.psikotest.entity.User;
+import com.lawencon.psikotest.entity.UserList;
 import com.lawencon.psikotest.service.UserService;
 
 @RestController
@@ -50,7 +51,7 @@ public class LoginController {
 //		}
 //		
 //		return ResponseEntity.status(HttpStatus.OK).body(user);
-		User user = new User();
+		UserList user = new UserList();
 		List<Object> session = new ArrayList<Object>();
 		user = userService.findByEmail(account.get("username"));
 		session.add(user);
