@@ -59,39 +59,75 @@ public class ReportController {
 	}
 	
 	@GetMapping("/report2/{format}")
-	public ResponseEntity<?> falsePerPackage(@PathVariable String format){
+	public ResponseEntity<?> falsePerPackage(@PathVariable String format, HttpServletRequest request) 
+			throws JRException, IOException{
 		
-		try {
-			report.falsePerPackage(format);
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-		}
-		Object obj = "Report generated";
-		return ResponseEntity.status(HttpStatus.OK).body(obj);
+		String fileName = report.falsePerPackage(format);
+		
+		// Load file as Resource
+        Resource resource = report.loadFileAsResource(fileName);
+
+        // Try to determine file's content type
+        String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        
+
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
 	}
 	
 	@GetMapping("/report3/{format}")
-	public ResponseEntity<?> mostCorrect(@PathVariable String format){
+	public ResponseEntity<?> mostCorrect(@PathVariable String format, HttpServletRequest request) 
+			throws JRException, IOException{
 		
-		try {
-			report.mostCorrect(format);
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-		}
-		Object obj = "Report generated";
-		return ResponseEntity.status(HttpStatus.OK).body(obj);
+		String fileName = report.mostCorrect(format);
+		
+		// Load file as Resource
+        Resource resource = report.loadFileAsResource(fileName);
+
+        // Try to determine file's content type
+        String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        
+
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
 	}
 	
 	@GetMapping("/report4/{format}")
-	public ResponseEntity<?> mostFalse(@PathVariable String format){
+	public ResponseEntity<?> mostFalse(@PathVariable String format, HttpServletRequest request) 
+			throws JRException, IOException{
 		
-		try {
-			report.mostFalse(format);
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-		}
-		Object obj = "Report generated";
-		return ResponseEntity.status(HttpStatus.OK).body(obj);
+		String fileName = report.falsePerPackage(format);
+		
+		// Load file as Resource
+        Resource resource = report.loadFileAsResource(fileName);
+
+        // Try to determine file's content type
+        String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        
+
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
 	}
 
 }

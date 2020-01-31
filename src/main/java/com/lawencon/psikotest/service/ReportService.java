@@ -195,7 +195,7 @@ public class ReportService {
 		return fileName;
 	}
 	
-	public void mostFalse(String reportFormat) throws FileNotFoundException, JRException {
+	public String mostFalse(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
 		List<POJOStats1> packages = pdDao.mostFalse();
 		List<POJOStats1> report = new ArrayList<POJOStats1>();
@@ -211,14 +211,17 @@ public class ReportService {
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
 		Map<String, Object> parameter = new HashMap<>();
 		parameter.put("createdBy", "Rizal");
+		String fileName = null;
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
 		if(reportFormat.equalsIgnoreCase("html")) {
 			JasperExportManager.exportReportToHtmlFile(jasperPrint, fileStorage.toString()+"/HardestQuestion.html");
+			fileName = "HardestQuestion.html";
 		}
 		if(reportFormat.equalsIgnoreCase("pdf")) {
 			JasperExportManager.exportReportToPdfFile(jasperPrint, fileStorage.toString()+"/HardestQuestion.pdf");
+			fileName = "HardestQuestion.pdf";
 		}
-		
+		return fileName;
 	}
 
 }
