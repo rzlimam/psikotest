@@ -98,14 +98,15 @@ public class ReportService {
 	
 	public String correctPerPackage(String reportFormat) throws FileNotFoundException, JRException {
 		//create directory
-		Path p = Paths.get(fileStorage.toString());
-		if(!Files.exists(p)) {
-			try {
-				Files.createDirectories(p);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+//		Path p = Paths.get(fileStorage.toString());
+//		if(!Files.exists(p)) {
+//			try {
+//				Files.createDirectories(p);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		
 		List<POJOStats> packages = pdDao.correctPerPackage();
 		List<POJOStats> report = new ArrayList<POJOStats>();
 		for (POJOStats pack : packages) {
