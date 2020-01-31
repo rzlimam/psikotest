@@ -11,6 +11,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,9 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PasswordEncoder encrypt;
+	
 	@PostMapping("")
 	public ResponseEntity<?> insertUser(@RequestBody Map<String, String> account) throws Exception {
 //		UserList user;
@@ -46,10 +50,11 @@ public class LoginController {
 //		}
 //		
 //		return ResponseEntity.status(HttpStatus.OK).body(user);
-		Object obj = new Object();
+		User user = new User();
 		List<Object> session = new ArrayList<Object>();
-		obj = userService.findByEmail(account.get("username"));
-		session.add(obj);
+		user = userService.findByEmail(account.get("username"));
+		user.setPassword(encrypt.encode(user.getPassword()));
+		session.add(user);
 		
 		authenticate(account.get("username"), account.get("password"));
 		
