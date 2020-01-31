@@ -39,7 +39,9 @@ public class QuestionTypeDao extends EntityDao {
 	@Transactional
 	public List<QuestionType> getAll() {
 		List<QuestionType> list = super.entityManager
-				.createQuery("From QuestionType")
+				.createQuery("From QuestionType WHERE "
+						+ "isActive = :isActive")
+				.setParameter("isActive", true)
 				.getResultList();
 		return list;
 	}

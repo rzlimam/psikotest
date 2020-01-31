@@ -21,7 +21,7 @@ import net.sf.jasperreports.engine.JRException;
 
 @RestController
 @RequestMapping("/download")
-@CrossOrigin
+@CrossOrigin("*")
 public class FileController {
 	
 	@Autowired

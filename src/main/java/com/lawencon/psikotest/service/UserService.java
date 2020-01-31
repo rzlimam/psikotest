@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.UserDao;
@@ -25,13 +26,17 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private RoleService roleService;
 	
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = findByEmail(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		} 
-		return new org.springframework.security.core.userdetails.User(user.getProfile().getEmail(), user.getPassword(), new ArrayList<>());
+		String password = bcryptEncoder.encode(user.getPassword());
+		return new org.springframework.security.core.userdetails.User(user.getProfile().getEmail(), password, new ArrayList<>());
 	}
 	
 	public UserList findById(String id) {
@@ -144,7 +149,9 @@ public class UserService implements UserDetailsService {
 	public void deleteUser(String id)throws Exception {
 		try {
 			ValIdExist(id);
-			userDao.delete(id);
+			User user = userDao.findById(id);
+			user.setIsActive(false);
+			userDao.save(user);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

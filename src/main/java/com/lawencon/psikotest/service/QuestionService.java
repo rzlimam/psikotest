@@ -154,14 +154,14 @@ public class QuestionService {
 			data.setChoiceA(fileDownloadUri);
 			
 			//set choiceB
-			byte[] byteB = choiceA.getBytes();
+			byte[] byteB = choiceB.getBytes();
 			Path pathB = Paths.get(paths + choiceB.getOriginalFilename());
 			Files.write(pathB, byteB);
 			fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
 	                .path("/download/image/")
 	                .path(choiceB.getOriginalFilename())
 	                .toUriString();
-			data.setChoiceB(pathB.toString());
+			data.setChoiceB(fileDownloadUri);
 			
 			//set choiceC
 			byte[] byteC = choiceC.getBytes();
@@ -171,7 +171,7 @@ public class QuestionService {
 	                .path("/download/image/")
 	                .path(choiceC.getOriginalFilename())
 	                .toUriString();
-			data.setChoiceC(pathC.toString());
+			data.setChoiceC(fileDownloadUri);
 			
 			//set choiceD
 			byte[] byteD = choiceD.getBytes();
@@ -181,7 +181,7 @@ public class QuestionService {
 	                .path("/download/image/")
 	                .path(choiceD.getOriginalFilename())
 	                .toUriString();
-			data.setChoiceD(pathD.toString());
+			data.setChoiceD(fileDownloadUri);
 			
 			//set valid answer
 			for (MultipartFile a : ans) {
@@ -347,7 +347,9 @@ public class QuestionService {
 	public void delete(String id) throws Exception {
 		try {
 			ValIdExist(id);
-			qDao.delete(id);
+			Question question = qDao.findById(id);
+			question.setIsActive(false);
+			qDao.save(question);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

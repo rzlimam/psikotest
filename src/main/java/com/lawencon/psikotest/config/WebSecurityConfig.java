@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 		"/haa", "/haa/*", "/haa/*/*",
                 		"/daa", "/daa/*", "/daa/*/*",
                 		"/questionassign","/questionassign/*","/questionassign/*/*",
-                		"/report/*/*", "download/*/*").permitAll().
+                		"/report/*/*", "download/image/*").permitAll().
 
         anyRequest().authenticated().and().
 
