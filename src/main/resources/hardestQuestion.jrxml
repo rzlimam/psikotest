@@ -6,6 +6,8 @@
 	</field>
 	<field name="correct" class="java.lang.Integer">
 	</field>
+	<field name="percentage" class="java.lang.Double">
+	</field>
 	
 	<background>
 		<band splitType="Stretch"/>
@@ -122,7 +124,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{percentage}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
