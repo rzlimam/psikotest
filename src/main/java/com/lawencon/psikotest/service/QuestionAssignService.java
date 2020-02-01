@@ -93,7 +93,7 @@ public class QuestionAssignService {
 			
 			//BK not null
 			private Exception valBkNotNull(QuestionAssign qa) throws Exception{
-				if(qa.getPackagee()==null || qa.getPackagee().getPackageId().trim().equals("")) {
+				if(qa.getPackages()==null || qa.getPackages().getPackageId().trim().equals("")) {
 					throw new Exception("Package is null");
 				} else if(qa.getUser()==null || qa.getUser().getUserId().trim().equals("")) {
 					throw new Exception("User is null");

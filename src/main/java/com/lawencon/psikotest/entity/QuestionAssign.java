@@ -31,11 +31,11 @@ public class QuestionAssign {
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private User user;
 	
-	@JsonIgnoreProperties(value = {"packageDetails"})
+//	@JsonIgnoreProperties(value = {"packageDetails"})
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "packageId", nullable = false)
+	@JoinColumn(name = "packageId", referencedColumnName = "package_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	private Packages packagee;
+	private Packages packages;
 
 	public String getAssignQuestionId() {
 		return AssignQuestionId;
@@ -53,12 +53,12 @@ public class QuestionAssign {
 		this.user = user;
 	}
 
-	public Packages getPackagee() {
-		return packagee;
+	public Packages getPackages() {
+		return packages;
 	}
 
-	public void setPackagee(Packages packagee) {
-		this.packagee = packagee;
+	public void setPackages(Packages packages) {
+		this.packages = packages;
 	}
 
 	

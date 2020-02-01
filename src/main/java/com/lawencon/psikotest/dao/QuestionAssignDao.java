@@ -50,7 +50,7 @@ public class QuestionAssignDao extends EntityDao {
 		List<QuestionAssign> list = super.entityManager
 				.createQuery("From QuestionAssign where package_id=:packageId "
 						+ "and user_id=:userId")
-				.setParameter("packageId", qa.getPackagee().getPackageId())
+				.setParameter("packageId", qa.getPackages().getPackageId())
 				.setParameter("userId", qa.getUser().getUserId())
 				.getResultList();
 		if(list.size() == 0)
