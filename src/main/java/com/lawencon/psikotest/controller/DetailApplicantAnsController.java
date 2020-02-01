@@ -104,7 +104,8 @@ public class DetailApplicantAnsController {
 			User user = new User();
 			user.setUserId(id);
 			header.setUser(user);
-			header.setDateOfAnswer(new Date());
+			Date date = new Date();
+			header.setDateOfAnswer(date);
 			haaService.insert(header);
 			for (DetailApplicantAnswer d : daa) {
 				//insert data to database
