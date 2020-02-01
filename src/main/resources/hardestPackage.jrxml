@@ -1,39 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="075b4846-ae47-46e3-9c1a-dba7aabd382e">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
-	<queryString language="SQL">
-		<![CDATA[SELECT * FROM ORDERS]]>
-	</queryString>
-	<field name="ORDERID" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="ORDERID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ORDERS"/>
+	
+	<field name="packageName" class="java.lang.String">
 	</field>
-	<field name="CUSTOMERID" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="CUSTOMERID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ORDERS"/>
+	<field name="correct" class="java.lang.Integer">
 	</field>
-	<field name="EMPLOYEEID" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="EMPLOYEEID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ORDERS"/>
-	</field>
-	<field name="ORDERDATE" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="ORDERDATE"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ORDERS"/>
-	</field>
-	<group name="ORDERID">
-		<groupExpression><![CDATA[$F{ORDERID}]]></groupExpression>
-	</group>
-	<group name="CUSTOMERID">
-		<groupExpression><![CDATA[$F{CUSTOMERID}]]></groupExpression>
-	</group>
-	<group name="EMPLOYEEID">
-		<groupExpression><![CDATA[$F{EMPLOYEEID}]]></groupExpression>
-	</group>
-	<group name="ORDERDATE">
-		<groupExpression><![CDATA[$F{ORDERDATE}]]></groupExpression>
-	</group>
+	
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -42,7 +15,7 @@
 			<staticText>
 				<reportElement x="156" y="24" width="250" height="30" uuid="2861a48d-4643-4d08-9ba3-9feed9bfa391"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="&#xD;&#xA;SansSerif" size="20" isBold="true"/>
+					<font size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Result Psikostest]]></text>
 			</staticText>
@@ -66,7 +39,7 @@
 			<staticText>
 				<reportElement x="125" y="7" width="310" height="30" uuid="4b7dc4ff-36c4-4537-94ad-752efc87de30"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="&#xD;&#xA;SansSerif" size="14" isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[The Hardest Package]]></text>
 			</staticText>
@@ -85,7 +58,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[ORDERID]]></text>
+				<text><![CDATA[Package Name]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="279" y="0" width="200" height="30" uuid="1e6e91ad-5960-4b5f-9b34-1e85f180e132">
@@ -98,7 +71,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[ORDERDATE]]></text>
+				<text><![CDATA[Correct]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -113,7 +86,7 @@
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{ORDERID}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{packageName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="279" y="0" width="199" height="30" uuid="030390ee-a9c0-4277-af42-89ae94bf6895">
@@ -124,7 +97,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{ORDERDATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{correct}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
