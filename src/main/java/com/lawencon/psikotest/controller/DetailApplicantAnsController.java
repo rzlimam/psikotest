@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
 import com.lawencon.psikotest.entity.HeaderApplicantAnswer;
+import com.lawencon.psikotest.entity.User;
 import com.lawencon.psikotest.service.DetailApplicantAnswerService;
 import com.lawencon.psikotest.service.HeaderApplicantAnswerService;
 import com.lawencon.psikotest.service.PackageDetailService;
@@ -96,13 +97,18 @@ public class DetailApplicantAnsController {
 		return ResponseEntity.status(HttpStatus.OK).body(daa);
 	}
 	
-	@PostMapping("/insert")
-	public ResponseEntity<?> insert(@RequestBody List<DetailApplicantAnswer> daa, HeaderApplicantAnswer header) {
+	@PostMapping("/insert/{id}")
+	public ResponseEntity<?> insert(@RequestBody List<DetailApplicantAnswer> daa, @PathVariable String id) {
 		try {
+			HeaderApplicantAnswer header  = new HeaderApplicantAnswer();
+			User user = new User();
+			user.setUserId(id);
+			header.setUser(user);
 			header.setDateOfAnswer(new Date());
 			haaService.insert(header);
 			for (DetailApplicantAnswer d : daa) {
 				//insert data to database
+				d.setHeaderApplicantAnswer(header);
 				daaService.insert(d);
 			}
 			
