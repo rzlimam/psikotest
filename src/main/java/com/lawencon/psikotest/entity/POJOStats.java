@@ -5,6 +5,7 @@ public class POJOStats {
 	private String packageName;
 	private String question;
 	private Integer correct;
+	private Integer percentage;
 	
 	
 	public String getPackageName() {
@@ -25,6 +26,11 @@ public class POJOStats {
 	public void setCorrect(Integer correct) {
 		this.correct = correct;
 	}
-	
+	public Integer getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(Integer percentage) {
+		this.percentage = percentage;
+	}
 
 }

@@ -137,7 +137,7 @@ public class ReportService {
 	
 	public String falsePerPackage(String reportFormat) throws FileNotFoundException, JRException {
 		
-		List<POJOStats> packages = pdDao.correctPerPackage();
+		List<POJOStats> packages = pdDao.falsePerPackage();
 		List<POJOStats> report = new ArrayList<POJOStats>();
 		for (POJOStats pack : packages) {
 			POJOStats rr = new POJOStats();
