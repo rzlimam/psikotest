@@ -71,7 +71,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[Correct]]></text>
+				<text><![CDATA[False]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
