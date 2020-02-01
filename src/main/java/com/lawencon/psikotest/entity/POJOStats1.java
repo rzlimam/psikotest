@@ -4,6 +4,7 @@ public class POJOStats1 {
 	
 	private String question;
 	private Integer correct;
+	private Integer totalQuestion;
 	private Double percentage;
 	
 	public String getQuestion() {
@@ -17,6 +18,12 @@ public class POJOStats1 {
 	}
 	public void setCorrect(Integer correct) {
 		this.correct = correct;
+	}
+	public Integer getTotalQuestion() {
+		return totalQuestion;
+	}
+	public void setTotalQuestion(Integer totalQuestion) {
+		this.totalQuestion = totalQuestion;
 	}
 	public Double getPercentage() {
 		return percentage;

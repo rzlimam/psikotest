@@ -78,7 +78,7 @@ public class DetailApplicantAnswerService {
 		}
 	}
 	
-	public void getResult(DetailApplicantAnswer daa, HeaderApplicantAnswer haa) throws Exception {
+	public void getResult(HeaderApplicantAnswer haa) throws Exception {
 		try {
 //			valIdNotNull(daa);
 //			ValIdExist(daa.getDetailAnswerId());
@@ -87,14 +87,14 @@ public class DetailApplicantAnswerService {
 //			ValNonBk(daa);
 			
 			//get total point from table detail applicant answer
-			BigInteger hasil = sumPoint(daa.getHeaderApplicantAnswer().getApplicantAnswerId());
+			BigInteger hasil = sumPoint(haa.getApplicantAnswerId());
 			//convert long to integer
 			int total = hasil.intValue();
 			//set total point in header applicant answer
 			haa.setTotalPoint(total);
 			
 			//get total question
-			BigInteger countQuestion = countPoint(daa.getHeaderApplicantAnswer().getApplicantAnswerId());
+			BigInteger countQuestion = countPoint(haa.getApplicantAnswerId());
 			//convert long to integer
 			int totalQuestion = countQuestion.intValue();
 			//set total point in header applicant answer

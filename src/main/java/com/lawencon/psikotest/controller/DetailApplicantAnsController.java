@@ -1,7 +1,7 @@
 package com.lawencon.psikotest.controller;
 
 import java.io.FileNotFoundException;
-import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
 import com.lawencon.psikotest.entity.HeaderApplicantAnswer;
-import com.lawencon.psikotest.entity.PackageDetail;
 import com.lawencon.psikotest.service.DetailApplicantAnswerService;
 import com.lawencon.psikotest.service.HeaderApplicantAnswerService;
 import com.lawencon.psikotest.service.PackageDetailService;
-import com.lawencon.psikotest.service.QuestionService;
 import com.lawencon.psikotest.service.ReportService;
 
 import net.sf.jasperreports.engine.JRException;
@@ -91,6 +89,28 @@ public class DetailApplicantAnsController {
 			
 			//get Result test
 			daaService.getResult(daa.get(0), haa);
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(daa);
+	}
+	
+	@PostMapping("/insert")
+	public ResponseEntity<?> insert(@RequestBody List<DetailApplicantAnswer> daa, HeaderApplicantAnswer header) {
+		try {
+			header.setDateOfAnswer(new Date());
+			haaService.insert(header);
+			for (DetailApplicantAnswer d : daa) {
+				//insert data to database
+				daaService.insert(d);
+			}
+			
+			//find applicant answer header
+			HeaderApplicantAnswer haa = haaService.findById(header.getApplicantAnswerId());
+			
+			//get Result test
+			daaService.getResult(haa);
 			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

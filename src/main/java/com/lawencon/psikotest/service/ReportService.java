@@ -22,6 +22,7 @@ import org.springframework.util.ResourceUtils;
 
 import com.lawencon.psikotest.dao.DetailApplicantAnswerDao;
 import com.lawencon.psikotest.dao.PackageDetailDao;
+import com.lawencon.psikotest.dao.ReportDao;
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
 import com.lawencon.psikotest.entity.POJOStats;
 import com.lawencon.psikotest.entity.POJOStats1;
@@ -47,6 +48,9 @@ public class ReportService {
 	
 	@Autowired
 	private PackageDetailDao pdDao;
+	
+	@Autowired
+	private ReportDao reportDao;
 	
 	@Value("${report-dir}")
 	private Path fileStorage;
@@ -108,16 +112,8 @@ public class ReportService {
 //			}
 //		}
 		
-		List<POJOStats> packages = pdDao.correctPerPackage();
-		List<POJOStats> report = new ArrayList<POJOStats>();
-		for (POJOStats pack : packages) {
-			POJOStats rr = new POJOStats();
-			rr.setPackageName(pack.getPackageName());
-			rr.setQuestion(pack.getQuestion());
-			rr.setCorrect(pack.getCorrect());
-			rr.setPercentage(pack.getPercentage());
-			report.add(rr);
-		}
+		List<POJOStats> report = reportDao.correctPerPackage();
+		
 		//load file and compile it
 		File file = ResourceUtils.getFile("classpath:correctPerPackage.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
