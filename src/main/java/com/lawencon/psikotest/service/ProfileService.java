@@ -125,6 +125,8 @@ public class ProfileService {
 					throw new Exception("Address is empty");
 				} else if(profile.getGender()==null || profile.getGender().trim().equals("")) {
 					throw new Exception("Gender is empty");
+				} else if(profile.getAppliedPosition()==null) {
+					throw new Exception("Applied Position is empty");
 				} else if(profile.getIsActive()==null) {
 					throw new Exception("Active state is empty");
 				}

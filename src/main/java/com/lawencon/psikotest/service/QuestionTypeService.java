@@ -14,9 +14,6 @@ public class QuestionTypeService {
 	@Autowired
 	private QuestionTypeDao qtDao;
 	
-	@Autowired
-	private AnswerTypeService atService;
-	
 	public QuestionType findById(String id) {
 		QuestionType qt = qtDao.findById(id);
 		return qt;

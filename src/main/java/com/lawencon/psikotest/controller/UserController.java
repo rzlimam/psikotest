@@ -79,6 +79,7 @@ public class UserController {
 		User user = new User();
 		try {
 			String password = userService.getPassword();
+			profile.setIsActive(true);
 			Profile newProfile = profileService.insert(profile);
 			Role role = roleService.findByCode("CAN");
 			user.setPassword(password);

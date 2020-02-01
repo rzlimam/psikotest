@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lawencon.psikotest.dao.QuestionDao;
-import com.lawencon.psikotest.entity.Image;
 import com.lawencon.psikotest.entity.Question;
 import com.lawencon.psikotest.entity.QuestionData;
 import com.lawencon.psikotest.entity.QuestionType;

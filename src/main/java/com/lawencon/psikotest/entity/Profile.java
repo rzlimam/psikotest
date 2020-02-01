@@ -44,6 +44,9 @@ public class Profile {
 	
 	@Column(name="email")
 	private String email;
+	
+	@Column(name="applied_position")
+	private String appliedPosition;
 		
 	@Column(name="is_active")
 	private Boolean isActive;
@@ -103,20 +106,19 @@ public class Profile {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
+	public String getAppliedPosition() {
+		return appliedPosition;
+	}
+	public void setAppliedPosition(String appliedPosition) {
+		this.appliedPosition = appliedPosition;
+	}
+	
 	public Boolean getIsActive() {
 		return isActive;
 	}
-
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-
-
-	
-	
-	
-	
-	
 	
 }	
