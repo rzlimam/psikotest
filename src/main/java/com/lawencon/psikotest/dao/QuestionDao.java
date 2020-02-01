@@ -1,5 +1,6 @@
 package com.lawencon.psikotest.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -97,6 +98,14 @@ public class QuestionDao extends EntityDao {
 			return null;
 		else 
 			return list;
+	}
+	
+	@Transactional
+	public BigInteger countQuestion() {
+		Query query  = super.entityManager
+				.createNativeQuery("Select count(*) FROM group2.tbl_m_question");
+		BigInteger count =  (BigInteger) query.getSingleResult(); 
+		return count;
 	}
 
 }

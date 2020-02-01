@@ -25,6 +25,7 @@ import com.lawencon.psikotest.dao.PackageDetailDao;
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
 import com.lawencon.psikotest.entity.POJOStats;
 import com.lawencon.psikotest.entity.POJOStats1;
+import com.lawencon.psikotest.entity.POJOStats2;
 import com.lawencon.psikotest.entity.ReportResult;
 import com.lawencon.psikotest.exception.FileStorageException;
 import com.lawencon.psikotest.exception.MyFileNotFoundException;
@@ -145,6 +146,7 @@ public class ReportService {
 			rr.setPackageName(pack.getPackageName());
 			rr.setQuestion(pack.getQuestion());
 			rr.setCorrect(pack.getCorrect());
+			rr.setPercentage(pack.getPercentage());
 			report.add(rr);
 		}
 		//load file and compile it
@@ -175,6 +177,7 @@ public class ReportService {
 			POJOStats1 rr = new POJOStats1();
 			rr.setQuestion(pack.getQuestion());
 			rr.setCorrect(pack.getCorrect());
+			rr.setPercentage(pack.getPercentage());
 			report.add(rr);
 		}
 		//load file and compile it
@@ -204,6 +207,7 @@ public class ReportService {
 			POJOStats1 rr = new POJOStats1();
 			rr.setQuestion(pack.getQuestion());
 			rr.setCorrect(pack.getCorrect());
+			rr.setPercentage(pack.getPercentage());
 			report.add(rr);
 		}
 		//load file and compile it
@@ -221,6 +225,64 @@ public class ReportService {
 		if(reportFormat.equalsIgnoreCase("pdf")) {
 			JasperExportManager.exportReportToPdfFile(jasperPrint, fileStorage.toString()+"/hardestQuestion.pdf");
 			fileName = "hardestQuestion.pdf";
+		}
+		return fileName;
+	}
+	
+	public String easiestPackage(String reportFormat) throws FileNotFoundException, JRException {
+//		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
+		List<POJOStats2> packages = pdDao.easiestPackage();
+		List<POJOStats2> report = new ArrayList<POJOStats2>();
+		for (POJOStats2 pack : packages) {
+			POJOStats2 rr = new POJOStats2();
+			rr.setPackageName(pack.getPackageName());
+			rr.setCorrect(pack.getCorrect());
+			report.add(rr);
+		}
+		//load file and compile it
+		File file = ResourceUtils.getFile("classpath:easiestPackage.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("createdBy", "Rizal");
+		String fileName = null;
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
+		if(reportFormat.equalsIgnoreCase("html")) {
+			JasperExportManager.exportReportToHtmlFile(jasperPrint, fileStorage.toString()+"/easiestQuestion.html");
+			fileName = "easiestPackage.html";
+		}
+		if(reportFormat.equalsIgnoreCase("pdf")) {
+			JasperExportManager.exportReportToPdfFile(jasperPrint, fileStorage.toString()+"/easiestQuestion.pdf");
+			fileName = "easiestPackage.pdf";
+		}
+		return fileName;
+	}
+	
+	public String harderstPackage(String reportFormat) throws FileNotFoundException, JRException {
+//		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
+		List<POJOStats2> packages = pdDao.easiestPackage();
+		List<POJOStats2> report = new ArrayList<POJOStats2>();
+		for (POJOStats2 pack : packages) {
+			POJOStats2 rr = new POJOStats2();
+			rr.setPackageName(pack.getPackageName());
+			rr.setCorrect(pack.getCorrect());
+			report.add(rr);
+		}
+		//load file and compile it
+		File file = ResourceUtils.getFile("classpath:hardestPackage.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("createdBy", "Rizal");
+		String fileName = null;
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
+		if(reportFormat.equalsIgnoreCase("html")) {
+			JasperExportManager.exportReportToHtmlFile(jasperPrint, fileStorage.toString()+"/easiestQuestion.html");
+			fileName = "hardestPackage.html";
+		}
+		if(reportFormat.equalsIgnoreCase("pdf")) {
+			JasperExportManager.exportReportToPdfFile(jasperPrint, fileStorage.toString()+"/easiestQuestion.pdf");
+			fileName = "hardestPackage.pdf";
 		}
 		return fileName;
 	}

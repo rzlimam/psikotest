@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lawencon.psikotest.entity.POJOStats;
 import com.lawencon.psikotest.entity.POJOStats1;
+import com.lawencon.psikotest.entity.POJOStats2;
 import com.lawencon.psikotest.entity.PackageDetail;
 import com.lawencon.psikotest.entity.Packages;
 
@@ -20,6 +21,9 @@ public class PackageDetailDao extends EntityDao {
 	
 	@Autowired
 	private PackageDao packDao;
+	
+	@Autowired
+	private QuestionDao qDao;
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
@@ -142,7 +146,6 @@ public class PackageDetailDao extends EntityDao {
 			
 			Double totalQuestion = countQuestion(p.getPackageId()).doubleValue();
 			
-			
 			for(int i=0; i<question.size(); i++) {
 				POJOStats cs = new POJOStats();
 				cs.setPackageName(pack.get(i));
@@ -207,11 +210,15 @@ public class PackageDetailDao extends EntityDao {
 							+ " limit 5");
 			List<BigInteger> point = queryPoint.getResultList();
 			
+			Double totalQuestion = countQuestion(p.getPackageId()).doubleValue();
+			
 			for(int i=0; i<question.size(); i++) {
 				POJOStats cs = new POJOStats();
 				cs.setPackageName(pack.get(i));
 				cs.setQuestion(question.get(i));
 				cs.setCorrect(point.get(i).intValue());
+				Double percentage = (point.get(i).doubleValue()/totalQuestion) * 100;
+				cs.setPercentage(percentage);
 				stats.add(cs);
 			}
 			
@@ -245,10 +252,14 @@ public class PackageDetailDao extends EntityDao {
 							+ " limit 10");
 			List<BigInteger> point = queryPoint.getResultList();
 			
+			Double totalQuestion = qDao.countQuestion().doubleValue();
+			
 			for(int i=0; i<question.size(); i++) {
 				POJOStats1 cs = new POJOStats1();
 				cs.setQuestion(question.get(i));
 				cs.setCorrect(point.get(i).intValue());
+				Double percentage = (point.get(i).doubleValue()/totalQuestion) * 100;
+				cs.setPercentage(percentage);
 				stats.add(cs);
 			}
 		
@@ -281,9 +292,81 @@ public class PackageDetailDao extends EntityDao {
 							+ " limit 10");
 			List<BigInteger> point = queryPoint.getResultList();
 			
+			Double totalQuestion = qDao.countQuestion().doubleValue();
+			
 			for(int i=0; i<question.size(); i++) {
 				POJOStats1 cs = new POJOStats1();
 				cs.setQuestion(question.get(i));
+				cs.setCorrect(point.get(i).intValue());
+				Double percentage = (point.get(i).doubleValue()/totalQuestion) * 100;
+				cs.setPercentage(percentage);
+				stats.add(cs);
+			}
+		
+		return stats;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<POJOStats2> easiestPackage() {
+		List<POJOStats2> stats = new ArrayList<POJOStats2>();
+			Query queryQuestion  = super.entityManager
+					.createNativeQuery("select p.package_name"
+							+ " from group2.tbl_m_package_detail pd" 
+							+ " join group2.tbl_m_package p  on p.package_id = pd.package_id"
+							+ " join group2.tbl_detail_applicant_answer daa on pd.package_question_id = daa.package_question_id"
+							+ " where daa.point <> 0"
+							+ " group by p.package_name"
+							+ " order by count(daa.point) desc");
+			List<String> question = queryQuestion.getResultList();
+			
+			Query queryPoint  = super.entityManager
+					.createNativeQuery("select count(daa.point)"
+							+ " from group2.tbl_m_package_detail pd" 
+							+ " join group2.tbl_m_package p  on p.package_id = pd.package_id"
+							+ " join group2.tbl_detail_applicant_answer daa on pd.package_question_id = daa.package_question_id"
+							+ " where daa.point <> 0"
+							+ " group by p.package_name"
+							+ " order by count(daa.point) desc");
+			List<BigInteger> point = queryPoint.getResultList();
+			
+			for(int i=0; i<question.size(); i++) {
+				POJOStats2 cs = new POJOStats2();
+				cs.setPackageName(question.get(i));
+				cs.setCorrect(point.get(i).intValue());
+				stats.add(cs);
+			}
+		
+		return stats;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<POJOStats2> hardestPackage() {
+		List<POJOStats2> stats = new ArrayList<POJOStats2>();
+			Query queryQuestion  = super.entityManager
+					.createNativeQuery("select p.package_name"
+							+ " from group2.tbl_m_package_detail pd" 
+							+ " join group2.tbl_m_package p  on p.package_id = pd.package_id"
+							+ " join group2.tbl_detail_applicant_answer daa on pd.package_question_id = daa.package_question_id"
+							+ " where daa.point = 0"
+							+ " group by p.package_name"
+							+ " order by count(daa.point) desc");
+			List<String> question = queryQuestion.getResultList();
+			
+			Query queryPoint  = super.entityManager
+					.createNativeQuery("select count(daa.point)"
+							+ " from group2.tbl_m_package_detail pd" 
+							+ " join group2.tbl_m_package p  on p.package_id = pd.package_id"
+							+ " join group2.tbl_detail_applicant_answer daa on pd.package_question_id = daa.package_question_id"
+							+ " where daa.point = 0"
+							+ " group by p.package_name"
+							+ " order by count(daa.point) desc");
+			List<BigInteger> point = queryPoint.getResultList();
+			
+			for(int i=0; i<question.size(); i++) {
+				POJOStats2 cs = new POJOStats2();
+				cs.setPackageName(question.get(i));
 				cs.setCorrect(point.get(i).intValue());
 				stats.add(cs);
 			}
