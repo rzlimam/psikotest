@@ -141,14 +141,14 @@ public class PackageDetailDao extends EntityDao {
 			List<BigInteger> point = queryPoint.getResultList();
 			
 			Double totalQuestion = countQuestion(p.getPackageId()).doubleValue();
-			Double percentage;
+			
 			
 			for(int i=0; i<question.size(); i++) {
 				POJOStats cs = new POJOStats();
 				cs.setPackageName(pack.get(i));
 				cs.setQuestion(question.get(i));
 				cs.setCorrect(point.get(i).intValue());
-				percentage = (point.get(i).doubleValue()/totalQuestion) * 100;
+				Double percentage = (point.get(i).doubleValue()/totalQuestion) * 100;
 				cs.setPercentage(percentage);
 				stats.add(cs);
 			}
