@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 		"/daa", "/daa/*", "/daa/*/*",
                 		"/questionassign","/questionassign/*","/questionassign/*/*",
                 		"/report/*/*", 
-                		"download/*", "download/*/*",
+                		"/download/*", "/download/*/*",
                 		"/dashboard", "/dashboard/*").permitAll().
 
         anyRequest().authenticated().and().
