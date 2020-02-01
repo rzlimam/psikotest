@@ -8,7 +8,7 @@
 	</field>
 	<field name="correct" class="java.lang.Integer">
 	</field>
-	<field name="percentage" class="java.lang.Integer">
+	<field name="percentage" class="java.lang.Double">
 	</field>
 	
 	<background>
