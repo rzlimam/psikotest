@@ -258,7 +258,7 @@ public class ReportService {
 		return fileName;
 	}
 	
-	public String harderstPackage(String reportFormat) throws FileNotFoundException, JRException {
+	public String hardestPackage(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
 		List<POJOStats2> packages = pdDao.easiestPackage();
 		List<POJOStats2> report = new ArrayList<POJOStats2>();
