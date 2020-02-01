@@ -248,11 +248,11 @@ public class ReportService {
 		String fileName = null;
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
 		if(reportFormat.equalsIgnoreCase("html")) {
-			JasperExportManager.exportReportToHtmlFile(jasperPrint, fileStorage.toString()+"/easiestQuestion.html");
+			JasperExportManager.exportReportToHtmlFile(jasperPrint, fileStorage.toString()+"/easiestPackage.html");
 			fileName = "easiestPackage.html";
 		}
 		if(reportFormat.equalsIgnoreCase("pdf")) {
-			JasperExportManager.exportReportToPdfFile(jasperPrint, fileStorage.toString()+"/easiestQuestion.pdf");
+			JasperExportManager.exportReportToPdfFile(jasperPrint, fileStorage.toString()+"/easiestPackage.pdf");
 			fileName = "easiestPackage.pdf";
 		}
 		return fileName;
@@ -277,11 +277,11 @@ public class ReportService {
 		String fileName = null;
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
 		if(reportFormat.equalsIgnoreCase("html")) {
-			JasperExportManager.exportReportToHtmlFile(jasperPrint, fileStorage.toString()+"/easiestQuestion.html");
+			JasperExportManager.exportReportToHtmlFile(jasperPrint, fileStorage.toString()+"/hardestPackage.html");
 			fileName = "hardestPackage.html";
 		}
 		if(reportFormat.equalsIgnoreCase("pdf")) {
-			JasperExportManager.exportReportToPdfFile(jasperPrint, fileStorage.toString()+"/easiestQuestion.pdf");
+			JasperExportManager.exportReportToPdfFile(jasperPrint, fileStorage.toString()+"/hardestPackage.pdf");
 			fileName = "hardestPackage.pdf";
 		}
 		return fileName;
