@@ -156,8 +156,10 @@ public class DetailApplicantAnswerService {
 		
 		//BK not null
 		private Exception valBkNotNull(DetailApplicantAnswer daa) throws Exception{
-			if(daa.getHeaderApplicantAnswer().getApplicantAnswerId()==null || daa.getPackageQuestion().getPackageQuestionId() == null) {
-				throw new Exception("Detail Applicant Answer BK is null");
+			if(daa.getHeaderApplicantAnswer().getApplicantAnswerId()==null) {
+				throw new Exception("Header Applicant Answer is null");
+			} else if(daa.getPackageQuestion().getPackageQuestionId() == null) {
+				throw new Exception("Package Question is null");
 			}
 			return null;
 		}
