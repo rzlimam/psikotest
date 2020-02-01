@@ -156,9 +156,9 @@ public class DetailApplicantAnswerService {
 		
 		//BK not null
 		private Exception valBkNotNull(DetailApplicantAnswer daa) throws Exception{
-			if(daa.getHeaderApplicantAnswer().getApplicantAnswerId()==null) {
+			if(daa.getHeaderApplicantAnswer()==null) {
 				throw new Exception("Header Applicant Answer is null");
-			} else if(daa.getPackageQuestion().getPackageQuestionId() == null) {
+			} else if(daa.getPackageQuestion()== null) {
 				throw new Exception("Package Question is null");
 			}
 			return null;
