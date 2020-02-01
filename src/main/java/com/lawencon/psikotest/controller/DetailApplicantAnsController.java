@@ -88,7 +88,7 @@ public class DetailApplicantAnsController {
 			HeaderApplicantAnswer haa = haaService.findById(daa.get(0).getHeaderApplicantAnswer().getApplicantAnswerId());
 			
 			//get Result test
-			daaService.getResult(daa.get(0), haa);
+			daaService.getResult(haa);
 			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
