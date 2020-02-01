@@ -117,7 +117,7 @@ public class ReportService {
 			report.add(rr);
 		}
 		//load file and compile it
-		File file = ResourceUtils.getFile("classpath:questionpackage.jrxml");
+		File file = ResourceUtils.getFile("classpath:correctPerPackage.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
 		Map<String, Object> parameter = new HashMap<>();
