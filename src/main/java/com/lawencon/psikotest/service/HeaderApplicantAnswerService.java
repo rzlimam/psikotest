@@ -35,17 +35,18 @@ public class HeaderApplicantAnswerService {
 		return haa;
 	}
 	
-	public void insert(HeaderApplicantAnswer haa) throws Exception {
+	public HeaderApplicantAnswer insert(HeaderApplicantAnswer haa) throws Exception {
 		try {
 			valIdNull(haa);
 			valBkNotNull(haa);
 //			valBkNotExist(haa);
 //			ValUserExist(haa.getUser().getUserId());
 //			ValNonBk(haa);
-			haDao.save(haa);
+			return haDao.save(haa);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
+		
 	}
 	
 	public void update(HeaderApplicantAnswer haa) throws Exception {

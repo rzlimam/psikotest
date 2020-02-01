@@ -106,15 +106,15 @@ public class DetailApplicantAnsController {
 			header.setUser(user);
 			Date date = new Date();
 			header.setDateOfAnswer(date);
-			haaService.insert(header);
+			HeaderApplicantAnswer head =  haaService.insert(header);
 			for (DetailApplicantAnswer d : daa) {
 				//insert data to database
-				d.setHeaderApplicantAnswer(header);
+				d.setHeaderApplicantAnswer(head);
 				daaService.insert(d);
 			}
 			
 			//find applicant answer header
-			HeaderApplicantAnswer haa = haaService.findById(header.getApplicantAnswerId());
+			HeaderApplicantAnswer haa = haaService.findById(head.getApplicantAnswerId());
 			
 			//get Result test
 			daaService.getResult(haa);
