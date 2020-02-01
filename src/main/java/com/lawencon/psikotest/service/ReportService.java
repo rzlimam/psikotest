@@ -114,6 +114,7 @@ public class ReportService {
 			rr.setPackageName(pack.getPackageName());
 			rr.setQuestion(pack.getQuestion());
 			rr.setCorrect(pack.getCorrect());
+			rr.setPercentage(pack.getPercentage());
 			report.add(rr);
 		}
 		//load file and compile it
