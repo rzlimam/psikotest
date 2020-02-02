@@ -83,7 +83,7 @@ public class ReportService {
 			report.add(rr);
 		}
 		//load file and compile it
-		File file = ResourceUtils.getFile("classpath:hasil-psikotest.jrxml");
+		File file = ResourceUtils.getFile("classpath:report/hasil-psikotest.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
 		Map<String, Object> parameter = new HashMap<>();
@@ -115,7 +115,7 @@ public class ReportService {
 		List<POJOStats> report = reportDao.correctPerPackage();
 		
 		//load file and compile it
-		File file = ResourceUtils.getFile("classpath:correctPerPackage.jrxml");
+		File file = ResourceUtils.getFile("classpath:report/correctPerPackage.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
 		Map<String, Object> parameter = new HashMap<>();
@@ -135,18 +135,10 @@ public class ReportService {
 	
 	public String falsePerPackage(String reportFormat) throws FileNotFoundException, JRException {
 		
-		List<POJOStats> packages = pdDao.falsePerPackage();
-		List<POJOStats> report = new ArrayList<POJOStats>();
-		for (POJOStats pack : packages) {
-			POJOStats rr = new POJOStats();
-			rr.setPackageName(pack.getPackageName());
-			rr.setQuestion(pack.getQuestion());
-			rr.setCorrect(pack.getCorrect());
-			rr.setPercentage(pack.getPercentage());
-			report.add(rr);
-		}
+		List<POJOStats> report = pdDao.falsePerPackage();
+		
 		//load file and compile it
-		File file = ResourceUtils.getFile("classpath:falsePerPackage.jrxml");
+		File file = ResourceUtils.getFile("classpath:report/falsePerPackage.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
 		Map<String, Object> parameter = new HashMap<>();
@@ -167,17 +159,10 @@ public class ReportService {
 	
 	public String mostCorrect(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
-		List<POJOStats1> packages = pdDao.mostCorrect();
-		List<POJOStats1> report = new ArrayList<POJOStats1>();
-		for (POJOStats1 pack : packages) {
-			POJOStats1 rr = new POJOStats1();
-			rr.setQuestion(pack.getQuestion());
-			rr.setCorrect(pack.getCorrect());
-			rr.setPercentage(pack.getPercentage());
-			report.add(rr);
-		}
+		List<POJOStats1> report = pdDao.mostCorrect();
+		
 		//load file and compile it
-		File file = ResourceUtils.getFile("classpath:easiestQuestion.jrxml");
+		File file = ResourceUtils.getFile("classpath:report/easiestQuestion.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
 		Map<String, Object> parameter = new HashMap<>();
@@ -197,17 +182,10 @@ public class ReportService {
 	
 	public String mostFalse(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
-		List<POJOStats1> packages = pdDao.mostFalse();
-		List<POJOStats1> report = new ArrayList<POJOStats1>();
-		for (POJOStats1 pack : packages) {
-			POJOStats1 rr = new POJOStats1();
-			rr.setQuestion(pack.getQuestion());
-			rr.setCorrect(pack.getCorrect());
-			rr.setPercentage(pack.getPercentage());
-			report.add(rr);
-		}
+		List<POJOStats1> report = pdDao.mostFalse();
+		
 		//load file and compile it
-		File file = ResourceUtils.getFile("classpath:easiestQuestion.jrxml");
+		File file = ResourceUtils.getFile("classpath:report/easiestQuestion.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
 		Map<String, Object> parameter = new HashMap<>();
@@ -227,16 +205,10 @@ public class ReportService {
 	
 	public String easiestPackage(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
-		List<POJOStats2> packages = pdDao.easiestPackage();
-		List<POJOStats2> report = new ArrayList<POJOStats2>();
-		for (POJOStats2 pack : packages) {
-			POJOStats2 rr = new POJOStats2();
-			rr.setPackageName(pack.getPackageName());
-			rr.setCorrect(pack.getCorrect());
-			report.add(rr);
-		}
+		List<POJOStats2> report = pdDao.easiestPackage();
+		
 		//load file and compile it
-		File file = ResourceUtils.getFile("classpath:easiestPackage.jrxml");
+		File file = ResourceUtils.getFile("classpath:report/easiestPackage.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
 		Map<String, Object> parameter = new HashMap<>();
@@ -256,16 +228,10 @@ public class ReportService {
 	
 	public String hardestPackage(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
-		List<POJOStats2> packages = pdDao.hardestPackage();
-		List<POJOStats2> report = new ArrayList<POJOStats2>();
-		for (POJOStats2 pack : packages) {
-			POJOStats2 rr = new POJOStats2();
-			rr.setPackageName(pack.getPackageName());
-			rr.setCorrect(pack.getCorrect());
-			report.add(rr);
-		}
+		List<POJOStats2> report = pdDao.hardestPackage();
+		
 		//load file and compile it
-		File file = ResourceUtils.getFile("classpath:hardestPackage.jrxml");
+		File file = ResourceUtils.getFile("classpath:report/hardestPackage.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(report);
 		Map<String, Object> parameter = new HashMap<>();
