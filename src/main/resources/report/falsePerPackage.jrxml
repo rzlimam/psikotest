@@ -47,7 +47,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[The Easiest Question In A Package]]></text>
+				<text><![CDATA[The Hardest Question In A Package]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

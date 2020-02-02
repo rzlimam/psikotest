@@ -105,7 +105,6 @@ public class ReportDao extends EntityDao {
 		List<Packages> packages = packDao.getAll();
 		List<POJOStats> stats = new ArrayList<POJOStats>();
 		for (Packages p: packages) {
-//			POJOStats cs = new POJOStats();
 			Query queryPackage  = super.entityManager
 					.createNativeQuery("select p.package_name from"  
 							+ " group2.tbl_detail_applicant_answer daa"  
@@ -155,7 +154,7 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_question q on pd.question_id = "
 							+ " q.question_id" 
 							+ " where p.package_id = '" + p.getPackageId() + "'" 
-							+ " group by p.package_name, q.question_title"
+							+ " group by q.question_title"
 							+ " order by count(daa.point) filter (where daa.point = 0)*100/count(q.question_title) desc");
 			List<BigInteger> totalQuestion = queryTotal.getResultList();
 			

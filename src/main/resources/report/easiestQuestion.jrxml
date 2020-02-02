@@ -72,7 +72,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Correct]]></text>
+				<text><![CDATA[Total Question]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="277" y="2" width="138" height="30" uuid="f06c06c9-ee64-48ac-9636-ed6e5c1ca463">
@@ -86,7 +86,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Total Question]]></text>
+				<text><![CDATA[Correct]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="415" y="2" width="138" height="30" uuid="6ed9145e-32ce-4d78-ade2-69afeb10d9e7">
@@ -130,7 +130,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{correct}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalQuestion}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="277" y="0" width="138" height="30" uuid="6aeff7e7-57c0-40c2-ad38-8ccb29c8a05e">
@@ -143,7 +143,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{totalQuestion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{correct}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="0" width="138" height="30" uuid="8472671e-2456-47b3-b61c-3e6c7b7d1615">
