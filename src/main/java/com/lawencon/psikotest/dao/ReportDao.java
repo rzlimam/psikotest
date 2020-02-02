@@ -184,13 +184,11 @@ public class ReportDao extends EntityDao {
 		List<POJOStats1> stats = new ArrayList<POJOStats1>();
 			Query queryQuestion  = super.entityManager
 					.createNativeQuery("select q.question_title"
-							+ " group2.tbl_detail_applicant_answer daa"  
+							+ " from group2.tbl_detail_applicant_answer daa"  
 							+ " join group2.tbl_m_package_detail pd on"
 							+ " daa.package_question_id = pd.package_question_id" 
 							+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
-							+ " join group2.tbl_m_question q on pd.question_id = "
-							+ " q.question_id"
-							+ " where daa.point <> 0"
+							+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
 							+ " group by q.question_title"
 							+ " order by count(daa.point) filter (where daa.point <> 0)*100/count(q.question_title) desc"
 							+ " limit 10");
@@ -198,13 +196,11 @@ public class ReportDao extends EntityDao {
 			
 			Query queryPoint  = super.entityManager
 					.createNativeQuery("select count(daa.point) filter (where daa.point <> 0)"
-							+ " group2.tbl_detail_applicant_answer daa"  
+							+ " from group2.tbl_detail_applicant_answer daa"  
 							+ " join group2.tbl_m_package_detail pd on"
 							+ " daa.package_question_id = pd.package_question_id" 
 							+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
-							+ " join group2.tbl_m_question q on pd.question_id = "
-							+ " q.question_id"
-							+ " where daa.point <> 0"
+							+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
 							+ " group by q.question_title"
 							+ " order by count(daa.point) filter (where daa.point <> 0)*100/count(q.question_title) desc"
 							+ " limit 10");
@@ -216,8 +212,7 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_package_detail pd on"
 							+ " daa.package_question_id = pd.package_question_id" 
 							+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
-							+ " join group2.tbl_m_question q on pd.question_id = "
-							+ " q.question_id"  
+							+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
 							+ " group by q.question_title"
 							+ " order by count(daa.point) filter (where daa.point <> 0)*100/count(q.question_title) desc");
 			List<BigInteger> totalQuestion = queryTotal.getResultList();
@@ -243,7 +238,7 @@ public class ReportDao extends EntityDao {
 		List<POJOStats1> stats = new ArrayList<POJOStats1>();
 			Query queryQuestion  = super.entityManager
 					.createNativeQuery("select q.question_title"
-							+ " group2.tbl_detail_applicant_answer daa"  
+							+ " from group2.tbl_detail_applicant_answer daa"  
 							+ " join group2.tbl_m_package_detail pd on"
 							+ " daa.package_question_id = pd.package_question_id" 
 							+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
@@ -256,8 +251,8 @@ public class ReportDao extends EntityDao {
 			List<String> question = queryQuestion.getResultList();
 			
 			Query queryPoint  = super.entityManager
-					.createNativeQuery("select count(daa.point)"
-							+ " group2.tbl_detail_applicant_answer daa"  
+					.createNativeQuery("select count(daa.point) filter (where daa.point = 0)"
+							+ " from group2.tbl_detail_applicant_answer daa"  
 							+ " join group2.tbl_m_package_detail pd on"
 							+ " daa.package_question_id = pd.package_question_id" 
 							+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
