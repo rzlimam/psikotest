@@ -50,7 +50,7 @@ public class ReportDao extends EntityDao {
 							+ " q.question_id" 
 							+ " where p.package_id = '" + p.getPackageId() + "'"
 							+ " group by p.package_name, q.question_title"
-							+ " order by (count(daa.point) filter (where daa.point != 0)::numeric/count(q.question_title)) * 100 desc"
+							+ " order by ((count(daa.point) filter (where daa.point != 0)::numeric/count(q.question_title)) * 100) desc"
 							+ " limit 5");
 			List<String> question = queryQuestion.getResultList();
 			
@@ -64,7 +64,7 @@ public class ReportDao extends EntityDao {
 							+ " q.question_id" 
 							+ " where p.package_id = '" + p.getPackageId() + "'"
 							+ " group by p.package_name,q.question_title "
-							+ " order by (count(daa.point) filter (where daa.point != 0)::numeric/count(q.question_title)) * 100 desc" 
+							+ " order by ((count(daa.point) filter (where daa.point != 0)::numeric/count(q.question_title)) * 100) desc" 
 							+ " limit 5");
 			List<BigInteger> point = queryPoint.getResultList();
 			
@@ -78,7 +78,7 @@ public class ReportDao extends EntityDao {
 							+ " q.question_id" 
 							+ " where p.package_id = '" + p.getPackageId() + "'" 
 							+ " group by q.question_title"
-							+ " order by (count(daa.point) filter (where daa.point != 0)::numeric/count(q.question_title)) * 100 desc");
+							+ " order by ((count(daa.point) filter (where daa.point != 0)::numeric/count(q.question_title)) * 100) desc");
 			List<BigInteger> totalQuestion = queryTotal.getResultList();
 			
 			for(int i=0; i<question.size(); i++) {
