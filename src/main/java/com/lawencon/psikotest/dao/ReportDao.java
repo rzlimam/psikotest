@@ -36,8 +36,7 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_package_detail pd on"
 							+ " daa.package_question_id = pd.package_question_id" 
 							+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
-							+ " join group2.tbl_m_question q on pd.question_id = "
-							+ " q.question_id" 
+							+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
 							+ " where p.package_id = '" + p.getPackageId() + "'"
 							+ " limit 5");
 			List<String> pack = queryPackage.getResultList();
@@ -78,7 +77,7 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_question q on pd.question_id = "
 							+ " q.question_id" 
 							+ " where p.package_id = '" + p.getPackageId() + "'" 
-							+ " group by q.question_title"
+							+ " group by p.package_name, q.question_title"
 							+ " order by count(daa.point) filter (where daa.point <> 0)*100/count(q.question_title) desc");
 			List<BigInteger> totalQuestion = queryTotal.getResultList();
 			
