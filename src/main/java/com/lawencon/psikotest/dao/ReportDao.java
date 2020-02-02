@@ -163,6 +163,7 @@ public class ReportDao extends EntityDao {
 				cs.setPackageName(pack.get(i));
 				cs.setQuestion(question.get(i));
 				cs.setCorrect(point.get(i).intValue());
+				System.out.println(totalQuestion.get(i).intValue());
 				cs.setTotalQuestion(totalQuestion.get(i).intValue());
 				//calculate percentage
 				Double percentage = (point.get(i).doubleValue()/totalQuestion.get(i).doubleValue()) * 100;

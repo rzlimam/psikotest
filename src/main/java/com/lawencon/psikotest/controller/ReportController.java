@@ -177,5 +177,16 @@ public class ReportController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
 	}
+	
+	@GetMapping("/report/{format}")
+	public ResponseEntity<?> generateReport(@PathVariable String format) throws FileNotFoundException, JRException {
+		try {
+			report.falsePerPackage(format);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		Object obj = "Report generated";
+		return ResponseEntity.status(HttpStatus.OK).body(obj);
+	}
 
 }

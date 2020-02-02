@@ -2,11 +2,8 @@ package com.lawencon.psikotest.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,14 +18,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import com.lawencon.psikotest.dao.DetailApplicantAnswerDao;
-import com.lawencon.psikotest.dao.PackageDetailDao;
 import com.lawencon.psikotest.dao.ReportDao;
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
 import com.lawencon.psikotest.entity.POJOStats;
 import com.lawencon.psikotest.entity.POJOStats1;
 import com.lawencon.psikotest.entity.POJOStats2;
 import com.lawencon.psikotest.entity.ReportResult;
-import com.lawencon.psikotest.exception.FileStorageException;
 import com.lawencon.psikotest.exception.MyFileNotFoundException;
 
 import net.sf.jasperreports.engine.JRException;
@@ -45,9 +40,6 @@ public class ReportService {
 	
 	@Autowired
 	private DetailApplicantAnswerDao daaDao;
-	
-	@Autowired
-	private PackageDetailDao pdDao;
 	
 	@Autowired
 	private ReportDao reportDao;
@@ -134,8 +126,8 @@ public class ReportService {
 	}
 	
 	public String falsePerPackage(String reportFormat) throws FileNotFoundException, JRException {
-		
-		List<POJOStats> report = pdDao.falsePerPackage();
+//		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
+		List<POJOStats> report = reportDao.falsePerPackage();
 		
 		//load file and compile it
 		File file = ResourceUtils.getFile("classpath:report/falsePerPackage.jrxml");
@@ -159,7 +151,7 @@ public class ReportService {
 	
 	public String mostCorrect(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
-		List<POJOStats1> report = pdDao.mostCorrect();
+		List<POJOStats1> report = reportDao.mostCorrect();
 		
 		//load file and compile it
 		File file = ResourceUtils.getFile("classpath:report/easiestQuestion.jrxml");
@@ -182,7 +174,7 @@ public class ReportService {
 	
 	public String mostFalse(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
-		List<POJOStats1> report = pdDao.mostFalse();
+		List<POJOStats1> report = reportDao.mostFalse();
 		
 		//load file and compile it
 		File file = ResourceUtils.getFile("classpath:report/hardestQuestion.jrxml");
@@ -205,7 +197,7 @@ public class ReportService {
 	
 	public String easiestPackage(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
-		List<POJOStats2> report = pdDao.easiestPackage();
+		List<POJOStats2> report = reportDao.easiestPackage();
 		
 		//load file and compile it
 		File file = ResourceUtils.getFile("classpath:report/easiestPackage.jrxml");
@@ -228,7 +220,7 @@ public class ReportService {
 	
 	public String hardestPackage(String reportFormat) throws FileNotFoundException, JRException {
 //		String path = "E:\\Rizal\\Boothcamp\\psikotest\\";
-		List<POJOStats2> report = pdDao.hardestPackage();
+		List<POJOStats2> report = reportDao.hardestPackage();
 		
 		//load file and compile it
 		File file = ResourceUtils.getFile("classpath:report/hardestPackage.jrxml");
