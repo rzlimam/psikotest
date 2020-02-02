@@ -1,6 +1,8 @@
 package com.lawencon.psikotest.dao;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +89,9 @@ public class ReportDao extends EntityDao {
 				cs.setCorrect(point.get(i).intValue());
 				cs.setTotalQuestion(totalQuestion.get(i).intValue());
 				Double percentage = (point.get(i).doubleValue()/totalQuestion.get(i).doubleValue()) * 100;
-				cs.setPercentage(percentage);
+				BigDecimal bd = BigDecimal.valueOf(percentage);
+				bd = bd.setScale(2, RoundingMode.HALF_UP);
+				cs.setPercentage(bd.doubleValue());
 				stats.add(cs);
 			}
 			
@@ -110,8 +114,7 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
 							+ " join group2.tbl_m_question q on pd.question_id = "
 							+ " q.question_id" 
-							+ " where p.package_id = '" + p.getPackageId() + "'"  
-							+ " and daa.point = 0"
+							+ " where p.package_id = '" + p.getPackageId() + "'"
 							+ " limit 5");
 			List<String> pack = queryPackage.getResultList();
 			
@@ -123,25 +126,23 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
 							+ " join group2.tbl_m_question q on pd.question_id = "
 							+ " q.question_id" 
-							+ " where p.package_id = '" + p.getPackageId() + "'"  
-							+ " and daa.point = 0" 
-							+ " group by q.question_title"
-							+ " order by count(daa.point) desc"
+							+ " where p.package_id = '" + p.getPackageId() + "'" 
+							+ " group by p.package_name, q.question_title"
+							+ " order by count(daa.point) filter (where daa.point = 0)*100/count(q.question_title) desc"
 							+ " limit 5");
 			List<String> question = queryQuestion.getResultList();
 			
 			Query queryPoint  = super.entityManager
-					.createNativeQuery("select count(daa.point) from"  
+					.createNativeQuery("select count(daa.point) filter (where daa.point = 0) from"  
 							+ " group2.tbl_detail_applicant_answer daa"  
 							+ " join group2.tbl_m_package_detail pd on"
 							+ " daa.package_question_id = pd.package_question_id" 
 							+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
 							+ " join group2.tbl_m_question q on pd.question_id = "
 							+ " q.question_id" 
-							+ " where p.package_id = '" + p.getPackageId() + "'"  
-							+ " and daa.point = 0" 
+							+ " where p.package_id = '" + p.getPackageId() + "'"
 							+ " group by p.package_name,q.question_title "
-							+ " order by count(daa.point) desc" 
+							+ " order by count(daa.point) filter (where daa.point = 0)*100/count(q.question_title) desc" 
 							+ " limit 5");
 			List<BigInteger> point = queryPoint.getResultList();
 			
@@ -154,7 +155,8 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_question q on pd.question_id = "
 							+ " q.question_id" 
 							+ " where p.package_id = '" + p.getPackageId() + "'" 
-							+ " group by q.question_title");
+							+ " group by p.package_name, q.question_title"
+							+ " order by count(daa.point) filter (where daa.point = 0)*100/count(q.question_title) desc");
 			List<BigInteger> totalQuestion = queryTotal.getResultList();
 			
 			for(int i=0; i<question.size(); i++) {
@@ -163,8 +165,12 @@ public class ReportDao extends EntityDao {
 				cs.setQuestion(question.get(i));
 				cs.setCorrect(point.get(i).intValue());
 				cs.setTotalQuestion(totalQuestion.get(i).intValue());
+				//calculate percentage
 				Double percentage = (point.get(i).doubleValue()/totalQuestion.get(i).doubleValue()) * 100;
-				cs.setPercentage(percentage);
+				// two number behind coma
+				BigDecimal bd = BigDecimal.valueOf(percentage);
+				bd = bd.setScale(2, RoundingMode.HALF_UP);
+				cs.setPercentage(bd.doubleValue());
 				stats.add(cs);
 			}
 			
@@ -186,12 +192,12 @@ public class ReportDao extends EntityDao {
 							+ " q.question_id"
 							+ " where daa.point <> 0"
 							+ " group by q.question_title"
-							+ " order by count(daa.point) desc"
+							+ " order by count(daa.point) filter (where daa.point <> 0)*100/count(q.question_title) desc"
 							+ " limit 10");
 			List<String> question = queryQuestion.getResultList();
 			
 			Query queryPoint  = super.entityManager
-					.createNativeQuery("select count(daa.point)"
+					.createNativeQuery("select count(daa.point) filter (where daa.point <> 0)"
 							+ " group2.tbl_detail_applicant_answer daa"  
 							+ " join group2.tbl_m_package_detail pd on"
 							+ " daa.package_question_id = pd.package_question_id" 
@@ -200,7 +206,7 @@ public class ReportDao extends EntityDao {
 							+ " q.question_id"
 							+ " where daa.point <> 0"
 							+ " group by q.question_title"
-							+ " order by count(daa.point) desc"
+							+ " order by count(daa.point) filter (where daa.point <> 0)*100/count(q.question_title) desc"
 							+ " limit 10");
 			List<BigInteger> point = queryPoint.getResultList();
 			
@@ -213,7 +219,7 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_question q on pd.question_id = "
 							+ " q.question_id"  
 							+ " group by q.question_title"
-							+ " order by count(q.question_title) desc");
+							+ " order by count(daa.point) filter (where daa.point <> 0)*100/count(q.question_title) desc");
 			List<BigInteger> totalQuestion = queryTotal.getResultList();
 			
 			for(int i=0; i<question.size(); i++) {
@@ -222,7 +228,9 @@ public class ReportDao extends EntityDao {
 				cs.setCorrect(point.get(i).intValue());
 				cs.setTotalQuestion(totalQuestion.get(i).intValue());
 				Double percentage = (point.get(i).doubleValue()/totalQuestion.get(i).doubleValue()) * 100;
-				cs.setPercentage(percentage);
+				BigDecimal bd = BigDecimal.valueOf(percentage);
+				bd = bd.setScale(2, RoundingMode.HALF_UP);
+				cs.setPercentage(bd.doubleValue());
 				stats.add(cs);
 			}
 		
@@ -243,7 +251,7 @@ public class ReportDao extends EntityDao {
 							+ " q.question_id"
 							+ " where daa.point = 0"
 							+ " group by q.question_title"
-							+ " order by count(daa.point) desc"
+							+ " order by count(daa.point) filter (where daa.point = 0)*100/count(q.question_title) desc"
 							+ " limit 10");
 			List<String> question = queryQuestion.getResultList();
 			
@@ -257,7 +265,7 @@ public class ReportDao extends EntityDao {
 							+ " q.question_id"
 							+ " where daa.point = 0"
 							+ " group by q.question_title"
-							+ " order by count(daa.point) desc"
+							+ " order by count(daa.point) filter (where daa.point = 0)*100/count(q.question_title) desc"
 							+ " limit 10");
 			List<BigInteger> point = queryPoint.getResultList();
 			
@@ -270,7 +278,7 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_question q on pd.question_id = "
 							+ " q.question_id"  
 							+ " group by q.question_title"
-							+ " order by count(q.question_title) desc");
+							+ " order by count(daa.point) filter (where daa.point = 0)*100/count(q.question_title) desc");
 			List<BigInteger> totalQuestion = queryTotal.getResultList();
 			
 			for(int i=0; i<question.size(); i++) {
@@ -279,7 +287,9 @@ public class ReportDao extends EntityDao {
 				cs.setCorrect(point.get(i).intValue());
 				cs.setTotalQuestion(totalQuestion.get(i).intValue());
 				Double percentage = (point.get(i).doubleValue()/totalQuestion.get(i).doubleValue()) * 100;
-				cs.setPercentage(percentage);
+				BigDecimal bd = BigDecimal.valueOf(percentage);
+				bd = bd.setScale(2, RoundingMode.HALF_UP);
+				cs.setPercentage(bd.doubleValue());
 				stats.add(cs);
 			}
 		
