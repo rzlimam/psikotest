@@ -36,8 +36,8 @@ public class UserDao extends EntityDao {
 	}
 	
 	@Transactional
-	public void save(User user) {
-		super.entityManager.merge(user);
+	public User save(User user) {
+		return super.entityManager.merge(user);
 	}
 	
 	@Transactional

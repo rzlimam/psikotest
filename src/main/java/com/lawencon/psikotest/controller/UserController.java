@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lawencon.psikotest.entity.POJOMail;
 import com.lawencon.psikotest.entity.Profile;
 import com.lawencon.psikotest.entity.Role;
 import com.lawencon.psikotest.entity.User;
@@ -86,9 +87,12 @@ public class UserController {
 			user.setProfile(newProfile);
 			user.setRole(role);
 			user.setIsActive(true);
-			userService.insert(user);
-			String email = profile.getEmail();
-			mailService.sendMail(email, password);
+			User us = userService.insert(user);
+			POJOMail mail = new POJOMail();
+			mail.setName(profile.getProfileName());
+			mail.setEmail(profile.getEmail());
+			mail.setPassword(us.getPassword());
+			mailService.sendAccount(mail);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

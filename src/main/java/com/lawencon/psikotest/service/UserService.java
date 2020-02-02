@@ -117,7 +117,7 @@ public class UserService implements UserDetailsService {
 	}
 	
 	
-	public void insert(User user) throws Exception {
+	public User insert(User user) throws Exception {
 		try {
 			valIdNull(user);
 			valBkNotNull(user);
@@ -125,7 +125,7 @@ public class UserService implements UserDetailsService {
 //			ValProfileExist(user.getProfile().getProfileId());
 //			ValRoleExist(user.getRole().getRoleId());
 //			ValNonBk(user);
-			userDao.save(user);
+			return userDao.save(user);
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
