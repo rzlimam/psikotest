@@ -49,7 +49,7 @@ public class ReportDao extends EntityDao {
 							+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
 							+ " where p.package_id = '" + p.getPackageId() + "'"
 							+ " group by p.package_name, q.question_title"
-							+ " order by ((count(daa.point) filter (where daa.point <> 0) :: numeric/count(q.question_title):: numeric) * 100) desc"
+							+ " order by cast(count(daa.point) filter (where daa.point <> 0) as numeric)/count(q.question_title) * 100 desc;"
 							+ " limit 5");
 			List<String> question = queryQuestion.getResultList();
 			
