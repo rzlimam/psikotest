@@ -94,6 +94,19 @@ public class DetailApplicantAnswerDao extends EntityDao {
 		return count;
 	}
 	
-	
+	@Transactional
+	public BigInteger countQuestionNotEssay(String appAnswer) {
+		Query query  = super.entityManager
+				.createNativeQuery("Select count(*) FROM group2.tbl_detail_applicant_answer daa"
+						+ " join group2.tbl_m_package_detail pd on"
+						+ " daa.package_question_id = pd.package_question_id"
+						+ " join group2.tbl_m_package p on pd.package_id = p.package_id"
+						+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
+						+ " join group2.tbl_question_type qt on q.question_type_id = qt.question_type_id"
+						+ " WHERE applicant_answer_id = '" + appAnswer + "' and"
+						+ " qt.question_type_id = asdas");
+		BigInteger count = (BigInteger) query.getSingleResult(); 
+		return count;
+	}
 
 }

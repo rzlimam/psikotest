@@ -48,8 +48,13 @@ public class DetailApplicantAnswerService {
 		return daa;
 	}
 	
-	public BigInteger countPoint(String aaId) {
+	public BigInteger countQuestion(String aaId) {
 		BigInteger daa = detailaaDao.countQuestion(aaId);
+		return daa;
+	}
+	
+	public BigInteger countQuestionNotEssay(String aaId) {
+		BigInteger daa = detailaaDao.countQuestionNotEssay(aaId);
 		return daa;
 	}
 	
@@ -82,6 +87,8 @@ public class DetailApplicantAnswerService {
 				} else {
 					daa.setPoint(0);
 				}
+			} else {
+				daa.setPoint(0);
 			}
 			
 			detailaaDao.save(daa);
@@ -99,21 +106,20 @@ public class DetailApplicantAnswerService {
 //			ValNonBk(daa);
 			
 			//get total point from table detail applicant answer
-			BigInteger hasil = sumPoint(haa.getApplicantAnswerId());
-			//convert long to integer
-			int total = hasil.intValue();
+			Integer totalPoint = sumPoint(haa.getApplicantAnswerId()).intValue();
 			//set total point in header applicant answer
-			haa.setTotalPoint(total);
+			haa.setTotalPoint(totalPoint);
 			
 			//get total question
-			BigInteger countQuestion = countPoint(haa.getApplicantAnswerId());
-			//convert long to integer
-			int totalQuestion = countQuestion.intValue();
+			Integer countQuestion = countQuestionNotEssay(haa.getApplicantAnswerId()).intValue();
+			
+			//get total question
+			Integer totalQuestion = countQuestion(haa.getApplicantAnswerId()).intValue();
 			//set total point in header applicant answer
 			haa.setTotalQuestion(totalQuestion);
 			
 			//check pass or not
-			if(((total/totalQuestion) * 100) > 60) {
+			if(((totalPoint/countQuestion) * 100) > 60) {
 				haa.setStatus("Lulus");
 			} else {
 				haa.setStatus("Tidak Lulus");
