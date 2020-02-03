@@ -143,7 +143,7 @@ public class PackageService {
 			private Exception ValNonBk(Packages pack) throws Exception {
 				if(pack.getAmountOfTime()==null) {
 					throw new Exception("Amount of time is empty");
-				} else if(pack.getDescription()==null) {
+				} else if(pack.getDescription()==null || pack.getDescription().trim().equals("")) {
 					throw new Exception("Description is empty");
 				} else if(pack.getIsActive()==null) {
 					throw new Exception("Active state is empty");
