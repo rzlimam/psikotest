@@ -414,8 +414,12 @@ public class QuestionService {
 			private void ValNonBk(Question question) throws Exception {
 				if(question.getQuestionType()==null || question.getQuestionType().getQuestionTypeId().trim().equals("")) {
 					throw new Exception("Question Type is empty");
-				} else if(question.getAnswer()==null || question.getAnswer().getValidAnswer1().trim().equals("")) {
+				} else if(question.getAnswer().getValidAnswer1()==null || question.getAnswer().getValidAnswer1().trim().equals("")) {
 					throw new Exception("Answer is empty");
+				} else if(question.getQuestionType().getQuestionTypeId().equalsIgnoreCase("12112")) {
+					if(question.getAnswer().getValidAnswer2()==null || question.getAnswer().getValidAnswer2().trim().equals("")) {
+						throw new Exception("Answer 2 is empty");
+					}
 //				} else if(question.getUser()==null || question.getUser().getUserId().trim().equals("")) {
 //					throw new Exception("User is empty");
 				} else if(question.getIsActive()==null) {
