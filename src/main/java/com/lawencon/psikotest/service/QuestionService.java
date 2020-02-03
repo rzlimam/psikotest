@@ -387,11 +387,19 @@ public class QuestionService {
 			}
 			
 			//BK not null
-			private Exception valBkNotNull(Question question) throws Exception{
-				if(question.getData()==null) {
-					throw new Exception("Question Data is null");
+			private void valBkNotNull(Question question) throws Exception{
+				if(question.getData().getQuestion()==null || question.getData().getQuestion().trim().equals("")) {
+					throw new Exception("Question is null");
+				} else if(question.getData().getChoiceA()==null || question.getData().getChoiceA().trim().equals("")) {
+					throw new Exception("Choice A is null");
+				} else if(question.getData().getChoiceB()==null || question.getData().getChoiceB().trim().equals("")) {
+					throw new Exception("Choice B is null");
+				} else if(question.getData().getChoiceC()==null || question.getData().getChoiceC().trim().equals("")) {
+					throw new Exception("Choice C is null");
+				} else if(question.getData().getChoiceD()==null || question.getData().getChoiceD().trim().equals("")) {
+					throw new Exception("Choice D is null");
 				}
-				return null;
+				
 			}
 			
 			//BK not exist
