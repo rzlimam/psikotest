@@ -42,7 +42,8 @@ public class QuestionDao extends EntityDao {
 	@Transactional
 	public List<Question> getAll() {
 		List<Question> list = super.entityManager
-				.createQuery("From Question WHERE isActive = :isActive")
+				.createQuery("From Question WHERE isActive = :isActive"
+						+ " ORDER BY dateOfQuestion DESC")
 				.setParameter("isActive", true)
 				.getResultList();
 		return list;
