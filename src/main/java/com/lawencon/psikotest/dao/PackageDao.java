@@ -17,7 +17,7 @@ public class PackageDao extends EntityDao {
 	@Transactional
 	public List<Packages> getAll() {
 		List<Packages> list = super.entityManager
-				.createQuery("From Packages")
+				.createQuery("From Packages ORDER BY packageName ASC")
 				.getResultList();
 		return list;
 	}
