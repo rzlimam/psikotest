@@ -67,11 +67,21 @@ public class DetailApplicantAnswerService {
 			PackageDetail pd = pdService.findById(daa.getPackageQuestion().getPackageQuestionId());
 			
 			//cek applicant answer true of false
-			if(daa.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer1())) {
-				daa.setPoint(1);
+			if(daa.getPackageQuestion().getQuestion().getQuestionType().getQuestionTypeId().equalsIgnoreCase("12112")) {
+				if(daa.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer1())
+						&& daa.getApplicantAnswer().getAnswer2().equalsIgnoreCase(pd.getQuestion().getAnswer().getValidAnswer2())) {
+					daa.setPoint(1);
+				} else {
+					daa.setPoint(0);
+				}
 			} else {
-				daa.setPoint(0);
+				if(daa.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer1())) {
+					daa.setPoint(1);
+				} else {
+					daa.setPoint(0);
+				}
 			}
+			
 			detailaaDao.save(daa);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
