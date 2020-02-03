@@ -68,8 +68,10 @@ public class DetailApplicantAnswerService {
 			
 			//cek applicant answer true of false
 			if(pd.getQuestion().getQuestionType().getQuestionTypeId().equalsIgnoreCase("12112")) {
-				if(daa.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer1())
-						&& daa.getApplicantAnswer().getAnswer2().equalsIgnoreCase(pd.getQuestion().getAnswer().getValidAnswer2())) {
+				if((daa.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer1())
+					|| daa.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer2()))
+						&& (daa.getApplicantAnswer().getAnswer2().equalsIgnoreCase(pd.getQuestion().getAnswer().getValidAnswer1())
+							|| daa.getApplicantAnswer().getAnswer2().equalsIgnoreCase(pd.getQuestion().getAnswer().getValidAnswer2()))) {
 					daa.setPoint(1);
 				} else {
 					daa.setPoint(0);
