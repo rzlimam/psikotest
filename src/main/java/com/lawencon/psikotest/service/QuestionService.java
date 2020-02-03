@@ -83,7 +83,7 @@ public class QuestionService {
 		try {
 			valIdNotNull(question);
 			ValIdExist(question.getQuestionId());
-//			valBkNotNull(question);
+			valBkNotNull(question);
 			ValNonBk(question);
 			qDao.save(question);
 		}catch (Exception e) {
