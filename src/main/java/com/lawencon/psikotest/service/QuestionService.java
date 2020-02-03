@@ -69,9 +69,9 @@ public class QuestionService {
 			question.setIsActive(true);
 			valIdNull(question);
 			valBkNotNull(question);
-//			ValQTExist(question.getQuestionType().getQuestionTypeId());
+			ValQTExist(question.getQuestionType().getQuestionTypeId());
 //			ValUserExist(question.getUser().getUserId());
-//			ValNonBk(question);
+			ValNonBk(question);
 			
 			qDao.save(question);
 		}catch (Exception e) {
@@ -81,10 +81,10 @@ public class QuestionService {
 	
 	public void update(Question question) throws Exception {
 		try {
-//			valIdNotNull(question);
-//			ValIdExist(question.getQuestionId());
+			valIdNotNull(question);
+			ValIdExist(question.getQuestionId());
 //			valBkNotNull(question);
-//			ValNonBk(question);
+			ValNonBk(question);
 			qDao.save(question);
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -220,8 +220,8 @@ public class QuestionService {
 			valIdNull(question);
 			valBkNotNull(question);
 			ValQTExist(question.getQuestionType().getQuestionTypeId());
-			ValUserExist(question.getUser().getUserId());
-//			ValNonBk(question);
+//			ValUserExist(question.getUser().getUserId());
+			ValNonBk(question);
 			qDao.save(question);
 		
 		return question;
@@ -333,8 +333,8 @@ public class QuestionService {
 			//save question to database
 			valIdNotNull(question);
 			ValIdExist(question.getQuestionId());
-//			valBkNotNull(question);
-//			ValNonBk(question);
+			valBkNotNull(question);
+			ValNonBk(question);
 			qDao.save(question);
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -408,8 +408,8 @@ public class QuestionService {
 					throw new Exception("Question Type is empty");
 				} else if(question.getAnswer()==null || question.getAnswer().getValidAnswer1().trim().equals("")) {
 					throw new Exception("Answer is empty");
-				} else if(question.getUser()==null || question.getUser().getUserId().trim().equals("")) {
-					throw new Exception("User is empty");
+//				} else if(question.getUser()==null || question.getUser().getUserId().trim().equals("")) {
+//					throw new Exception("User is empty");
 				} else if(question.getIsActive()==null) {
 					throw new Exception("Active state is empty");
 				} else if(question.getDateOfQuestion()==null) {
