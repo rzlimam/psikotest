@@ -97,7 +97,9 @@ public class PackageService {
 	public void delete(String id) throws Exception {
 		try {
 			ValIdExist(id);
-			packDao.delete(id);
+			Packages pack = findById(id);
+			pack.setIsActive(false);
+			packDao.save(pack);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
