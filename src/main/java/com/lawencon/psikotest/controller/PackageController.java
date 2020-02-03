@@ -99,8 +99,7 @@ public class PackageController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		Object obj = "Packages Deleted";
-		return ResponseEntity.status(HttpStatus.OK).body(obj);
+		return ResponseEntity.status(HttpStatus.OK).body(packageService.findById(id));
 	}
 
 

@@ -142,7 +142,6 @@ public class QuestionController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		Object obj = "Deleted";
 		return ResponseEntity.status(HttpStatus.OK).body(questionService.findById(id));
 	}
 	

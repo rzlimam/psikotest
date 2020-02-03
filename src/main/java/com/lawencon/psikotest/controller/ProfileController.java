@@ -75,8 +75,7 @@ public class ProfileController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		Object obj = "Profile Deleted";
-		return ResponseEntity.status(HttpStatus.OK).body(obj);
+		return ResponseEntity.status(HttpStatus.OK).body(profileService.findById(id));
 	}
 	
 	@GetMapping("/name/{search}")

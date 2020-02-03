@@ -88,8 +88,7 @@ public class QuestionAssignController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		Object obj = "Deleted";
-		return ResponseEntity.status(HttpStatus.OK).body(obj);
+		return ResponseEntity.status(HttpStatus.OK).body(qaService.findById(id));
 	}
 
 }

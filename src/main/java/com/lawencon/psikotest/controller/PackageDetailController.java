@@ -90,8 +90,7 @@ public class PackageDetailController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		Object obj = "Packages Detail Deleted";
-		return ResponseEntity.status(HttpStatus.OK).body(obj);
+		return ResponseEntity.status(HttpStatus.OK).body(pacDetailService.findById(id));
 	}
 
 
