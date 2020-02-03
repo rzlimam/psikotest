@@ -76,7 +76,7 @@ public class DetailApplicantAnswerService {
 				} else {
 					daa.setPoint(0);
 				}
-			} else {
+			} else if(pd.getQuestion().getQuestionType().getQuestionTypeId().equalsIgnoreCase("c94ad631-3c96-4431-8483-a8acd752201f")) {
 				if(daa.getApplicantAnswer().getAnswer1().equalsIgnoreCase( pd.getQuestion().getAnswer().getValidAnswer1())) {
 					daa.setPoint(1);
 				} else {
