@@ -1,5 +1,7 @@
 package com.lawencon.psikotest.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,16 @@ public class DashboardService {
 		dash.setTotalFail(dashboard.countFail().intValue());
 		dash.setTotalQuestion(dashboard.countQuestion().intValue());
 		dash.setTotalPackage(dashboard.countPackage().intValue());
+		return dash;
+	}
+	
+	public List<POJODashboard> recentTest() {
+		List<POJODashboard> dash = dashboard.recentTest();
+		return dash;
+	}
+	
+	public List<POJODashboard> ranking() {
+		List<POJODashboard> dash = dashboard.ranking();
 		return dash;
 	}
 

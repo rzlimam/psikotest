@@ -39,10 +39,17 @@ public class HeaderApplicantAnswerService {
 		try {
 			valIdNull(haa);
 			valBkNotNull(haa);
+			HeaderApplicantAnswer head = findByBk(haa.getDateOfAnswer(), haa.getUser().getUserId());
+			
 //			valBkNotExist(haa);
 //			ValUserExist(haa.getUser().getUserId());
 //			ValNonBk(haa);
-			return haDao.save(haa);
+			
+			if(head == null) {
+				return haDao.save(haa);
+			} else {
+				return head;
+			}
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

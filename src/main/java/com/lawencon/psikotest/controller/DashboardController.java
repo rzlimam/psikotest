@@ -1,5 +1,7 @@
 package com.lawencon.psikotest.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,28 @@ public class DashboardController {
 		POJODashboard dash = null;
 		try {
 			dash = dashboard.getDashboard();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(dash);
+	}
+	
+	@GetMapping("/recent")
+	public ResponseEntity<?> recentTest(){
+		List<POJODashboard> dash = null;
+		try {
+			dash = dashboard.recentTest();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(dash);
+	}
+	
+	@GetMapping("/ranking")
+	public ResponseEntity<?> ranking(){
+		List<POJODashboard> dash = null;
+		try {
+			dash = dashboard.ranking();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
