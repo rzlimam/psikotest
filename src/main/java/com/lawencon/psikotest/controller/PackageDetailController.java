@@ -63,6 +63,7 @@ public class PackageDetailController {
 	public ResponseEntity<?> insert(@RequestBody List<PackageDetail> packDetail) {
 		try {
 			for(PackageDetail pac:packDetail) {
+				pac.setIsActive(true);
 				pacDetailService.insert(pac);
 			}
 			

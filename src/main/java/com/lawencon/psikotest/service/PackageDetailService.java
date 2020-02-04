@@ -89,7 +89,9 @@ public class PackageDetailService {
 	public void delete(String id) throws Exception {
 		try {
 			ValIdExist(id);
-			pdDao.delete(id);
+			PackageDetail pd = findById(id);
+			pd.setIsActive(false);
+			pdDao.save(pd);
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
