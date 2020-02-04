@@ -64,6 +64,11 @@ public class QuestionService {
 		return question;
 	}
 	
+	public List<Question> findData(String search) {
+		List<Question> question = qDao.findByData(search);
+		return question;
+	}
+	
 	public void insert(Question question) throws Exception {
 		try {
 			question.setIsActive(true);

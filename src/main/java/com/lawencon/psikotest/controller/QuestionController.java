@@ -155,5 +155,16 @@ public class QuestionController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
+	
+	@GetMapping("/find/{search}")
+	public ResponseEntity<?> search(@PathVariable String search){
+		List<Question> list = null;
+		try {
+			list =  questionService.findData(search);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
 
 }

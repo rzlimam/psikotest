@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.psikotest.entity.POJOMail;
 import com.lawencon.psikotest.entity.Profile;
+import com.lawencon.psikotest.entity.Question;
 import com.lawencon.psikotest.entity.Role;
+import com.lawencon.psikotest.entity.SearchQuestion;
+import com.lawencon.psikotest.entity.SearchUser;
 import com.lawencon.psikotest.entity.User;
 import com.lawencon.psikotest.entity.UserList;
 import com.lawencon.psikotest.service.MailService;
@@ -73,6 +76,28 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
+	
+	@GetMapping("/find/{name}")
+	public ResponseEntity<?> findByName(@PathVariable String name){
+		List<UserList> user = null;
+		try {
+			user =  userService.findByName(name);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
+	
+	@PostMapping("/search")
+	public ResponseEntity<?> search(@RequestBody SearchUser su){
+		List<UserList> list = null;
+		try {
+			list =  userService.findCandidate(su);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 	
 	@PostMapping("")

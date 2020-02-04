@@ -62,16 +62,13 @@ public class QuestionDao extends EntityDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Question findByTitle(String search) {
+	public List<Question> findByData(String search) {
 		List<Question> list = super.entityManager
 				.createQuery("From Question where lower(questionTitle) like "
 						+ "concat('%', :search, '%')")
 				.setParameter("search", search.toLowerCase())
 				.getResultList();
-		if(list.size() == 0)
-			return new Question();
-		else 
-			return (Question)list.get(0);
+		return list;
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.UserDao;
+import com.lawencon.psikotest.entity.SearchUser;
 import com.lawencon.psikotest.entity.User;
 import com.lawencon.psikotest.entity.UserList;
 
@@ -77,6 +78,34 @@ public class UserService implements UserDetailsService {
 		return users;
 	}
 	
+	public List<UserList> findByName(String name){
+		List<User> list = userDao.findByName(name);
+		List<UserList> users = new ArrayList<UserList>();
+		for (User u : list) {
+			UserList user = new UserList();
+			user.setUserId(u.getUserId());
+			user.setProfile(u.getProfile());
+			user.setRole(u.getRole());
+			user.setActive(u.getIsActive());
+			users.add(user);
+		}
+		return users;
+	}
+	
+	public List<UserList> findCandidate(SearchUser su){
+		List<User> list = userDao.findCandidate(su);
+		List<UserList> users = new ArrayList<UserList>();
+		for (User u : list) {
+			UserList user = new UserList();
+			user.setUserId(u.getUserId());
+			user.setProfile(u.getProfile());
+			user.setRole(u.getRole());
+			user.setActive(u.getIsActive());
+			users.add(user);
+		}
+		return users;
+	}
+	
 	public UserList findByBk(String profileId) {
 		User account = userDao.findById(profileId);
 		UserList user = new UserList();
@@ -95,25 +124,6 @@ public class UserService implements UserDetailsService {
 		user.setRole(account.getRole());
 		user.setActive(account.getIsActive());
 		return user;
-	}
-	
-	public UserList login(String email, String password) throws Exception {
-		User account = userDao.findEmail(email);
-		if(account!=null) {
-			String userPass = account.getPassword();
-			if(password.equals(userPass)) {
-				UserList user = new UserList();
-				user.setUserId(account.getUserId());
-				user.setProfile(account.getProfile());
-				user.setRole(account.getRole());
-				user.setActive(account.getIsActive());
-				return user;
-			} else {
-				throw new Exception("Password salah");
-			}
-		}
-		throw new Exception("Username belum tedaftar");
-		
 	}
 	
 	
