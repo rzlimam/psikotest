@@ -63,19 +63,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
 
                 .authorizeRequests().antMatchers("/login","/register",
-                		"/user", "/user/*", "/user/*/*", 
-                		"/profile", "/profile/*", "/profile/*/*",
-                		"/questiontype","/questiontype/*","questiontype/*/*",
+//                		"/user", "/user/*", "/user/*/*", 
+//                		"/profile", "/profile/*", "/profile/*/*",
+//                		"/questiontype","/questiontype/*","questiontype/*/*",
 //                		"/question", 
-                		"/question/*", "/question/*/*",
-                		"/packages", "/packages/*", "/packages/*/*", 
+//                		"/question/*", "/question/*/*",
+//                		"/packages", "/packages/*", "/packages/*/*", 
                 		"/packagedetail", "/packagedetail/*", "/packagedetail/*/*",
                 		"/haa", "/haa/*", "/haa/*/*",
                 		"/daa", "/daa/*", "/daa/*/*",
                 		"/questionassign","/questionassign/*","/questionassign/*/*",
 //                		"/report/*/*", 
-                		"/download/*", "/download/*/*",
-                		"/dashboard", "/dashboard/*").permitAll().
+                		"/download/*", "/download/*/*"
+//                		"/dashboard", "/dashboard/*"
+                		).permitAll().
 
         anyRequest().authenticated().and().
 
