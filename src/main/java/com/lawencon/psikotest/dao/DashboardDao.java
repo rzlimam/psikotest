@@ -102,7 +102,7 @@ public class DashboardDao extends EntityDao {
 			for(int i=0; i<profileName.size(); i++) {
 				POJODashboard dash = new POJODashboard();
 				dash.setProfileName(profileName.get(i));
-				dash.setDateOfAnswer(date.get(i));
+				dash.setDateOfAnswer(date.get(i).toString());
 				dash.setStatus(status.get(i));
 				dash.setAppliedPosition(position.get(i));
 				stats.add(dash);
