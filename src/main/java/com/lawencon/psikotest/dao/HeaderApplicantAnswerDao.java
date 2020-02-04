@@ -62,9 +62,9 @@ public class HeaderApplicantAnswerDao extends EntityDao {
 		}
 		
 		List<HeaderApplicantAnswer> list = super.entityManager
-				.createQuery("From HeaderApplicantAnswer where date_of_answer=:doa"
+				.createQuery("From HeaderApplicantAnswer where to_char(date_of_answer, 'YYYY-MM-DD') = :doa"
 						+ " and user_id=:userId")
-				.setParameter("doa", dateNow)
+				.setParameter("doa", todayStr)
 				.setParameter("userId",userId)
 				.getResultList();
 		if(list.size() == 0)
