@@ -29,7 +29,7 @@ public class PackageDetailDao extends EntityDao {
 	@Transactional
 	public List<PackageDetail> getAll() {
 		List<PackageDetail> list = super.entityManager
-				.createQuery("From PackageDetail")
+				.createQuery("From PackageDetail where isActive = true")
 				.getResultList();
 		return list;
 	}
@@ -79,7 +79,7 @@ public class PackageDetailDao extends EntityDao {
 	public List<PackageDetail> findByPackage(String packageId) {
 		List<PackageDetail> list = super.entityManager
 				.createQuery("From PackageDetail WHERE "
-						+ "packages.packageId=:packageId")
+						+ "packages.packageId=:packageId and isActive = true")
 				.setParameter("packageId", packageId)
 				.getResultList();
 		return list;

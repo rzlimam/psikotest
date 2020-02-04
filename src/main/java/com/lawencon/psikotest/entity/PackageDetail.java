@@ -36,6 +36,8 @@ public class PackageDetail {
 	@JoinColumn(name = "questionId", nullable = false)
 	private Question question ;
 	
+	@Column(name="is_active")
+	private Boolean isActive;
 
 	public PackageDetail() {
 		super();
@@ -65,10 +67,13 @@ public class PackageDetail {
 		this.question = question;
 	}
 
+	public Boolean getIsActive() {
+		return isActive;
+	}
 
-
-	
-	
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
 	
 	
 }

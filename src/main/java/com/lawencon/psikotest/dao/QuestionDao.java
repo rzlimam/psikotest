@@ -108,5 +108,6 @@ public class QuestionDao extends EntityDao {
 		BigInteger count =  (BigInteger) query.getSingleResult(); 
 		return count;
 	}
+	
 
 }
