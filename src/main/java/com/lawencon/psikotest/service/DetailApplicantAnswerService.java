@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.psikotest.dao.DetailApplicantAnswerDao;
+import com.lawencon.psikotest.dao.QuestionAssignDao;
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
 import com.lawencon.psikotest.entity.HeaderApplicantAnswer;
 import com.lawencon.psikotest.entity.PackageDetail;
@@ -22,6 +23,9 @@ public class DetailApplicantAnswerService {
 	
 	@Autowired
 	private PackageDetailService pdService;
+	
+	@Autowired
+	private QuestionAssignDao qaDao;
 	
 	public List<DetailApplicantAnswer> getAll(){
 		List<DetailApplicantAnswer> list = detailaaDao.getAll();
@@ -114,7 +118,7 @@ public class DetailApplicantAnswerService {
 			Integer countQuestion = countQuestionNotEssay(haa.getApplicantAnswerId()).intValue();
 			
 			//get total question
-			Integer totalQuestion = countQuestion(haa.getApplicantAnswerId()).intValue();
+			Integer totalQuestion = qaDao.countQuestion(haa.getUser().getUserId()).intValue();
 			//set total point in header applicant answer
 			haa.setTotalQuestion(totalQuestion);
 			

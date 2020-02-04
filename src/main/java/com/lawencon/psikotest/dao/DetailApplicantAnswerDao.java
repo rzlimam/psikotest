@@ -104,7 +104,7 @@ public class DetailApplicantAnswerDao extends EntityDao {
 						+ " join group2.tbl_m_question q on pd.question_id = q.question_id"
 						+ " join group2.tbl_question_type qt on q.question_type_id = qt.question_type_id"
 						+ " WHERE applicant_answer_id = '" + appAnswer + "' and"
-						+ " qt.question_type_id = asdas");
+						+ " qt.question_type_id <> asdas");
 		BigInteger count = (BigInteger) query.getSingleResult(); 
 		return count;
 	}

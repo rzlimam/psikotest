@@ -1,7 +1,9 @@
 package com.lawencon.psikotest.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -71,6 +73,18 @@ public class QuestionAssignDao extends EntityDao {
 			return null;
 		else 
 			return list;
+	}
+	
+	@Transactional
+	public BigInteger countQuestion(String userId) {
+		Query query  = super.entityManager
+				.createNativeQuery("select count(pd.question_id) from group2.tbl_tr_question_assign qa "
+						+ "join group2.tbl_m_package p on qa.package_id = p.package_id "
+						+ "join group2.tbl_m_package_detail pd on p.package_id = pd.package_id "
+						+ "join group2.tbl_m_question q on pd.question_id = q.question_id "
+						+ "WHERE qa.user_id = '" + userId + "'");
+		BigInteger count = (BigInteger) query.getSingleResult(); 
+		return count;
 	}
 
 }
