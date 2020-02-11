@@ -131,7 +131,7 @@ public class DashboardDao extends EntityDao {
 							+ " join group2.tbl_m_profile pro on tmu.profile_id = pro.profile_id"
 							+ " order by thaa.score desc"
 							+ " limit 10");
-			List<Double> score = queryPoint.getResultList();
+			List<BigDecimal> score = queryPoint.getResultList();
 			
 			Query queryPosition = super.entityManager
 					.createNativeQuery("select pro.applied_position"  
@@ -145,7 +145,7 @@ public class DashboardDao extends EntityDao {
 			for(int i=0; i<profileName.size(); i++) {
 				POJODashboard dash = new POJODashboard();
 				dash.setProfileName(profileName.get(i));
-				dash.setScore(score.get(i));
+				dash.setScore(score.get(i).doubleValue());
 				dash.setAppliedPosition(position.get(i));
 				stats.add(dash);
 			}
