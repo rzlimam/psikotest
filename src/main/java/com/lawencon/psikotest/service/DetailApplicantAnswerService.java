@@ -122,16 +122,21 @@ public class DetailApplicantAnswerService {
 			//set total point in header applicant answer
 			haa.setTotalQuestion(totalQuestion);
 			
+			//set score
+			Double score = (totalPoint.doubleValue()/countQuestion.doubleValue()) * 100;
+			haa.setScore(score);
+			
 			//check pass or not
 			if(countQuestion == 0) {
 				haa.setStatus("Tidak Lulus");
 			} else {
-				if(((totalPoint.doubleValue()/countQuestion.doubleValue()) * 100) >= 60) {
+				if(score >= 60) {
 					haa.setStatus("Lulus");
 				} else {
 					haa.setStatus("Tidak Lulus");
 				}
 			}
+			
 			haaService.update(haa);
 			
 		} catch (Exception e) {

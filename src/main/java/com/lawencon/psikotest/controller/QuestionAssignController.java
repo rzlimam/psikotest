@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lawencon.psikotest.entity.POJOMail;
 import com.lawencon.psikotest.entity.QuestionAssign;
+import com.lawencon.psikotest.service.MailService;
 import com.lawencon.psikotest.service.QuestionAssignService;
 
 @RestController
@@ -25,6 +27,9 @@ public class QuestionAssignController {
 	
 	@Autowired
 	private QuestionAssignService qaService;
+	
+	@Autowired 
+	private MailService mailService;
 	
 	@GetMapping("")
 	public ResponseEntity<?> getAll(){
@@ -59,12 +64,26 @@ public class QuestionAssignController {
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 	
+	@GetMapping("/question/{id}")
+	public ResponseEntity<?> sendQuestion(@PathVariable String id){
+		List<QuestionAssign> list = null;
+		try {
+			list =  qaService.findByUser(id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
 	@PostMapping("")
 	public ResponseEntity<?> insert(@RequestBody List<QuestionAssign> questionassign) {
 		try {
 			for (QuestionAssign qa : questionassign) {
 				qaService.insert(qa);
 			}
+			POJOMail mail = new POJOMail();
+			mail.setEmail(questionassign.get(0).getUser().getProfile().getEmail());
+			mail.setName(questionassign.get(0).getUser().getProfile().getProfileName());
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

@@ -136,6 +136,24 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 	
+	@PostMapping("/forgotpassword/{id}")
+	public ResponseEntity<?> forgotpassword(@RequestBody String link, @PathVariable String id) {
+		UserList user = null;
+		try {
+			user = userService.findById(id);
+			POJOMail mail = new POJOMail();
+			mail.setEmail(user.getProfile().getEmail());
+			mail.setUserId(id);
+			mail.setLink(link);
+			
+			mailService.forgotPassword(mail);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
+	
 	@PutMapping("")
 	public ResponseEntity<?> update(@RequestBody User user) {
 		try {

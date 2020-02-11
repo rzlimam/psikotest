@@ -10,6 +10,7 @@ public class POJODashboard {
 	private Integer totalPackage;
 	private String profileName;
 	private Integer totalPoint;
+	private Double score;
 	private Date dateOfAnswer;
 	private String appliedPosition;
 	private String status;
@@ -49,6 +50,12 @@ public class POJODashboard {
 	}
 	public void setTotalPoint(Integer totalPoint) {
 		this.totalPoint = totalPoint;
+	}
+	public Double getScore() {
+		return score;
+	}
+	public void setScore(Double score) {
+		this.score = score;
 	}
 	public Date getDateOfAnswer() {
 		return dateOfAnswer;

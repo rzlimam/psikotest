@@ -75,6 +75,21 @@ public class QuestionAssignDao extends EntityDao {
 			return list;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<QuestionAssign> sendQuestion(String userId) {
+		List<QuestionAssign> list = super.entityManager
+				.createQuery("From QuestionAssign where"
+						+ " user_id =: userId adn"
+						+ " flag = false")
+				.setParameter("userId", userId)
+				.getResultList();
+		if(list.size() == 0)
+			return null;
+		else 
+			return list;
+	}
+	
 	@Transactional
 	public BigInteger countQuestion(String userId) {
 		Query query  = super.entityManager

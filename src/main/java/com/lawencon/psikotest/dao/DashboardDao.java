@@ -120,16 +120,16 @@ public class DashboardDao extends EntityDao {
 							+ " from group2.tbl_m_user tmu"  
 							+ " join group2.tbl_header_applicant_answer thaa on tmu.user_id = thaa.user_id"
 							+ " join group2.tbl_m_profile pro on tmu.profile_id = pro.profile_id"
-							+ " order by thaa.total_point desc"
+							+ " order by thaa.score desc"
 							+ " limit 10");
 			List<String> profileName = queryProfileName.getResultList();
 			
 			Query queryPoint  = super.entityManager
-					.createNativeQuery("select thaa.total_point"  
+					.createNativeQuery("select thaa.score"  
 							+ " from group2.tbl_m_user tmu"  
 							+ " join group2.tbl_header_applicant_answer thaa on tmu.user_id = thaa.user_id"
 							+ " join group2.tbl_m_profile pro on tmu.profile_id = pro.profile_id"
-							+ " order by thaa.total_point desc"
+							+ " order by thaa.score desc"
 							+ " limit 10");
 			List<Integer> point = queryPoint.getResultList();
 			
@@ -138,7 +138,7 @@ public class DashboardDao extends EntityDao {
 							+ " from group2.tbl_m_user tmu"  
 							+ " join group2.tbl_header_applicant_answer thaa on tmu.user_id = thaa.user_id"
 							+ " join group2.tbl_m_profile pro on tmu.profile_id = pro.profile_id"
-							+ " order by thaa.total_point desc"
+							+ " order by thaa.score desc"
 							+ " limit 10");
 			List<String> position = queryPosition.getResultList();			
 			

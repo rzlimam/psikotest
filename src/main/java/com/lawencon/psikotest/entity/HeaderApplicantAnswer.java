@@ -43,6 +43,9 @@ public class HeaderApplicantAnswer {
 	@Column(name="total_question")
 	private Integer totalQuestion;
 	
+	@Column(name="score")
+	private Double score;
+	
 	@Column(name="status")
 	private String status;
 	
@@ -93,6 +96,14 @@ public class HeaderApplicantAnswer {
 		this.totalQuestion = totalQuestion;
 	}
 
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -108,8 +119,5 @@ public class HeaderApplicantAnswer {
 	public void setDetailAppAnswers(List<DetailApplicantAnswer> detailAppAnswers) {
 		this.detailAppAnswers = detailAppAnswers;
 	}
-	
-	
-	
 
 }

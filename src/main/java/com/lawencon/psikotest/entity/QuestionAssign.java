@@ -36,6 +36,9 @@ public class QuestionAssign {
 	@JoinColumn(name = "packageId", referencedColumnName = "package_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Packages packages;
+	
+	@Column(name="flag")
+	private Boolean flag;
 
 	public String getAssignQuestionId() {
 		return AssignQuestionId;
@@ -61,5 +64,12 @@ public class QuestionAssign {
 		this.packages = packages;
 	}
 
+	public Boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
+	}
 	
 }
