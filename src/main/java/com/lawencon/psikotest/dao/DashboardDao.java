@@ -63,6 +63,7 @@ public class DashboardDao extends EntityDao {
 							+ " join group2.tbl_m_package p on qa.package_id = p.package_id" 
 							+ " join group2.tbl_header_applicant_answer th on tmu.user_id = th.user_id"
 							+ " join group2.tbl_m_profile pr on tmu.profile_id = pr.profile_id"
+							+ " group by pr.email"
 							+ " order by th.date_of_answer desc"
 							+ " limit 10");
 			List<String> profileName = queryProfileName.getResultList();
@@ -74,6 +75,7 @@ public class DashboardDao extends EntityDao {
 							+ " join group2.tbl_m_package p on qa.package_id = p.package_id" 
 							+ " join group2.tbl_header_applicant_answer th on tmu.user_id = th.user_id"
 							+ " join group2.tbl_m_profile pr on tmu.profile_id = pr.profile_id"
+							+ " group by pr.email"
 							+ " order by th.date_of_answer desc"
 							+ " limit 10");
 			List<Date> date = queryDate.getResultList();
@@ -85,6 +87,7 @@ public class DashboardDao extends EntityDao {
 							+ " join group2.tbl_m_package p on qa.package_id = p.package_id" 
 							+ " join group2.tbl_header_applicant_answer th on tmu.user_id = th.user_id"
 							+ " join group2.tbl_m_profile pr on tmu.profile_id = pr.profile_id"
+							+ " group by pr.email"
 							+ " order by th.date_of_answer desc"
 							+ " limit 10");
 			List<String> status = queryStatus.getResultList();
@@ -96,6 +99,7 @@ public class DashboardDao extends EntityDao {
 							+ " join group2.tbl_m_package p on qa.package_id = p.package_id" 
 							+ " join group2.tbl_header_applicant_answer th on tmu.user_id = th.user_id"
 							+ " join group2.tbl_m_profile pr on tmu.profile_id = pr.profile_id"
+							+ " group by pr.email"
 							+ " order by th.date_of_answer desc"
 							+ " limit 10");
 			List<String> position = queryPosition.getResultList();

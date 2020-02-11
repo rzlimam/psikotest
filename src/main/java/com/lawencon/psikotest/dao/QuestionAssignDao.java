@@ -80,7 +80,7 @@ public class QuestionAssignDao extends EntityDao {
 	public List<QuestionAssign> sendQuestion(String userId) {
 		List<QuestionAssign> list = super.entityManager
 				.createQuery("From QuestionAssign where"
-						+ " user_id =: userId adn"
+						+ " user_id =: userId and"
 						+ " flag = false")
 				.setParameter("userId", userId)
 				.getResultList();
