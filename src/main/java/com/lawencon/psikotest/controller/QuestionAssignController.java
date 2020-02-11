@@ -84,6 +84,7 @@ public class QuestionAssignController {
 			POJOMail mail = new POJOMail();
 			mail.setEmail(questionassign.get(0).getUser().getProfile().getEmail());
 			mail.setName(questionassign.get(0).getUser().getProfile().getProfileName());
+			mailService.assignConfirmation(mail);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

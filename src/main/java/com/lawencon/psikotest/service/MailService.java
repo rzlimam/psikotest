@@ -139,7 +139,7 @@ public class MailService {
 
         mimeMessageHelper.setTo(mail.getEmail());
         mimeMessageHelper.setText(html, true);
-        mimeMessageHelper.setSubject("Linov Psikotest Account");
+        mimeMessageHelper.setSubject("Question Assigned");
         mimeMessageHelper.setFrom("no-reply@gmail.com");
 
 
