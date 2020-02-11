@@ -126,7 +126,7 @@ public class DetailApplicantAnswerService {
 			if(countQuestion == 0) {
 				haa.setStatus("Tidak Lulus");
 			} else {
-				if(((totalPoint/countQuestion) * 100) > 60) {
+				if(((totalPoint.doubleValue()/countQuestion.doubleValue()) * 100) >= 60) {
 					haa.setStatus("Lulus");
 				} else {
 					haa.setStatus("Tidak Lulus");

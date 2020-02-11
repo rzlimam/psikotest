@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -75,7 +76,7 @@ public class DashboardDao extends EntityDao {
 							+ " join group2.tbl_m_profile pr on tmu.profile_id = pr.profile_id"
 							+ " order by th.date_of_answer desc"
 							+ " limit 10");
-			List<String> date = queryDate.getResultList();
+			List<Date> date = queryDate.getResultList();
 			
 			Query queryStatus = super.entityManager
 					.createNativeQuery("select th.status"  
@@ -102,7 +103,7 @@ public class DashboardDao extends EntityDao {
 			for(int i=0; i<profileName.size(); i++) {
 				POJODashboard dash = new POJODashboard();
 				dash.setProfileName(profileName.get(i));
-				dash.setDateOfAnswer(date.get(i).toString());
+				dash.setDateOfAnswer(date.get(i));
 				dash.setStatus(status.get(i));
 				dash.setAppliedPosition(position.get(i));
 				stats.add(dash);
@@ -119,6 +120,7 @@ public class DashboardDao extends EntityDao {
 							+ " from group2.tbl_m_user tmu"  
 							+ " join group2.tbl_header_applicant_answer thaa on tmu.user_id = thaa.user_id"
 							+ " join group2.tbl_m_profile pro on tmu.profile_id = pro.profile_id"
+							+ " order by thaa.total_point desc"
 							+ " limit 10");
 			List<String> profileName = queryProfileName.getResultList();
 			
@@ -127,6 +129,7 @@ public class DashboardDao extends EntityDao {
 							+ " from group2.tbl_m_user tmu"  
 							+ " join group2.tbl_header_applicant_answer thaa on tmu.user_id = thaa.user_id"
 							+ " join group2.tbl_m_profile pro on tmu.profile_id = pro.profile_id"
+							+ " order by thaa.total_point desc"
 							+ " limit 10");
 			List<Integer> point = queryPoint.getResultList();
 			
@@ -135,6 +138,7 @@ public class DashboardDao extends EntityDao {
 							+ " from group2.tbl_m_user tmu"  
 							+ " join group2.tbl_header_applicant_answer thaa on tmu.user_id = thaa.user_id"
 							+ " join group2.tbl_m_profile pro on tmu.profile_id = pro.profile_id"
+							+ " order by thaa.total_point desc"
 							+ " limit 10");
 			List<String> position = queryPosition.getResultList();			
 			

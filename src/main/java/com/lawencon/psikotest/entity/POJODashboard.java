@@ -1,5 +1,7 @@
 package com.lawencon.psikotest.entity;
 
+import java.util.Date;
+
 public class POJODashboard {
 	
 	private Integer totalPass;
@@ -8,7 +10,7 @@ public class POJODashboard {
 	private Integer totalPackage;
 	private String profileName;
 	private Integer totalPoint;
-	private String dateOfAnswer;
+	private Date dateOfAnswer;
 	private String appliedPosition;
 	private String status;
 	
@@ -48,10 +50,10 @@ public class POJODashboard {
 	public void setTotalPoint(Integer totalPoint) {
 		this.totalPoint = totalPoint;
 	}
-	public String getDateOfAnswer() {
+	public Date getDateOfAnswer() {
 		return dateOfAnswer;
 	}
-	public void setDateOfAnswer(String dateOfAnswer) {
+	public void setDateOfAnswer(Date dateOfAnswer) {
 		this.dateOfAnswer = dateOfAnswer;
 	}
 	public String getAppliedPosition() {
