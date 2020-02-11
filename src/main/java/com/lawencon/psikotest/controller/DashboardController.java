@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lawencon.psikotest.entity.HeaderApplicantAnswer;
 import com.lawencon.psikotest.entity.POJODashboard;
 import com.lawencon.psikotest.service.DashboardService;
 
@@ -34,7 +35,7 @@ public class DashboardController {
 	
 	@GetMapping("/recent")
 	public ResponseEntity<?> recentTest(){
-		List<POJODashboard> dash = null;
+		List<HeaderApplicantAnswer> dash = null;
 		try {
 			dash = dashboard.recentTest();
 		} catch (Exception e) {
@@ -45,7 +46,7 @@ public class DashboardController {
 	
 	@GetMapping("/ranking")
 	public ResponseEntity<?> ranking(){
-		List<POJODashboard> dash = null;
+		List<HeaderApplicantAnswer> dash = null;
 		try {
 			dash = dashboard.ranking();
 		} catch (Exception e) {

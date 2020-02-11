@@ -355,7 +355,7 @@
                           <img src="https://raw.githubusercontent.com/rzlimam/psikotest/master/src/main/resources/img/lawencon_logo.png">  
                         </div>
                         
-                        <p>Hi there, {name}</p>
+                        <p>Hi there, ${name}</p>
                         <p>
                           Berikut kami infokan kembali bahwa akun anda telah menerima paket soal
                         </p>
