@@ -30,10 +30,8 @@ public class DashboardService {
 	}
 	
 	public List<HeaderApplicantAnswer> ranking() {
-		List<HeaderApplicantAnswer> ranking = dashboard.recentTest();
+		List<HeaderApplicantAnswer> ranking = dashboard.ranking();
 		return ranking;
 	}
-	
-	
 
 }
