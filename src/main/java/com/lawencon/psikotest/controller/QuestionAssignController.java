@@ -68,7 +68,7 @@ public class QuestionAssignController {
 	public ResponseEntity<?> sendQuestion(@PathVariable String id){
 		List<QuestionAssign> list = null;
 		try {
-			list =  qaService.findByUser(id);
+			list =  qaService.sendQuestion(id);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

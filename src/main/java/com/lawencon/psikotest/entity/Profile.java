@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
@@ -19,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
-@Table(name="tbl_m_profile")
+@Table(name="tbl_m_profile",
+uniqueConstraints = {@UniqueConstraint (columnNames = {"email"})})
 public class Profile {
 	@Id
 	@Column(name="profile_id")

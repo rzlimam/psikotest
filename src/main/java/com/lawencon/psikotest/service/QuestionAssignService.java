@@ -35,6 +35,11 @@ public class QuestionAssignService {
 		return qa;
 	}
 	
+	public List<QuestionAssign> sendQuestion(String userId){
+		List<QuestionAssign> list = qaDao.sendQuestion(userId);
+		return list;
+	}
+	
 	public List<QuestionAssign> findByUser(String userId){
 		List<QuestionAssign> list = qaDao.findByUser(userId);
 		return list;

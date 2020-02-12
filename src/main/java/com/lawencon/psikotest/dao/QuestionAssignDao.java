@@ -84,10 +84,7 @@ public class QuestionAssignDao extends EntityDao {
 						+ " flag = false")
 				.setParameter("userId", userId)
 				.getResultList();
-		if(list.size() == 0)
-			return null;
-		else 
-			return list;
+		return list;
 	}
 	
 	@Transactional
