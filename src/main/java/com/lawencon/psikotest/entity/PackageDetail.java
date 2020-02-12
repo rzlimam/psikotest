@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="tbl_m_package_detail",
-uniqueConstraints = {@UniqueConstraint (columnNames = {"packageId", "questionId"})})
+uniqueConstraints = {@UniqueConstraint (columnNames = {"package_id", "questionId"})})
 public class PackageDetail {
 	@Id
 	@Column(name="package_question_id")

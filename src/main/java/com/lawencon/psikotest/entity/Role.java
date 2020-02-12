@@ -11,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="tbl_m_role",
-uniqueConstraints = {@UniqueConstraint (columnNames = {"codeRole"})})
+uniqueConstraints = {@UniqueConstraint (columnNames = {"code_role"})})
 public class Role {
 	
 	@Id

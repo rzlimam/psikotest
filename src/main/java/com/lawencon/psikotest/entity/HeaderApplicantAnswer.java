@@ -20,7 +20,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="tbl_header_applicant_answer",
-uniqueConstraints = {@UniqueConstraint (columnNames = {"dateOfAnswer", "userId"})})
+uniqueConstraints = {@UniqueConstraint (columnNames = {"date_of_answer", "userId"})})
 public class HeaderApplicantAnswer {
 	@Id
 	@Column(name="applicant_answer_id")

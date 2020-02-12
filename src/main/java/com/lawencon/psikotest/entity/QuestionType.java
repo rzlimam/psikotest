@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="tbl_question_type",
-uniqueConstraints = {@UniqueConstraint (columnNames = {"questionTypeTitle"})})
+uniqueConstraints = {@UniqueConstraint (columnNames = {"question_type_title", "amount_of_answer"})})
 public class QuestionType {
 	
 	@Id
