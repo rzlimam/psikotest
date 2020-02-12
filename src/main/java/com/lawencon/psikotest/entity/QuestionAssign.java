@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
@@ -16,7 +17,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="tbl_tr_question_assign")
+@Table(name="tbl_tr_question_assign",
+uniqueConstraints = {@UniqueConstraint (columnNames = {"userId", "packageId"})})
 public class QuestionAssign {
 	
 	@Id

@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
@@ -18,7 +19,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="tbl_m_package_detail")
+@Table(name="tbl_m_package_detail",
+uniqueConstraints = {@UniqueConstraint (columnNames = {"packageId", "questionId"})})
 public class PackageDetail {
 	@Id
 	@Column(name="package_question_id")

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
@@ -22,7 +23,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
 @Entity
-@Table(name = "tbl_m_question")
+@Table(name = "tbl_m_question",
+uniqueConstraints = {@UniqueConstraint (columnNames = {"data"})})
 @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class Question {
 	

@@ -10,19 +10,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="tbl_header_applicant_answer")
+@Table(name="tbl_header_applicant_answer",
+uniqueConstraints = {@UniqueConstraint (columnNames = {"dateOfAnswer", "userId"})})
 public class HeaderApplicantAnswer {
 	@Id
 	@Column(name="applicant_answer_id")
