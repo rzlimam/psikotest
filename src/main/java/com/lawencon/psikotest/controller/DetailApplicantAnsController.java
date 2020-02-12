@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
 import com.lawencon.psikotest.entity.HeaderApplicantAnswer;
+import com.lawencon.psikotest.entity.PackageDetail;
 import com.lawencon.psikotest.entity.QuestionAssign;
 import com.lawencon.psikotest.entity.User;
 import com.lawencon.psikotest.service.DetailApplicantAnswerService;
@@ -96,15 +97,6 @@ public class DetailApplicantAnsController {
 			//get Result test
 			daaService.getResult(haa);
 			
-			QuestionAssign qas = new QuestionAssign();
-			qas.setUser(haa.getUser());
-			qas.setPackages(daa.get(0).getPackageQuestion().getPackages());
-			
-			QuestionAssign qa = qaService.findByBk(qas);
-			qa.setFlag(true);
-			
-			qaService.update(qa);
-			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
@@ -132,6 +124,16 @@ public class DetailApplicantAnsController {
 			
 			//get Result test
 			daaService.getResult(haa);
+			
+			QuestionAssign qas = new QuestionAssign();
+			qas.setUser(haa.getUser());
+			PackageDetail packdet = pdService.findById(daa.get(0).getPackageQuestion().getPackageQuestionId());
+			qas.setPackages(packdet.getPackages());
+			
+			QuestionAssign qa = qaService.findByBk(qas);
+			qa.setFlag(true);
+			
+			qaService.update(qa);
 			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
