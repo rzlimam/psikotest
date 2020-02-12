@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.psikotest.entity.DetailApplicantAnswer;
 import com.lawencon.psikotest.entity.HeaderApplicantAnswer;
+import com.lawencon.psikotest.entity.QuestionAssign;
 import com.lawencon.psikotest.entity.User;
 import com.lawencon.psikotest.service.DetailApplicantAnswerService;
 import com.lawencon.psikotest.service.HeaderApplicantAnswerService;
 import com.lawencon.psikotest.service.PackageDetailService;
+import com.lawencon.psikotest.service.QuestionAssignService;
 import com.lawencon.psikotest.service.ReportService;
 
 import net.sf.jasperreports.engine.JRException;
@@ -40,6 +42,9 @@ public class DetailApplicantAnsController {
 	
 	@Autowired
 	private HeaderApplicantAnswerService haaService;
+	
+	@Autowired
+	private QuestionAssignService qaService;
 	
 	@Autowired
 	private ReportService report;
@@ -90,6 +95,15 @@ public class DetailApplicantAnsController {
 			
 			//get Result test
 			daaService.getResult(haa);
+			
+			QuestionAssign qas = new QuestionAssign();
+			qas.setUser(haa.getUser());
+			qas.setPackages(daa.get(0).getPackageQuestion().getPackages());
+			
+			QuestionAssign qa = qaService.findByBk(qas);
+			qa.setFlag(true);
+			
+			qaService.update(qa);
 			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
