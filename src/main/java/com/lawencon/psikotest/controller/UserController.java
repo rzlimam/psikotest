@@ -180,6 +180,7 @@ public class UserController {
 	@PutMapping("")
 	public ResponseEntity<?> update(@RequestBody User user) {
 		try {
+			user.setIsActive(true);
 			userService.update(user);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
