@@ -148,11 +148,12 @@ public class UserController {
 	}
 	
 	@PostMapping("/forgotpassword/{email}")
-	public ResponseEntity<?> forgotpassword(@RequestBody String link, @PathVariable String email) {
+	public ResponseEntity<?> forgotpassword(@PathVariable String email) {
 		UserList user = null;
 		try {
 			user = userService.findByEmail(email);
 			String password = userService.getPassword();
+			
 			User newUser = new User();
 			newUser.setUserId(user.getUserId());
 			newUser.setProfile(user.getProfile());
@@ -163,8 +164,8 @@ public class UserController {
 			userService.update(newUser);
 			
 			POJOMail mail = new POJOMail();
-			mail.setEmail(user.getProfile().getEmail());
-			mail.setName(user.getProfile().getProfileName());
+			mail.setEmail(newUser.getProfile().getEmail());
+			mail.setName(newUser.getProfile().getProfileName());
 			mail.setPassword(newUser.getPassword());
 			
 			mailService.forgotPassword(mail);
