@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.lawencon.psikotest.entity.POJOMail;
-import com.lawencon.psikotest.entity.User;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -86,8 +85,8 @@ public class MailService {
 	public void forgotPassword(POJOMail mail) throws MessagingException, IOException, TemplateException {
 		Map model = new HashMap();
 		model.put("email", mail.getEmail());
-		model.put("userId", mail.getUserId());
-        model.put("link", mail.getLink());
+		model.put("name", mail.getName());
+		model.put("password", mail.getPassword());
         /**
          * Add below line if you need to create a token to verification emails and uncomment line:32 in "email.ftl"
          * model.put("token",UUID.randomUUID().toString());

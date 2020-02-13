@@ -89,6 +89,17 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 	
+	@GetMapping("/email/{email}")
+	public ResponseEntity<?> findByEmail(@PathVariable String email){
+		UserList user = null;
+		try {
+			user =  userService.findByEmail(email);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
+	
 	@PostMapping("/search")
 	public ResponseEntity<?> search(@RequestBody SearchUser su){
 		List<UserList> list = null;
@@ -136,17 +147,28 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 	
-	@PostMapping("/forgotpassword/{id}")
-	public ResponseEntity<?> forgotpassword(@RequestBody String link, @PathVariable String id) {
+	@PostMapping("/forgotpassword/{email}")
+	public ResponseEntity<?> forgotpassword(@RequestBody String link, @PathVariable String email) {
 		UserList user = null;
 		try {
-			user = userService.findById(id);
+			user = userService.findByEmail(email);
+			String password = userService.getPassword();
+			User newUser = new User();
+			newUser.setUserId(user.getUserId());
+			newUser.setProfile(user.getProfile());
+			newUser.setRole(user.getRole());
+			newUser.setPassword(password);
+			newUser.setIsActive(true);
+			
+			userService.update(newUser);
+			
 			POJOMail mail = new POJOMail();
 			mail.setEmail(user.getProfile().getEmail());
-			mail.setUserId(id);
-			mail.setLink(link);
+			mail.setName(user.getProfile().getProfileName());
+			mail.setPassword(newUser.getPassword());
 			
 			mailService.forgotPassword(mail);
+			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
