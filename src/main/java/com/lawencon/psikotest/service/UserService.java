@@ -187,9 +187,9 @@ public class UserService implements UserDetailsService {
         String AlphaNumericString = "0123456789abcdefghijklmnopqrstuvwxyz"; 
   
         // create StringBuffer size of AlphaNumericString 
-        StringBuilder sb = new StringBuilder(8); 
+        StringBuilder sb = new StringBuilder(5); 
   
-        for (int i = 0; i < 8; i++) { 
+        for (int i = 0; i < 5; i++) { 
   
             // generate a random number between 
             // 0 to AlphaNumericString variable length 
