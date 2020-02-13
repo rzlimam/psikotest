@@ -147,36 +147,6 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 	
-	@PostMapping("/forgotpassword/{email}")
-	public ResponseEntity<?> forgotpassword(@PathVariable String email) {
-		UserList user = null;
-		try {
-			user = userService.findByEmail(email);
-			String password = userService.getPassword();
-			
-			User newUser = new User();
-			newUser.setUserId(user.getUserId());
-			newUser.setProfile(user.getProfile());
-			newUser.setRole(user.getRole());
-			newUser.setPassword(password);
-			newUser.setIsActive(true);
-			
-			userService.update(newUser);
-			
-			POJOMail mail = new POJOMail();
-			mail.setEmail(newUser.getProfile().getEmail());
-			mail.setName(newUser.getProfile().getProfileName());
-			mail.setPassword(newUser.getPassword());
-			
-			mailService.forgotPassword(mail);
-			
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-		}
-		
-		return ResponseEntity.status(HttpStatus.OK).body(user);
-	}
-	
 	@PutMapping("")
 	public ResponseEntity<?> update(@RequestBody User user) {
 		try {
